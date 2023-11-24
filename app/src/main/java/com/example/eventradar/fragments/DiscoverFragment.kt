@@ -18,7 +18,7 @@ class DiscoverFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val root = inflater.inflate(R.layout.fragment_discover, null)
+        val root = inflater.inflate(R.layout.fragment_discover, container, false)
 
         root.findViewById<Button>(R.id.dummy_button).setOnClickListener {
             requireContext().startActivity(Intent(requireContext(), EventActivity::class.java))

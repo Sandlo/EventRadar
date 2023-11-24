@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.eventradar.R
-import com.example.eventradar.activities.EventActivity
 import com.example.eventradar.activities.TicketActivity
 
 class TicketsFragment : Fragment() {
@@ -18,7 +17,7 @@ class TicketsFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val root = inflater.inflate(R.layout.fragment_tickets, null)
+        val root = inflater.inflate(R.layout.fragment_tickets, container, false)
 
         root.findViewById<Button>(R.id.dummy_button).setOnClickListener {
             requireContext().startActivity(Intent(requireContext(), TicketActivity::class.java))
