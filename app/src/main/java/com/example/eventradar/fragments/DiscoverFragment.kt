@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.eventradar.R
 import com.example.eventradar.activities.EventActivity
+import com.example.eventradar.activities.LoginActivity
 
 class DiscoverFragment : Fragment() {
 
@@ -21,6 +22,10 @@ class DiscoverFragment : Fragment() {
 
         root.findViewById<Button>(R.id.dummy_button).setOnClickListener {
             requireContext().startActivity(Intent(requireContext(), EventActivity::class.java))
+        }
+
+        root.findViewById<Button>(R.id.second_dummy_button).setOnClickListener {
+            requireContext().startActivity(Intent(requireContext(), LoginActivity::class.java))
         }
 
         return root
