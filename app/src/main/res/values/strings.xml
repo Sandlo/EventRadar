@@ -6,4 +6,7 @@
     <string name="title_event">Event</string>
     <string name="title_ticket">Ticket</string>
     <string name="title_booking">Buchen</string>
+    <string name="title_login">Login</string>
+    <string name="title_interests">Interessen</string>
+    <string name="title_register">Registrieren</string>
 </resources>
