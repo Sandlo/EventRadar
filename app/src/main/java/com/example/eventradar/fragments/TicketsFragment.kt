@@ -14,8 +14,21 @@ import com.example.eventradar.activities.TicketActivity
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
+import com.google.android.material.chip.Chip
 
 class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
+
+    companion object {
+        private const val DATE_FILTER: Byte = 0
+        private const val TITLE_FILTER: Byte = 1
+        private const val PRICE_FILTER: Byte = 2
+    }
+
+    private lateinit var dateFilter: Chip
+    private lateinit var titleFilter: Chip
+    private lateinit var priceFilter: Chip
+    private var previousFilter: Byte = -1
+    private var reversed = false
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -23,6 +36,20 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
             savedInstanceState: Bundle?
     ): View {
         val root = inflater.inflate(R.layout.fragment_tickets, container, false)
+
+        dateFilter = root.findViewById(R.id.date_filter)
+        titleFilter = root.findViewById(R.id.title_filter)
+        priceFilter = root.findViewById(R.id.price_filter)
+        dateFilter.setOnClickListener {
+            selectFilter(DATE_FILTER)
+        }
+        titleFilter.setOnClickListener {
+            selectFilter(TITLE_FILTER)
+        }
+        priceFilter.setOnClickListener {
+            selectFilter(PRICE_FILTER)
+        }
+        selectFilter(DATE_FILTER)
 
         val dummyItem = SimpleListItem(
             "Event",
@@ -43,5 +70,20 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     override fun onItemClicked(view: View, position: Int) {
         Toast.makeText(requireContext(), position.toString(), Toast.LENGTH_SHORT).show()
         requireContext().startActivity(Intent(requireContext(), TicketActivity::class.java))
+    }
+
+    private fun selectFilter(filter: Byte) {
+        dateFilter.chipIcon = null
+        titleFilter.chipIcon = null
+        priceFilter.chipIcon = null
+        reversed = if (previousFilter == filter) !reversed else false
+        val icon = if (reversed) R.drawable.ic_keyboard_arrow_up
+        else R.drawable.ic_keyboard_arrow_down
+        when (filter) {
+            DATE_FILTER -> dateFilter.setChipIconResource(icon)
+            TITLE_FILTER -> titleFilter.setChipIconResource(icon)
+            PRICE_FILTER -> priceFilter.setChipIconResource(icon)
+        }
+        previousFilter = filter
     }
 }
