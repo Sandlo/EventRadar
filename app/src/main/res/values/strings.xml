@@ -9,4 +9,8 @@
     <string name="title_login">Login</string>
     <string name="title_interests">Interessen</string>
     <string name="title_register">Registrieren</string>
+
+    <string name="title">Titel</string>
+    <string name="date">Datum</string>
+    <string name="price">Preis</string>
 </resources>
