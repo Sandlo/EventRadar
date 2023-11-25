@@ -9,8 +9,13 @@
     <string name="title_login">Login</string>
     <string name="title_interests">Interessen</string>
     <string name="title_register">Registrieren</string>
+    <string name="title_account">Konto</string>
 
     <string name="title">Titel</string>
     <string name="date">Datum</string>
     <string name="price">Preis</string>
+
+    <string name="search_hint_discover">Entdecke deine Stadt</string>
+    <string name="search_hint_map">Finde Events in der Nähe</string>
+    <string name="search_hint_tickets">Durchsuche deine Tickets</string>
 </resources>
