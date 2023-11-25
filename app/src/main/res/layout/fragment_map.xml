@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/map_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.search.SearchBar
@@ -14,9 +15,10 @@
         app:menu="@menu/search_bar_menu"
         android:hint="@string/search_hint_map" />
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_map"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_map_location"
+        android:contentDescription="@string/title_map" />
 </RelativeLayout>
