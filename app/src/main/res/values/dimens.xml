@@ -2,5 +2,5 @@
 <resources>
     <dimen name="half_padding">8dp</dimen>
     <dimen name="full_padding">16dp</dimen>
-    <dimen name="padding_4">64dp</dimen>
+    <dimen name="padding_8">128dp</dimen>
 </resources>
