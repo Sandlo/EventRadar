@@ -18,4 +18,7 @@
     <string name="search_hint_discover">Entdecke deine Stadt</string>
     <string name="search_hint_map">Finde Events in der Nähe</string>
     <string name="search_hint_tickets">Durchsuche deine Tickets</string>
+
+    <string name="festivals">Festivals</string>
+    <string name="clubs">Clubs</string>
 </resources>

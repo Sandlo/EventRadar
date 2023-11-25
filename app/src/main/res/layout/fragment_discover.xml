@@ -1,31 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/full_padding"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.search.SearchBar
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/full_padding"
-        android:layout_marginHorizontal="@dimen/full_padding"
+        android:layout_marginBottom="@dimen/full_padding"
         app:defaultMarginsEnabled="false"
         app:menu="@menu/search_bar_menu"
         android:hint="@string/search_hint_discover" />
 
-    <Button
-        android:id="@+id/dummy_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_event"
-        android:layout_centerInParent="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/full_padding"
+            android:text="@string/festivals"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
 
-    <Button
-        android:id="@+id/second_dummy_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_login"
-        android:layout_below="@id/dummy_button"
-        android:layout_centerInParent="true" />
-</RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dummy_button"
+            android:layout_width="192dp"
+            android:layout_height="192dp"
+            android:layout_marginBottom="@dimen/full_padding"
+            app:cardCornerRadius="@dimen/full_padding">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/elena_de_soto">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient_dim" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_event"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:textColor="@android:color/white"
+                    android:layout_above="@id/summary"
+                    android:paddingHorizontal="@dimen/full_padding" />
+
+                <TextView
+                    android:id="@+id/summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_event"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentBottom="true"
+                    android:paddingHorizontal="@dimen/full_padding"
+                    android:paddingBottom="@dimen/full_padding" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/full_padding"
+            android:text="@string/clubs"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
+
+        <Button
+            android:id="@+id/second_dummy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_login" />
+    </LinearLayout>

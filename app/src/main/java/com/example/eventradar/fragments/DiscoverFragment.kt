@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.eventradar.R
 import com.example.eventradar.activities.EventActivity
@@ -20,7 +21,7 @@ class DiscoverFragment : Fragment() {
     ): View {
         val root = inflater.inflate(R.layout.fragment_discover, container, false)
 
-        root.findViewById<Button>(R.id.dummy_button).setOnClickListener {
+        root.findViewById<CardView>(R.id.dummy_button).setOnClickListener {
             requireContext().startActivity(Intent(requireContext(), EventActivity::class.java))
         }
 
