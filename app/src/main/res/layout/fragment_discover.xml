@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/full_padding"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -10,7 +9,7 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/full_padding"
+        android:layout_margin="@dimen/full_padding"
         app:defaultMarginsEnabled="false"
         app:menu="@menu/search_bar_menu"
         android:hint="@string/search_hint_discover" />
@@ -18,53 +17,30 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/full_padding"
+            android:layout_marginHorizontal="@dimen/full_padding"
             android:text="@string/festivals"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/dummy_button"
-            android:layout_width="192dp"
-            android:layout_height="192dp"
-            android:layout_marginBottom="@dimen/full_padding"
-            app:cardCornerRadius="@dimen/full_padding">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/elena_de_soto">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient_dim" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_event"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                    android:textColor="@android:color/white"
-                    android:layout_above="@id/summary"
-                    android:paddingHorizontal="@dimen/full_padding" />
-
-                <TextView
-                    android:id="@+id/summary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_event"
-                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                    android:textColor="@android:color/white"
-                    android:layout_alignParentBottom="true"
-                    android:paddingHorizontal="@dimen/full_padding"
-                    android:paddingBottom="@dimen/full_padding" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/first_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/full_padding"
+            android:paddingHorizontal="@dimen/full_padding"
+            android:clipToPadding="false" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/full_padding"
+            android:layout_marginHorizontal="@dimen/full_padding"
             android:text="@string/clubs"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/second_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/full_padding"
+            android:paddingHorizontal="@dimen/full_padding"
+            android:clipToPadding="false" />
     </LinearLayout>
