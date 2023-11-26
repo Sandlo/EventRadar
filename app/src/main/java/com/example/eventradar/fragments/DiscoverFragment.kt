@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
 import com.example.eventradar.activities.EventActivity
 import com.example.eventradar.activities.MainActivity
-import com.example.eventradar.adapters.EventListAdapter
+import com.example.eventradar.adapters.CategoryListAdapter
+import com.example.eventradar.data.CategoryListItem
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
@@ -42,18 +43,17 @@ class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
             "1. April 2023 • 5,00 €",
             R.drawable.elena_de_soto
         )
+        val dummyItems = Array(5) { dummyItem }.asList()
 
-        val firstRecyclerView = root.findViewById<RecyclerView>(R.id.first_list)
-        firstRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        firstRecyclerView.adapter = EventListAdapter(
-            Array(20) { dummyItem }.asList(),
-            this
-        )
-
-        val secondRecyclerView = root.findViewById<RecyclerView>(R.id.second_list)
-        secondRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        secondRecyclerView.adapter = EventListAdapter(
-            Array(20) { dummyItem }.asList(),
+        val firstRecyclerView = root.findViewById<RecyclerView>(R.id.list)
+        firstRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        firstRecyclerView.adapter = CategoryListAdapter(
+            listOf(
+                CategoryListItem(resources.getString(R.string.festivals), dummyItems),
+                CategoryListItem(resources.getString(R.string.clubs), dummyItems),
+                CategoryListItem(resources.getString(R.string.bars), dummyItems),
+                CategoryListItem(resources.getString(R.string.food), dummyItems)
+            ),
             this
         )
 

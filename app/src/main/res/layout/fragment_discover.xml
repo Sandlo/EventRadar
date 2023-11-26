@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,33 +14,10 @@
         app:menu="@menu/search_bar_menu"
         android:hint="@string/search_hint_discover" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/full_padding"
-            android:text="@string/festivals"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/first_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/full_padding"
-            android:paddingHorizontal="@dimen/full_padding"
-            android:clipToPadding="false" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/full_padding"
-            android:text="@string/clubs"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
-
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/second_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/full_padding"
-            android:paddingHorizontal="@dimen/full_padding"
-            android:clipToPadding="false" />
-    </LinearLayout>
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_7"
+        android:clipToPadding="false" />
+</FrameLayout>

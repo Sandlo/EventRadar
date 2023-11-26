@@ -22,6 +22,8 @@
 
     <string name="festivals">Festivals</string>
     <string name="clubs">Clubs</string>
+    <string name="bars">Bars</string>
+    <string name="food">Essen</string>
 
     <string name="logout">Abmelden</string>
     <string name="logout_summary">Sind Sie sich sicher, dass Sie sich abmelden möchten?</string>
