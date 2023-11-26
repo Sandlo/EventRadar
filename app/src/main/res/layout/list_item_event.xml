@@ -9,8 +9,7 @@
     <RelativeLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/elena_de_soto">
+        android:layout_height="match_parent">
 
         <View
             android:layout_width="match_parent"
@@ -21,21 +20,21 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_event"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textColor="@android:color/white"
             android:layout_above="@id/summary"
-            android:paddingHorizontal="@dimen/full_padding" />
+            android:paddingHorizontal="@dimen/full_padding"
+            android:textIsSelectable="false" />
 
         <TextView
             android:id="@+id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_event"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@android:color/white"
             android:layout_alignParentBottom="true"
             android:paddingHorizontal="@dimen/full_padding"
-            android:paddingBottom="@dimen/full_padding" />
+            android:paddingBottom="@dimen/full_padding"
+            android:textIsSelectable="false" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
