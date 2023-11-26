@@ -6,7 +6,6 @@
     <string name="title_event">Event</string>
     <string name="title_ticket">Ticket</string>
     <string name="title_booking">Buchen</string>
-    <string name="title_login">Login</string>
     <string name="title_interests">Interessen</string>
     <string name="title_register">Registrieren</string>
     <string name="title_account">Konto</string>
@@ -14,6 +13,8 @@
     <string name="title">Titel</string>
     <string name="date">Datum</string>
     <string name="price">Preis</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="ok">OK</string>
 
     <string name="search_hint_discover">Entdecke deine Stadt</string>
     <string name="search_hint_map">Finde Events in der Nähe</string>
@@ -21,4 +22,10 @@
 
     <string name="festivals">Festivals</string>
     <string name="clubs">Clubs</string>
+
+    <string name="logout">Abmelden</string>
+    <string name="logout_summary">Sind Sie sich sicher, dass Sie sich abmelden möchten?</string>
+
+    <string name="scope">Außerhalb des Umfangs</string>
+    <string name="scope_summary">Die Funktion, welche Sie versuchen aufzurufen, liegt nicht im Implementierungsumfang.</string>
 </resources>

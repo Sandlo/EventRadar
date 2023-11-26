@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.eventradar.R
+import com.example.eventradar.activities.MainActivity
+import com.example.eventradar.helpers.OutOfScopeDialog
+import com.google.android.material.search.SearchBar
 
 class MapFragment : Fragment() {
 
@@ -14,6 +17,18 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_map, container, false)
+        val root = inflater.inflate(R.layout.fragment_map, container, false)
+
+        root.findViewById<SearchBar>(R.id.search_bar).let {
+            it.setOnClickListener {
+                OutOfScopeDialog.show(requireContext())
+            }
+            it.setOnMenuItemClickListener {
+                MainActivity.onAccountClicked(requireContext())
+                true
+            }
+        }
+
+        return root
     }
 }
