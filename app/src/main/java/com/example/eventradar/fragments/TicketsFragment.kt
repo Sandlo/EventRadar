@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
+import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.activities.TicketActivity
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.chip.Chip
+import com.google.android.material.search.SearchBar
 
 class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
 
@@ -36,6 +39,16 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
             savedInstanceState: Bundle?
     ): View {
         val root = inflater.inflate(R.layout.fragment_tickets, container, false)
+
+        root.findViewById<SearchBar>(R.id.search_bar).let {
+            it.setOnClickListener {
+                OutOfScopeDialog.show(requireContext())
+            }
+            it.setOnMenuItemClickListener {
+                MainActivity.onAccountClicked(requireContext())
+                true
+            }
+        }
 
         dateFilter = root.findViewById(R.id.date_filter)
         titleFilter = root.findViewById(R.id.title_filter)

@@ -67,10 +67,4 @@
             android:layout_marginBottom="@dimen/full_padding"
             android:text="@string/clubs"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
-
-        <Button
-            android:id="@+id/second_dummy_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_login" />
     </LinearLayout>
