@@ -21,10 +21,54 @@
             android:layout_height="match_parent"
             android:background="?selectableItemBackground" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/title"
+            android:layout_marginBottom="@dimen/quarter_padding"
+            android:paddingHorizontal="@dimen/full_padding">
+
+            <ImageView
+                android:id="@+id/first_star"
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
+                android:contentDescription="@null"
+                app:tint="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/second_star"
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
+                android:contentDescription="@null"
+                app:tint="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/third_star"
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
+                android:contentDescription="@null"
+                app:tint="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/fourth_star"
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
+                android:contentDescription="@null"
+                app:tint="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/fifth_star"
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
+                android:contentDescription="@null"
+                app:tint="@android:color/white" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/quarter_padding"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textColor="@android:color/white"
             android:layout_above="@id/summary"
@@ -35,11 +79,11 @@
             android:id="@+id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/full_padding"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@android:color/white"
             android:layout_alignParentBottom="true"
             android:paddingHorizontal="@dimen/full_padding"
-            android:paddingBottom="@dimen/full_padding"
             android:textIsSelectable="false" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

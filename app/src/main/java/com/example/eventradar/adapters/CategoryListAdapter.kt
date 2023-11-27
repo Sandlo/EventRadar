@@ -1,6 +1,5 @@
 package com.example.eventradar.adapters
 
-import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -9,11 +8,9 @@ import com.example.eventradar.R
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eventradar.data.CategoryListItem
-import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
 class CategoryListAdapter(
-    private val items: List<CategoryListItem>,
-    private val helperInterface: RecyclerViewHelperInterface
+    private val items: List<CategoryListItem>
     ) : RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -27,7 +24,6 @@ class CategoryListAdapter(
         )
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = items[position].title
         holder.list
@@ -36,7 +32,10 @@ class CategoryListAdapter(
             RecyclerView.HORIZONTAL,
             false
         )
-        holder.list.adapter = EventListAdapter(items[position].list, helperInterface)
+        holder.list.adapter = EventListAdapter(
+            items[position].list,
+            items[position].helperInterface
+        )
     }
 
     override fun getItemCount(): Int {
