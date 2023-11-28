@@ -14,7 +14,7 @@ import com.example.eventradar.activities.EventActivity
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.adapters.CategoryListAdapter
 import com.example.eventradar.data.CategoryListItem
-import com.example.eventradar.data.EventListItem
+import com.example.eventradar.helpers.Database
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.search.SearchBar
@@ -38,22 +38,14 @@ class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
             }
         }
 
-        val dummyItem = EventListItem(
-            3.5f,
-            "Event",
-            "1. April 2023 • 5,00 €",
-            R.drawable.elena_de_soto
-        )
-        val dummyItems = Array(5) { dummyItem }.asList()
-
         val firstRecyclerView = root.findViewById<RecyclerView>(R.id.list)
         firstRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         firstRecyclerView.adapter = CategoryListAdapter(
             listOf(
-                CategoryListItem(resources.getString(R.string.festivals), dummyItems, this),
-                CategoryListItem(resources.getString(R.string.clubs), dummyItems, this),
-                CategoryListItem(resources.getString(R.string.bars), dummyItems, this),
-                CategoryListItem(resources.getString(R.string.food), dummyItems, this)
+                CategoryListItem(resources.getString(R.string.festivals), Database.getEvents(), this),
+                CategoryListItem(resources.getString(R.string.clubs), Database.getEvents(), this),
+                CategoryListItem(resources.getString(R.string.bars), Database.getEvents(), this),
+                CategoryListItem(resources.getString(R.string.food), Database.getEvents(), this)
             )
         )
 

@@ -13,7 +13,7 @@ import com.example.eventradar.R
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.activities.TicketActivity
 import com.example.eventradar.adapters.SimpleListAdapter
-import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.helpers.Database
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.chip.Chip
@@ -64,16 +64,10 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         }
         selectFilter(DATE_FILTER)
 
-        val dummyItem = SimpleListItem(
-            "Event",
-            "1. April 2023 • 5,00 €",
-            R.drawable.ic_circle_tag
-        )
-
         val recyclerView = root.findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = SimpleListAdapter(
-            Array(20) { dummyItem }.asList(),
+            Database.getTickets(),
             this
         )
 
