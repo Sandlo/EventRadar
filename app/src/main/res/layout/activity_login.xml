@@ -7,14 +7,22 @@
         android:id="@+id/dummy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_register"
+        android:text="@string/title_login"
         android:layout_centerInParent="true" />
 
     <Button
         android:id="@+id/second_dummy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_discover"
+        android:text="@string/title_register"
         android:layout_below="@id/dummy_button"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:id="@+id/third_dummy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_discover"
+        android:layout_below="@id/second_dummy_button"
         android:layout_centerInParent="true" />
 </RelativeLayout>
