@@ -31,6 +31,14 @@
     <string name="booking_info">Eine ausführliche Rechnung und das Ticket bekommst du im Anschluss per Mail zugesandt. Das Ticket ist auch jeder Zeit in der App abrufbar.</string>
     <string name="booking_fab">Kostenpflichtig bestellen</string>
 
+    <string name="description">Beschreibung</string>
+    <string name="organizer">Veranstalter</string>
+    <string name="when">Wann?</string>
+    <string name="where">Wo?</string>
+    <string name="what">Was?</string>
+    <string name="ticket_info">Zeige diesen Code beim Einlass vor</string>
+    <string name="ticket_cancel">Stornierung anfordern</string>
+
     <string name="search_hint_discover">Entdecke deine Stadt</string>
     <string name="search_hint_map">Finde Events in der Nähe</string>
     <string name="search_hint_tickets">Durchsuche deine Tickets</string>
@@ -45,4 +53,7 @@
 
     <string name="scope">Außerhalb des Umfangs</string>
     <string name="scope_summary">Die Funktion, welche Sie versuchen aufzurufen, liegt nicht im Implementierungsumfang.</string>
+
+    <string name="cart">Einkaufswagen</string>
+    <string name="share">Teilen</string>
 </resources>
