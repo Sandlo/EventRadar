@@ -11,6 +11,14 @@
     <string name="title_login">Anmelden</string>
     <string name="title_account">Konto</string>
 
+    <string name="name">Vorname</string>
+    <string name="surname">Nachname</string>
+    <string name="birthdate">Geburtsdatum</string>
+    <string name="mail">E-Mail</string>
+    <string name="phone">Handynummer</string>
+    <string name="password">Passwort</string>
+    <string name="repeat_password">Passwort wiederholen</string>
+
     <string name="title">Titel</string>
     <string name="date">Datum</string>
     <string name="price">Preis</string>
