@@ -13,11 +13,13 @@ import com.example.eventradar.R
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.activities.TicketActivity
 import com.example.eventradar.adapters.SimpleListAdapter
-import com.example.eventradar.helpers.Database
+import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.chip.Chip
 import com.google.android.material.search.SearchBar
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
 
@@ -66,10 +68,13 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = SimpleListAdapter(
-            Database.getTickets(),
-            this
-        )
+        // TODO: Show loading message
+        GlobalScope.launch {
+            recyclerView.adapter = SimpleListAdapter(
+                AppDatabase.getInstance(requireContext()).ticketDao().getAll().map { it.toListItem(requireContext()) },
+                this@TicketsFragment
+            )
+        }
 
         return root
     }
