@@ -1,10 +1,10 @@
-package com.example.eventradar.data
+package com.example.eventradar.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "user")
 open class User(
     @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "account_id") val accountId: Long,

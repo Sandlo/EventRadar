@@ -1,4 +1,4 @@
-package com.example.eventradar.data
+package com.example.eventradar.data.entities
 
 import androidx.room.Embedded
 import androidx.room.Entity
