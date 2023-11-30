@@ -19,9 +19,21 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         recyclerView.adapter = SimpleListAdapter(
             listOf(
                 SimpleListItem("", resources.getString(R.string.ticket_info)),
-                SimpleListItem("PLACEHOLDER", resources.getString(R.string.what)),
-                SimpleListItem("20. April 2045", resources.getString(R.string.`when`)),
-                SimpleListItem("Bei Luca im Garten", resources.getString(R.string.where)),
+                SimpleListItem(
+                    "PLACEHOLDER",
+                    resources.getString(R.string.what),
+                    R.drawable.ic_circle_local_activity
+                ),
+                SimpleListItem(
+                    "20. April 2045",
+                    resources.getString(R.string.`when`),
+                    R.drawable.ic_circle_calendar_today
+                ),
+                SimpleListItem(
+                    "Bei Luca im Garten",
+                    resources.getString(R.string.where),
+                    R.drawable.ic_circle_location_on
+                ),
                 SimpleListItem(resources.getString(R.string.ticket_cancel))
             ),
             this
