@@ -18,5 +18,5 @@
         android:layout_margin="@dimen/full_padding"
         android:contentDescription="@string/booking_fab"
         android:text="@string/booking_fab"
-        app:srcCompat="@drawable/ic_check" />
+        app:icon="@drawable/ic_done" />
 </RelativeLayout>
