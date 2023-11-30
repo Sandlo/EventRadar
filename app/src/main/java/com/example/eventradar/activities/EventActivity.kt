@@ -19,6 +19,14 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
 
+        findViewById<FloatingActionButton>(R.id.share).setOnClickListener {
+            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.app_name))
+                putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+            }, resources.getString(R.string.share)))
+        }
+
         findViewById<FloatingActionButton>(R.id.buy).setOnClickListener {
             startActivity(Intent(this, BookingActivity::class.java))
         }

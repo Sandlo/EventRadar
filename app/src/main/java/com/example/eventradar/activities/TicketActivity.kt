@@ -7,9 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
 class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
+
+    companion object {
+        private const val CANCELLATION_ITEM = 4
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
@@ -41,7 +47,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
     }
 
     override fun onItemClicked(view: View, position: Int) {
-        // Do nothing.
+        if (position == CANCELLATION_ITEM) OutOfScopeDialog.show(this)
     }
 
 
