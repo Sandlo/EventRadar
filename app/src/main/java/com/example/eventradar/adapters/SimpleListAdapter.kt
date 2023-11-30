@@ -29,9 +29,19 @@ class SimpleListAdapter(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if (items[position].title.isEmpty()) {
+            holder.title.visibility = View.GONE
+        } else {
+            holder.title.visibility = View.VISIBLE
+            holder.title.text = items[position].title
+        }
+        if (items[position].summary.isEmpty()) {
+            holder.summary.visibility = View.GONE
+        } else {
+            holder.summary.visibility = View.VISIBLE
+            holder.summary.text = items[position].summary
+        }
         holder.drawable.setImageResource(items[position].icon)
-        holder.title.text = items[position].title
-        holder.summary.text = items[position].summary
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(holder.itemView, position) }
     }
 
