@@ -54,6 +54,5 @@
     <string name="scope">Außerhalb des Umfangs</string>
     <string name="scope_summary">Die Funktion, welche Sie versuchen aufzurufen, liegt nicht im Implementierungsumfang.</string>
 
-    <string name="cart">Einkaufswagen</string>
     <string name="share">Teilen</string>
 </resources>
