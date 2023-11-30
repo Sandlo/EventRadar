@@ -9,7 +9,7 @@ import com.example.eventradar.R
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,15 +20,15 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = SimpleListAdapter(
             listOf(
-                SimpleListItem("Placeholder", resources.getString(R.string.booking_title)),
-                SimpleListItem("Placeholder", resources.getString(R.string.booking_price)),
-                SimpleListItem("Placeholder", resources.getString(R.string.booking_payment)),
+                SimpleListItem("Placeholder", resources.getString(R.string.booking_title), R.drawable.ic_circle_tag),
+                SimpleListItem("Placeholder", resources.getString(R.string.booking_price), R.drawable.ic_circle_euro),
+                SimpleListItem("Placeholder", resources.getString(R.string.booking_payment), R.drawable.ic_square_google_pay),
                 SimpleListItem("",resources.getString(R.string.booking_info))
             ),
             this
         )
 
-        findViewById<FloatingActionButton>(R.id.floating_action_button).setOnClickListener {
+        findViewById<ExtendedFloatingActionButton>(R.id.floating_action_button).setOnClickListener {
             startActivity(Intent(this, TicketActivity::class.java))
         }
     }
