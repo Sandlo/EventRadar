@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/name">
+            android:hint="@string/name"
+            app:startIconDrawable="@drawable/ic_person">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -25,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/surname">
+            android:hint="@string/surname"
+            app:startIconDrawable="@drawable/ic_person">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -36,55 +38,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/birthdate">
+            android:hint="@string/birthdate"
+            app:startIconDrawable="@drawable/ic_calendar_today">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/mail">
+            android:hint="@string/mail"
+            app:startIconDrawable="@drawable/ic_mail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/phone">
+            android:hint="@string/phone"
+            app:startIconDrawable="@drawable/ic_call">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/password">
+            android:hint="@string/password"
+            app:startIconDrawable="@drawable/ic_key"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/repeat_password">
+            android:hint="@string/repeat_password"
+            app:startIconDrawable="@drawable/ic_key"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -96,5 +110,5 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/full_padding"
         android:contentDescription="@string/title_interests"
-        app:srcCompat="@drawable/ic_check" />
+        app:srcCompat="@drawable/ic_done" />
 </RelativeLayout>
