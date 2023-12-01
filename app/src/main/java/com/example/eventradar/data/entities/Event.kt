@@ -3,8 +3,6 @@ package com.example.eventradar.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.eventradar.R
-import com.example.eventradar.data.EventListItem
 
 @Entity(tableName = "event")
 data class Event(
@@ -17,13 +15,4 @@ data class Event(
     @ColumnInfo(name = "address_id") val addressId: Long,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "image") val image: String
-) {
-    fun toListItem(): EventListItem {
-        return EventListItem(
-            5.0f,
-            title,
-            "$start • $price €",
-            R.drawable.elena_de_soto
-        )
-    }
-}
+)

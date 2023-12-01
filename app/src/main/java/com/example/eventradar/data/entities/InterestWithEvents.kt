@@ -13,9 +13,10 @@ data class InterestWithEvents(
     @Relation(
         parentColumn = "interest_id",
         entityColumn = "event_id",
-        associateBy = Junction(EventInterest::class)
+        associateBy = Junction(EventInterest::class),
+        entity = Event::class
     )
-    val events: List<Event>
+    val events: List<EventWithReviews>
 ) {
     fun toListItem(helperInterface: RecyclerViewHelperInterface): CategoryListItem {
         return CategoryListItem(interest.name, events.map { it.toListItem() }, helperInterface)

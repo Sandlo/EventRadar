@@ -8,17 +8,25 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.eventradar.data.dao.EventDao
 import com.example.eventradar.data.dao.EventInterestDao
 import com.example.eventradar.data.dao.InterestDao
+import com.example.eventradar.data.dao.ReviewDao
 import com.example.eventradar.data.dao.TicketDao
 import com.example.eventradar.data.entities.Event
 import com.example.eventradar.data.entities.EventInterest
 import com.example.eventradar.data.entities.Interest
+import com.example.eventradar.data.entities.Review
 import com.example.eventradar.data.entities.Ticket
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Ticket::class, Event::class, Interest::class, EventInterest::class],
+    entities = [
+        Ticket::class,
+        Event::class,
+        Interest::class,
+        EventInterest::class,
+        Review::class
+    ],
     version = 1,
     exportSchema = false
 )
@@ -27,6 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDao
     abstract fun interestDao(): InterestDao
     abstract fun eventInterestDao(): EventInterestDao
+    abstract fun reviewDao(): ReviewDao
 
     companion object {
         private const val DATABASE_NAME = "event.db"
@@ -72,6 +81,11 @@ abstract class AppDatabase : RoomDatabase() {
                                     EventInterest(1, 3),
                                     EventInterest(2, 3),
                                     EventInterest(3, 3),
+                                )
+                                getInstance(context).reviewDao().insertAll(
+                                    Review(1, 1, 1, "", 2.5f, 0),
+                                    Review(2, 2, 1, "", 3.5f, 0),
+                                    Review(3, 3, 1, "", 4.5f, 0)
                                 )
                             }
                         }
