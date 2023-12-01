@@ -7,5 +7,5 @@ import com.example.eventradar.data.entities.EventInterest
 @Dao
 interface EventInterestDao {
     @Insert
-    fun insertAll(vararg interests: EventInterest)
+    suspend fun insertAll(vararg interests: EventInterest)
 }

@@ -14,5 +14,5 @@ interface EventDao {
     suspend fun get(id: Long): Event
 
     @Insert
-    fun insertAll(vararg events: Event)
+    suspend fun insertAll(vararg events: Event)
 }

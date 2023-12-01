@@ -14,5 +14,5 @@ interface InterestDao {
     suspend fun getAll(): List<InterestWithEvents>
 
     @Insert
-    fun insertAll(vararg interests: Interest)
+    suspend fun insertAll(vararg interests: Interest)
 }
