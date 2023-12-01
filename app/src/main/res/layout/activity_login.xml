@@ -81,10 +81,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/half_padding"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_google"
                 android:text="@string/google_login"
                 android:textColor="?attr/colorOnSurface"
-                app:background="?attr/colorSurface" />
+                app:background="?attr/colorSurface"
+                app:icon="@drawable/ic_google"
+                app:iconTint="@null" />
 
 
             <Button
@@ -94,10 +95,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_padding"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_facebook"
                 android:text="@string/facebook_login"
                 android:textColor="?attr/colorOnSurface"
-                app:background="?attr/colorSurface" />
+                app:background="?attr/colorSurface"
+                app:icon="@drawable/ic_facebook"
+                app:iconTint="@null" />
 
         </LinearLayout>
 
@@ -130,7 +132,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_action_button"
+            android:id="@+id/continue_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
