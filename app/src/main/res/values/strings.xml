@@ -56,4 +56,12 @@
     <string name="scope_summary">Die Funktion, welche Sie versuchen aufzurufen, liegt nicht im Implementierungsumfang.</string>
 
     <string name="share">Teilen</string>
+    <string name="google_login">Mit Google fortfahren</string>
+    <string name="facebook_login">Mit Facebook fortfahren</string>
+    <string name="guest_login">Als Gast fortfahren</string>
+    <string name="register">Kein Account? Jetzt registrieren</string>
+    <string name="reset_password">Passwort vergessen?</string>
+    <string name="password">Passwort</string>
+    <string name="email_mobile_number">E-Mail / Handynummer</string>
 </resources>
+

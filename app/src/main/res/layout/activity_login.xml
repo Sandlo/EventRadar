@@ -10,24 +10,37 @@
         android:orientation="vertical"
         android:padding="@dimen/full_padding">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/padding_3"
-            android:layout_marginTop="@dimen/padding_2"
-            android:layout_marginBottom="@dimen/padding_2"
-            android:text="EventRadar"
-            android:textAlignment="center"
-            android:textSize="@dimen/full_padding">
+        <com.google.android.material.appbar.AppBarLayout
 
-        </TextView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:minHeight="?attr/actionBarSize"
+                    app:title="@string/app_name"
+                    app:titleCentered="true" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_3"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="Email / Handynummer"
+            android:hint="@string/email_mobile_number"
 
             app:startIconDrawable="@drawable/ic_mail">
 
@@ -43,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
-            android:hint="Passwort"
+            android:hint="@string/password"
             app:endIconMode="password_toggle"
             app:startIconDrawable="@drawable/ic_key">
 
@@ -68,10 +81,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/half_padding"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_key"
-                android:text="Mit Google fortfahren"
-                android:textColor="@color/cardview_dark_background"
-                app:backgroundTint="@color/cardview_light_background" />
+                android:drawableLeft="@drawable/ic_google"
+                android:text="@string/google_login"
+                android:textColor="?attr/colorOnSurface"
+                app:background="?attr/colorSurface" />
 
 
             <Button
@@ -81,10 +94,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_padding"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_key"
-                android:text="Mit Facebook fortfahren"
-                android:textColor="@color/cardview_dark_background"
-                app:backgroundTint="@color/cardview_light_background" />
+                android:drawableLeft="@drawable/ic_facebook"
+                android:text="@string/facebook_login"
+                android:textColor="?attr/colorOnSurface"
+                app:background="?attr/colorSurface" />
 
         </LinearLayout>
 
@@ -93,24 +106,21 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Kein Account? Jetzt Registrieren" />
+            android:text="@string/register" />
 
         <Button
             android:id="@+id/guest"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Als Gast fortfahren" />
+            android:text="@string/guest_login" />
 
         <Button
             android:id="@+id/reset_password"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Passwort vergessen" />
+            android:text="@string/reset_password" />
 
     </LinearLayout>
 
