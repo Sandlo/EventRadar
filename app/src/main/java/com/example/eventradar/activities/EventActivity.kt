@@ -2,7 +2,6 @@ package com.example.eventradar.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -20,7 +19,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
 
@@ -72,7 +70,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
             )
             findViewById<TextView>(R.id.title).text = event.event.title
             findViewById<TextView>(R.id.summary).text =
-                String.format("%.2f", event.event.price) + " € inkl. MwSt."
+                event.event.getPriceAsString() + " inkl. MwSt."
             recyclerView.adapter = SimpleListAdapter(
                 listOf(
                     SimpleListItem(
@@ -86,10 +84,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                         R.drawable.ic_circle_person
                     ),
                     SimpleListItem(
-                        SimpleDateFormat(
-                            "d. MMM yyyy 'um' H:mm 'Uhr'",
-                            Locale.getDefault()
-                        ).format(event.event.start),
+                        event.event.getStartAsString(),
                         resources.getString(R.string.`when`),
                         R.drawable.ic_circle_calendar_today
                     ),
@@ -104,7 +99,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
     }
 
-    override fun onItemClicked(view: View, position: Int) {
+    override fun onItemClicked(position: Int) {
         // Do nothing.
     }
 }

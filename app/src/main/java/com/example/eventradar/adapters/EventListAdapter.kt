@@ -35,7 +35,7 @@ class EventListAdapter(
         StarView.fillStars(items[position].rating, holder.stars)
         holder.title.text = items[position].title
         holder.summary.text = items[position].summary
-        holder.itemView.setOnClickListener { helperInterface.onItemClicked(holder.itemView, position) }
+        holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
     override fun getItemCount(): Int {

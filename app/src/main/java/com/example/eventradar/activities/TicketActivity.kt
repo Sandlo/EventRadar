@@ -1,8 +1,6 @@
 package com.example.eventradar.activities
 
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -15,7 +13,6 @@ import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
 
@@ -45,10 +42,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                         R.drawable.ic_circle_local_activity
                     ),
                     SimpleListItem(
-                        SimpleDateFormat(
-                            "d. MMM yyyy 'um' H:mm 'Uhr'",
-                            Locale.getDefault()
-                        ).format(ticket.event.event.start),
+                        ticket.event.event.getStartAsString(),
                         resources.getString(R.string.`when`),
                         R.drawable.ic_circle_calendar_today
                     ),
@@ -64,7 +58,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
     }
 
-    override fun onItemClicked(view: View, position: Int) {
+    override fun onItemClicked(position: Int) {
         if (position == CANCELLATION_ITEM) OutOfScopeDialog.show(this)
     }
 

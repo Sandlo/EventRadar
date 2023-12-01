@@ -51,7 +51,7 @@ class DiscoverFragment : Fragment() {
             recyclerView.adapter = CategoryListAdapter(
                 events.mapIndexed { index, event ->
                     event.toListItem(requireContext(), object : RecyclerViewHelperInterface {
-                        override fun onItemClicked(view: View, position: Int) {
+                        override fun onItemClicked(position: Int) {
                             onItemClicked(index, position)
                         }
                     })

@@ -83,7 +83,7 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         return root
     }
 
-    override fun onItemClicked(view: View, position: Int) {
+    override fun onItemClicked(position: Int) {
         if (tickets.size > position) requireContext().startActivity(
             Intent(requireContext(), TicketActivity::class.java).apply {
                 putExtra(TicketActivity.TICKET_INTENT_EXTRA, tickets[position].ticket.id)

@@ -42,7 +42,7 @@ class SimpleListAdapter(
             holder.summary.text = items[position].summary
         }
         holder.drawable.setImageResource(items[position].icon)
-        holder.itemView.setOnClickListener { helperInterface.onItemClicked(holder.itemView, position) }
+        holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
     override fun getItemCount(): Int {
