@@ -2,7 +2,6 @@ package com.example.eventradar.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -49,7 +48,7 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                         R.drawable.ic_circle_tag
                     ),
                     SimpleListItem(
-                        String.format("%.2f", event.price) + " €",
+                        event.getPriceAsString(),
                         resources.getString(R.string.booking_price),
                         R.drawable.ic_circle_euro
                     ),
@@ -65,7 +64,7 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
     }
 
-    override fun onItemClicked(view: View, position: Int) {
+    override fun onItemClicked(position: Int) {
         if (position == PAYMENT_PROVIDER_ITEM) OutOfScopeDialog.show(this)
     }
 }

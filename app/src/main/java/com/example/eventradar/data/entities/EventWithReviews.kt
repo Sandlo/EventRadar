@@ -1,13 +1,11 @@
 package com.example.eventradar.data.entities
 
 import android.content.Context
-import android.icu.text.SimpleDateFormat
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Relation
 import com.example.eventradar.data.EventListItem
 import com.example.eventradar.helpers.Base64
-import java.util.Locale
 
 @Entity
 data class EventWithReviews(
@@ -22,12 +20,7 @@ data class EventWithReviews(
         return EventListItem(
             reviews.map { it.stars }.average().toFloat(),
             event.title,
-            "${
-                SimpleDateFormat(
-                    "d. MMM yyyy",
-                    Locale.getDefault()
-                ).format(event.start)
-            } • ${String.format("%.2f", event.price)} €",
+            event.getSummary(),
             Base64.decodeImage(context, event.image)
         )
     }
