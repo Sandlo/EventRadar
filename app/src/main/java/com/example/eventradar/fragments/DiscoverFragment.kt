@@ -13,6 +13,7 @@ import com.example.eventradar.R
 import com.example.eventradar.activities.EventActivity
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.adapters.CategoryListAdapter
+import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
@@ -42,8 +43,8 @@ class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        // TODO: Show loading message
-        CoroutineScope(Dispatchers.IO).launch {
+        recyclerView.adapter = LoadingAdapter()
+        CoroutineScope(Dispatchers.Main).launch {
             recyclerView.adapter = CategoryListAdapter(
                 AppDatabase.getInstance(requireContext()).interestDao().getAll()
                     .map { it.toListItem(this@DiscoverFragment) }

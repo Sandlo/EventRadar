@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.activities.TicketActivity
+import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.helpers.OutOfScopeDialog
@@ -69,8 +70,8 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        // TODO: Show loading message
-        CoroutineScope(Dispatchers.IO).launch {
+        recyclerView.adapter = LoadingAdapter()
+        CoroutineScope(Dispatchers.Main).launch {
             recyclerView.adapter = SimpleListAdapter(
                 AppDatabase.getInstance(requireContext()).ticketDao().getAll().map { it.toListItem() },
                 this@TicketsFragment
