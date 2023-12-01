@@ -8,7 +8,7 @@ import com.example.eventradar.data.CategoryListItem
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
 @Entity
-data class InterestWithEvents(
+data class InterestWithEventsWithReviews(
     @Embedded val interest: Interest,
     @Relation(
         parentColumn = "interest_id",

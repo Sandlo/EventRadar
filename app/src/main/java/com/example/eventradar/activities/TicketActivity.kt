@@ -40,7 +40,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                 listOf(
                     SimpleListItem("", resources.getString(R.string.ticket_info)),
                     SimpleListItem(
-                        ticket.event.title,
+                        ticket.event.event.title,
                         resources.getString(R.string.what),
                         R.drawable.ic_circle_local_activity
                     ),
@@ -48,13 +48,12 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                         SimpleDateFormat(
                             "d. MMM yyyy 'um' H:mm 'Uhr'",
                             Locale.getDefault()
-                        ).format(ticket.event.start),
+                        ).format(ticket.event.event.start),
                         resources.getString(R.string.`when`),
                         R.drawable.ic_circle_calendar_today
                     ),
-                    // TODO: address
                     SimpleListItem(
-                        ticket.event.addressId.toString(),
+                        ticket.event.address.toString(),
                         resources.getString(R.string.where),
                         R.drawable.ic_circle_location_on
                     ),

@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.eventradar.data.entities.Ticket
 import com.example.eventradar.data.entities.TicketWithEvent
+import com.example.eventradar.data.entities.TicketWithEventWithAddress
 
 @Dao
 interface TicketDao {
@@ -15,7 +16,7 @@ interface TicketDao {
 
     @Transaction
     @Query("SELECT * FROM ticket WHERE ticket_id = :id LIMIT 1")
-    suspend fun get(id: Long): TicketWithEvent
+    suspend fun get(id: Long): TicketWithEventWithAddress
 
     @Insert
     suspend fun insertAll(vararg tickets: Ticket)
