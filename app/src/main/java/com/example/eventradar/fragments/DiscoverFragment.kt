@@ -14,7 +14,7 @@ import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.adapters.CategoryListAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.data.AppDatabase
-import com.example.eventradar.data.entities.InterestWithEvents
+import com.example.eventradar.data.entities.InterestWithEventsWithReviews
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.search.SearchBar
@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class DiscoverFragment : Fragment() {
 
-    private var events: List<InterestWithEvents> = listOf()
+    private var events: List<InterestWithEventsWithReviews> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,

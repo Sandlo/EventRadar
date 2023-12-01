@@ -12,4 +12,8 @@ data class AddressWithZipCode(
         entityColumn = "zip_code"
     )
     val zipCode: ZipCode
-)
+) {
+    override fun toString(): String {
+        return address.street + " " + address.number + ", " + zipCode.zipCode + " " + zipCode.city
+    }
+}

@@ -79,9 +79,8 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                         event.event.description,
                         R.drawable.ic_circle_local_activity
                     ),
-                    // TODO: organizer
                     SimpleListItem(
-                        event.event.organizerId.toString(),
+                        event.organizer.name,
                         resources.getString(R.string.organizer),
                         R.drawable.ic_circle_person
                     ),
@@ -93,9 +92,8 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                         resources.getString(R.string.`when`),
                         R.drawable.ic_circle_calendar_today
                     ),
-                    // TODO: address
                     SimpleListItem(
-                        event.event.addressId.toString(),
+                        event.address.toString(),
                         resources.getString(R.string.where),
                         R.drawable.ic_circle_location_on
                     )
