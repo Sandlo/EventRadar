@@ -8,7 +8,7 @@ import androidx.room.Relation
 data class UserWithAccount(
     @Embedded val user: User,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "account_id",
         entityColumn = "account_id"
     )
     val account: Account

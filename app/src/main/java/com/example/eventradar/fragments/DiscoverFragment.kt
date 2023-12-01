@@ -13,11 +13,13 @@ import com.example.eventradar.R
 import com.example.eventradar.activities.EventActivity
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.adapters.CategoryListAdapter
-import com.example.eventradar.data.CategoryListItem
-import com.example.eventradar.helpers.Database
+import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.search.SearchBar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
 
@@ -38,16 +40,15 @@ class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
             }
         }
 
-        val firstRecyclerView = root.findViewById<RecyclerView>(R.id.list)
-        firstRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        firstRecyclerView.adapter = CategoryListAdapter(
-            listOf(
-                CategoryListItem(resources.getString(R.string.festivals), Database.getEvents(), this),
-                CategoryListItem(resources.getString(R.string.clubs), Database.getEvents(), this),
-                CategoryListItem(resources.getString(R.string.bars), Database.getEvents(), this),
-                CategoryListItem(resources.getString(R.string.food), Database.getEvents(), this)
+        val recyclerView = root.findViewById<RecyclerView>(R.id.list)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // TODO: Show loading message
+        CoroutineScope(Dispatchers.IO).launch {
+            recyclerView.adapter = CategoryListAdapter(
+                AppDatabase.getInstance(requireContext()).interestDao().getAll()
+                    .map { it.toListItem(this@DiscoverFragment) }
             )
-        )
+        }
 
         return root
     }

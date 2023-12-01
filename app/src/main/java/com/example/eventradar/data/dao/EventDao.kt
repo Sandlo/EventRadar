@@ -10,7 +10,7 @@ interface EventDao {
     @Query("SELECT * FROM event")
     suspend fun getAll(): List<Event>
 
-    @Query("SELECT * FROM event WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM event WHERE event_id = :id LIMIT 1")
     suspend fun get(id: Long): Event
 
     @Insert

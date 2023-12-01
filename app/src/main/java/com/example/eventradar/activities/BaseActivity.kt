@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.eventradar.R
 import com.example.eventradar.data.AppDatabase
 import com.google.android.material.elevation.SurfaceColors
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @SuppressLint("Registered")
@@ -22,7 +23,7 @@ open class BaseActivity : AppCompatActivity() {
         window.statusBarColor = color
         window.navigationBarColor = color
 
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             Log.wtf(
                 "App",
                 AppDatabase.getInstance(this@BaseActivity).ticketDao().getAll().toString()
@@ -30,6 +31,10 @@ open class BaseActivity : AppCompatActivity() {
             Log.wtf(
                 "App",
                 AppDatabase.getInstance(this@BaseActivity).eventDao().getAll().toString()
+            )
+            Log.wtf(
+                "App",
+                AppDatabase.getInstance(this@BaseActivity).interestDao().getAll().toString()
             )
         }
     }
