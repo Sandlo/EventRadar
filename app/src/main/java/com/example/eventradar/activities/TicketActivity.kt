@@ -35,7 +35,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         if (!intent.hasExtra(TICKET_INTENT_EXTRA)) return
         CoroutineScope(Dispatchers.Main).launch {
             val ticket = AppDatabase.getInstance(this@TicketActivity).ticketDao()
-                .get(intent.getLongExtra(TICKET_INTENT_EXTRA, -1))
+                .getWithEventWithAddress(intent.getLongExtra(TICKET_INTENT_EXTRA, -1))
             recyclerView.adapter = SimpleListAdapter(
                 listOf(
                     SimpleListItem("", resources.getString(R.string.ticket_info)),
