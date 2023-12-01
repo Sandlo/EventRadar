@@ -57,5 +57,6 @@
     <string name="register">Kein Account? Jetzt registrieren</string>
     <string name="reset_password">Passwort vergessen?</string>
     <string name="email_mobile_number">E-Mail / Handynummer</string>
+    <string name="loading">Lädt</string>
 </resources>
 
