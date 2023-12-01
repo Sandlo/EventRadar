@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,7 @@ import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.adapters.CategoryListAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.data.AppDatabase
+import com.example.eventradar.data.entities.InterestWithEvents
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.search.SearchBar
@@ -23,6 +23,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
+
+    private var events: List<InterestWithEvents> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,9 +47,9 @@ class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
+            events = AppDatabase.getInstance(requireContext()).interestDao().getAll()
             recyclerView.adapter = CategoryListAdapter(
-                AppDatabase.getInstance(requireContext()).interestDao().getAll()
-                    .map { it.toListItem(this@DiscoverFragment) }
+                events.map { it.toListItem(this@DiscoverFragment) }
             )
         }
 
@@ -55,7 +57,11 @@ class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
     }
 
     override fun onItemClicked(view: View, position: Int) {
-        Toast.makeText(requireContext(), position.toString(), Toast.LENGTH_SHORT).show()
-        requireContext().startActivity(Intent(requireContext(), EventActivity::class.java))
+        // TODO: send correct id
+        if (events.size > position) requireContext().startActivity(
+            Intent(requireContext(), EventActivity::class.java).apply {
+                putExtra(EventActivity.EVENT_INTENT_EXTRA, 1L)
+            }
+        )
     }
 }

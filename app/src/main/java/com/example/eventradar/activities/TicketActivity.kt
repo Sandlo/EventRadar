@@ -52,6 +52,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                         resources.getString(R.string.`when`),
                         R.drawable.ic_circle_calendar_today
                     ),
+                    // TODO: address
                     SimpleListItem(
                         ticket.event.addressId.toString(),
                         resources.getString(R.string.where),
