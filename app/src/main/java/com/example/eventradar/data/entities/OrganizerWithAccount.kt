@@ -8,7 +8,7 @@ import androidx.room.Relation
 data class OrganizerWithAccount(
     @Embedded val organizer: Organizer,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "account_id",
         entityColumn = "account_id"
     )
     val account: Account

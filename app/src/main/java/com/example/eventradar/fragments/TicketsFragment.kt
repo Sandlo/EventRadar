@@ -18,7 +18,8 @@ import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.chip.Chip
 import com.google.android.material.search.SearchBar
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
@@ -69,9 +70,9 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         val recyclerView = root.findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         // TODO: Show loading message
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             recyclerView.adapter = SimpleListAdapter(
-                AppDatabase.getInstance(requireContext()).ticketDao().getAll().map { it.toListItem(requireContext()) },
+                AppDatabase.getInstance(requireContext()).ticketDao().getAll().map { it.toListItem() },
                 this@TicketsFragment
             )
         }
