@@ -15,6 +15,7 @@ import com.example.eventradar.activities.TicketActivity
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
+import com.example.eventradar.data.entities.TicketWithEvent
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.chip.Chip
@@ -31,6 +32,7 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         private const val PRICE_FILTER: Byte = 2
     }
 
+    private var tickets: List<TicketWithEvent> = listOf()
     private lateinit var dateFilter: Chip
     private lateinit var titleFilter: Chip
     private lateinit var priceFilter: Chip
@@ -72,8 +74,9 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
+            tickets = AppDatabase.getInstance(requireContext()).ticketDao().getAll()
             recyclerView.adapter = SimpleListAdapter(
-                AppDatabase.getInstance(requireContext()).ticketDao().getAll().map { it.toListItem() },
+                tickets.map { it.toListItem() },
                 this@TicketsFragment
             )
         }
@@ -83,7 +86,11 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
 
     override fun onItemClicked(view: View, position: Int) {
         Toast.makeText(requireContext(), position.toString(), Toast.LENGTH_SHORT).show()
-        requireContext().startActivity(Intent(requireContext(), TicketActivity::class.java))
+        if (tickets.size > position) requireContext().startActivity(
+            Intent(requireContext(), TicketActivity::class.java).apply {
+                putExtra(TicketActivity.TICKET_INTENT_EXTRA, tickets[position].ticket.id)
+            }
+        )
     }
 
     private fun selectFilter(filter: Byte) {

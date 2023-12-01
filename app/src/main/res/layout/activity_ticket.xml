@@ -8,12 +8,15 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/full_padding"
+        android:paddingHorizontal="@dimen/full_padding"
+        android:paddingTop="@dimen/full_padding"
         app:srcCompat="@drawable/qrcode"
         android:importantForAccessibility="no" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/full_padding"
+        android:clipToPadding="false" />
 </LinearLayout>

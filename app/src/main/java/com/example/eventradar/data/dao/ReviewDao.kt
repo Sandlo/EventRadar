@@ -7,5 +7,5 @@ import com.example.eventradar.data.entities.Review
 @Dao
 interface ReviewDao {
     @Insert
-    fun insertAll(vararg reviews: Review)
+    suspend fun insertAll(vararg reviews: Review)
 }
