@@ -13,6 +13,7 @@ import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.helpers.StarView
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
@@ -57,21 +58,30 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
             val event = AppDatabase.getInstance(this@EventActivity).eventDao()
                 .get(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
             // TODO: image
-            // TODO: stars
             findViewById<View>(R.id.frame).setBackgroundResource(R.drawable.elena_de_soto)
-            findViewById<TextView>(R.id.title).text = event.title
+            StarView.fillStars(
+                event.reviews.map { it.stars }.average().toFloat(),
+                listOf(
+                    findViewById(R.id.first_star),
+                    findViewById(R.id.second_star),
+                    findViewById(R.id.third_star),
+                    findViewById(R.id.fourth_star),
+                    findViewById(R.id.fifth_star)
+                )
+            )
+            findViewById<TextView>(R.id.title).text = event.event.title
             findViewById<TextView>(R.id.summary).text =
-                String.format("%.2f", event.price) + " € inkl. MwSt."
+                String.format("%.2f", event.event.price) + " € inkl. MwSt."
             recyclerView.adapter = SimpleListAdapter(
                 listOf(
                     SimpleListItem(
                         resources.getString(R.string.description),
-                        event.description,
+                        event.event.description,
                         R.drawable.ic_circle_local_activity
                     ),
                     // TODO: organizer
                     SimpleListItem(
-                        event.organizerId.toString(),
+                        event.event.organizerId.toString(),
                         resources.getString(R.string.organizer),
                         R.drawable.ic_circle_person
                     ),
@@ -79,13 +89,13 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                         SimpleDateFormat(
                             "d. MMM yyyy 'um' H:mm 'Uhr'",
                             Locale.getDefault()
-                        ).format(event.start),
+                        ).format(event.event.start),
                         resources.getString(R.string.`when`),
                         R.drawable.ic_circle_calendar_today
                     ),
                     // TODO: address
                     SimpleListItem(
-                        event.addressId.toString(),
+                        event.event.addressId.toString(),
                         resources.getString(R.string.where),
                         R.drawable.ic_circle_location_on
                     )

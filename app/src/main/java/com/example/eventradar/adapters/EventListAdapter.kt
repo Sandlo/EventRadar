@@ -10,8 +10,8 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.eventradar.data.EventListItem
+import com.example.eventradar.helpers.StarView
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
-import kotlin.math.min
 
 class EventListAdapter(
     private val items: List<EventListItem>,
@@ -32,7 +32,7 @@ class EventListAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.frame.setBackgroundResource(items[position].background)
-        fillStars(items[position].rating, holder.stars)
+        StarView.fillStars(items[position].rating, holder.stars)
         holder.title.text = items[position].title
         holder.summary.text = items[position].summary
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(holder.itemView, position) }
@@ -40,18 +40,6 @@ class EventListAdapter(
 
     override fun getItemCount(): Int {
         return items.size
-    }
-
-    private fun fillStars(rating: Float, stars: List<ImageView>) {
-        val filledStars = min(rating.toInt(), stars.size)
-        val hasHalfStar  = rating % 1 >= 0.5
-        for (star in stars) star.setImageResource(R.drawable.ic_small_star)
-        for (star in stars.subList(0, filledStars)) star.setImageResource(
-            R.drawable.ic_small_star_filled
-        )
-        if (hasHalfStar && filledStars < stars.size) stars[filledStars].setImageResource(
-            R.drawable.ic_small_star_half
-        )
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
