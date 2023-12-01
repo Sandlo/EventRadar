@@ -22,7 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
+class DiscoverFragment : Fragment() {
 
     private var events: List<InterestWithEvents> = listOf()
 
@@ -49,19 +49,28 @@ class DiscoverFragment : Fragment(), RecyclerViewHelperInterface {
         CoroutineScope(Dispatchers.Main).launch {
             events = AppDatabase.getInstance(requireContext()).interestDao().getAll()
             recyclerView.adapter = CategoryListAdapter(
-                events.map { it.toListItem(this@DiscoverFragment) }
+                events.mapIndexed { index, event ->
+                    event.toListItem(object : RecyclerViewHelperInterface {
+                        override fun onItemClicked(view: View, position: Int) {
+                            onItemClicked(index, position)
+                        }
+                    })
+                }
             )
         }
 
         return root
     }
 
-    override fun onItemClicked(view: View, position: Int) {
-        // TODO: send correct id
-        if (events.size > position) requireContext().startActivity(
-            Intent(requireContext(), EventActivity::class.java).apply {
-                putExtra(EventActivity.EVENT_INTENT_EXTRA, 1L)
-            }
-        )
+    internal fun onItemClicked(categoryPosition: Int, eventPosition: Int) {
+        if (events.size > categoryPosition && events[categoryPosition].events.size > eventPosition)
+            requireContext().startActivity(
+                Intent(requireContext(), EventActivity::class.java).apply {
+                    putExtra(
+                        EventActivity.EVENT_INTENT_EXTRA,
+                        events[categoryPosition].events[eventPosition].event.id
+                    )
+                }
+            )
     }
 }
