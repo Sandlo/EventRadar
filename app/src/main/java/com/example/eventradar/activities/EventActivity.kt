@@ -2,18 +2,30 @@ package com.example.eventradar.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
+import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
+import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.Locale
 
 class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
+
+    companion object {
+        const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,40 +40,59 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
 
         findViewById<FloatingActionButton>(R.id.buy).setOnClickListener {
-            startActivity(Intent(this, BookingActivity::class.java))
+            startActivity(
+                Intent(this, BookingActivity::class.java).putExtra(
+                    EVENT_INTENT_EXTRA,
+                    intent.getLongExtra(EVENT_INTENT_EXTRA, -1)
+                )
+            )
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = SimpleListAdapter(
-            listOf(
-                SimpleListItem(
-                    resources.getString(R.string.description),
-                    "PLACEHOLDER",
-                    R.drawable.ic_circle_local_activity
-                ),
-                SimpleListItem(
-                    "Luca",
-                    resources.getString(R.string.organizer),
-                    R.drawable.ic_circle_person
-                ),
-                SimpleListItem(
-                    "20. April 2045",
-                    resources.getString(R.string.`when`),
-                    R.drawable.ic_circle_calendar_today
-                ),
-                SimpleListItem(
-                    "Bei Luca im Garten",
-                    resources.getString(R.string.where),
-                    R.drawable.ic_circle_location_on
-                )
-            ),
-            this
-        )
+        recyclerView.adapter = LoadingAdapter()
 
-        findViewById<View>(R.id.frame).setBackgroundResource(R.drawable.elena_de_soto)
-        findViewById<TextView>(R.id.title).text = "PLACEHOLDER"
-        findViewById<TextView>(R.id.summary).text = "PLACEHOLDER"
+        if (!intent.hasExtra(EVENT_INTENT_EXTRA)) return
+        CoroutineScope(Dispatchers.Main).launch {
+            val event = AppDatabase.getInstance(this@EventActivity).eventDao()
+                .get(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
+            // TODO: image
+            // TODO: stars
+            findViewById<View>(R.id.frame).setBackgroundResource(R.drawable.elena_de_soto)
+            findViewById<TextView>(R.id.title).text = event.title
+            findViewById<TextView>(R.id.summary).text =
+                String.format("%.2f", event.price) + " € inkl. MwSt."
+            recyclerView.adapter = SimpleListAdapter(
+                listOf(
+                    SimpleListItem(
+                        resources.getString(R.string.description),
+                        event.description,
+                        R.drawable.ic_circle_local_activity
+                    ),
+                    // TODO: organizer
+                    SimpleListItem(
+                        event.organizerId.toString(),
+                        resources.getString(R.string.organizer),
+                        R.drawable.ic_circle_person
+                    ),
+                    SimpleListItem(
+                        SimpleDateFormat(
+                            "d. MMM yyyy 'um' H:mm 'Uhr'",
+                            Locale.getDefault()
+                        ).format(event.start),
+                        resources.getString(R.string.`when`),
+                        R.drawable.ic_circle_calendar_today
+                    ),
+                    // TODO: address
+                    SimpleListItem(
+                        event.addressId.toString(),
+                        resources.getString(R.string.where),
+                        R.drawable.ic_circle_location_on
+                    )
+                ),
+                this@EventActivity
+            )
+        }
     }
 
     override fun onItemClicked(view: View, position: Int) {

@@ -12,7 +12,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="192dp"
-            android:layout_margin="@dimen/full_padding"
+            android:layout_marginHorizontal="@dimen/full_padding"
+            android:layout_marginTop="@dimen/full_padding"
             app:cardCornerRadius="@dimen/full_padding">
 
             <RelativeLayout
@@ -100,7 +101,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/full_padding"
+            android:clipToPadding="false" />
 
     </LinearLayout>
 
