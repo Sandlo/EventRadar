@@ -56,7 +56,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         if (!intent.hasExtra(EVENT_INTENT_EXTRA)) return
         CoroutineScope(Dispatchers.Main).launch {
             val event = AppDatabase.getInstance(this@EventActivity).eventDao()
-                .get(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
+                .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
             // TODO: image
             findViewById<View>(R.id.frame).setBackgroundResource(R.drawable.elena_de_soto)
             StarView.fillStars(
