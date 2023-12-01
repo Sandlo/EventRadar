@@ -1,5 +1,6 @@
 package com.example.eventradar.data.entities
 
+import android.content.Context
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Junction
@@ -18,7 +19,14 @@ data class InterestWithEventsWithReviews(
     )
     val events: List<EventWithReviews>
 ) {
-    fun toListItem(helperInterface: RecyclerViewHelperInterface): CategoryListItem {
-        return CategoryListItem(interest.name, events.map { it.toListItem() }, helperInterface)
+    fun toListItem(
+        context: Context,
+        helperInterface: RecyclerViewHelperInterface
+    ): CategoryListItem {
+        return CategoryListItem(
+            interest.name,
+            events.map { it.toListItem(context) },
+            helperInterface
+        )
     }
 }

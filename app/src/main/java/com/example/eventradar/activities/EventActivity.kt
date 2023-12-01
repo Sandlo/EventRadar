@@ -13,6 +13,7 @@ import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.helpers.Base64
 import com.example.eventradar.helpers.StarView
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -57,8 +58,8 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         CoroutineScope(Dispatchers.Main).launch {
             val event = AppDatabase.getInstance(this@EventActivity).eventDao()
                 .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
-            // TODO: image
-            findViewById<View>(R.id.frame).setBackgroundResource(R.drawable.elena_de_soto)
+            findViewById<View>(R.id.frame).background =
+                Base64.decodeImage(this@EventActivity, event.event.image)
             StarView.fillStars(
                 event.reviews.map { it.stars }.average().toFloat(),
                 listOf(

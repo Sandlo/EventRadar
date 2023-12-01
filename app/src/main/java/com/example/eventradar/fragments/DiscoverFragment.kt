@@ -50,7 +50,7 @@ class DiscoverFragment : Fragment() {
             events = AppDatabase.getInstance(requireContext()).interestDao().getAll()
             recyclerView.adapter = CategoryListAdapter(
                 events.mapIndexed { index, event ->
-                    event.toListItem(object : RecyclerViewHelperInterface {
+                    event.toListItem(requireContext(), object : RecyclerViewHelperInterface {
                         override fun onItemClicked(view: View, position: Int) {
                             onItemClicked(index, position)
                         }

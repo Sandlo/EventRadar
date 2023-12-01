@@ -21,6 +21,7 @@ import com.example.eventradar.data.entities.Organizer
 import com.example.eventradar.data.entities.Review
 import com.example.eventradar.data.entities.Ticket
 import com.example.eventradar.data.entities.ZipCode
+import com.example.eventradar.helpers.Base64
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,9 +76,39 @@ abstract class AppDatabase : RoomDatabase() {
                                         Ticket(3, 3, 1, 0)
                                     )
                                     eventDao().insertAll(
-                                        Event(1, 1, 5.0, "Test 1", 1000000000, 0, 1, "Test", ""),
-                                        Event(2, 1, 4.0, "Test 2", 2000000000, 0, 1, "Test test", ""),
-                                        Event(3, 1, 3.0, "Test 3", 3000000000, 0, 1, "Test test test", "")
+                                        Event(
+                                            1,
+                                            1,
+                                            5.0,
+                                            "Test 1",
+                                            1000000000,
+                                            0,
+                                            1,
+                                            "Test",
+                                            Base64.getFromAssets(context, "bar.jpg")
+                                        ),
+                                        Event(
+                                            2,
+                                            1,
+                                            4.0,
+                                            "Test 2",
+                                            2000000000,
+                                            0,
+                                            1,
+                                            "Test test",
+                                            Base64.getFromAssets(context, "club.jpg")
+                                        ),
+                                        Event(
+                                            3,
+                                            1,
+                                            3.0,
+                                            "Test 3",
+                                            3000000000,
+                                            0,
+                                            1,
+                                            "Test test test",
+                                            Base64.getFromAssets(context, "theater.jpg")
+                                        )
                                     )
                                     interestDao().insertAll(
                                         Interest(1, "Interesse 1"),

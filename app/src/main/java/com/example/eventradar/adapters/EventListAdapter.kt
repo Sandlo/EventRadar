@@ -31,7 +31,7 @@ class EventListAdapter(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.frame.setBackgroundResource(items[position].background)
+        holder.frame.background = items[position].background
         StarView.fillStars(items[position].rating, holder.stars)
         holder.title.text = items[position].title
         holder.summary.text = items[position].summary
