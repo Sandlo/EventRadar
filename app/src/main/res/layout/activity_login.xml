@@ -4,68 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:minHeight="?attr/actionBarSize"
+                app:title="@string/app_name"
+                app:titleCentered="true" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_below="@id/app_bar"
         android:padding="@dimen/full_padding">
 
-        <com.google.android.material.appbar.AppBarLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/topAppBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:minHeight="?attr/actionBarSize"
-                    app:title="@string/app_name"
-                    app:titleCentered="true" />
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_3"
             android:layout_marginBottom="@dimen/full_padding"
             android:hint="@string/email_mobile_number"
-
             app:startIconDrawable="@drawable/ic_mail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/full_padding"
+            android:layout_marginBottom="@dimen/padding_2"
             android:hint="@string/password"
             app:endIconMode="password_toggle"
             app:startIconDrawable="@drawable/ic_key">
-
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -87,7 +77,6 @@
                 app:icon="@drawable/ic_google"
                 app:iconTint="@null" />
 
-
             <Button
                 android:id="@+id/facebook_sign_in_button"
                 style="@style/Widget.Material3.Button.ElevatedButton"
@@ -100,7 +89,6 @@
                 app:background="?attr/colorSurface"
                 app:icon="@drawable/ic_facebook"
                 app:iconTint="@null" />
-
         </LinearLayout>
 
         <Button
@@ -123,23 +111,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reset_password" />
-
     </LinearLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/continue_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/title_login"
-            app:srcCompat="@drawable/ic_check" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/continue_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/full_padding"
+        android:contentDescription="@string/title_login"
+        app:srcCompat="@drawable/ic_done" />
 </RelativeLayout>
