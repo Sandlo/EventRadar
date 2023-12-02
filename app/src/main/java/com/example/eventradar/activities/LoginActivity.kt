@@ -14,7 +14,6 @@ class LoginActivity : BaseActivity() {
         setContentView(R.layout.activity_login)
 
         findViewById<Button>(R.id.guest).setOnClickListener {
-            Preferences.setLoggedIn(this, true)
             startActivity(Intent(this, MainActivity::class.java))
         }
 
@@ -35,8 +34,8 @@ class LoginActivity : BaseActivity() {
         }
 
         findViewById<FloatingActionButton>(R.id.continue_button).setOnClickListener {
+            Preferences.setLoggedIn(this, true)
             startActivity(Intent(this, MainActivity::class.java))
         }
-
     }
 }

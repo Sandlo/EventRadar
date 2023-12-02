@@ -61,7 +61,6 @@
     <string name="guest_login">Als Gast fortfahren</string>
     <string name="register">Kein Account? Jetzt registrieren</string>
     <string name="reset_password">Passwort vergessen?</string>
-    <string name="password">Passwort</string>
     <string name="email_mobile_number">E-Mail / Handynummer</string>
 </resources>
 
