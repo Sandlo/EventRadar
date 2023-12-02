@@ -35,6 +35,7 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     private lateinit var dateFilter: Chip
     private lateinit var titleFilter: Chip
     private lateinit var priceFilter: Chip
+    private lateinit var recyclerView: RecyclerView
     private var previousFilter: Byte = -1
     private var reversed = false
 
@@ -58,26 +59,22 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         dateFilter = root.findViewById(R.id.date_filter)
         titleFilter = root.findViewById(R.id.title_filter)
         priceFilter = root.findViewById(R.id.price_filter)
-        dateFilter.setOnClickListener {
-            selectFilter(DATE_FILTER)
-        }
-        titleFilter.setOnClickListener {
-            selectFilter(TITLE_FILTER)
-        }
-        priceFilter.setOnClickListener {
-            selectFilter(PRICE_FILTER)
-        }
-        selectFilter(DATE_FILTER)
 
-        val recyclerView = root.findViewById<RecyclerView>(R.id.list)
+        recyclerView = root.findViewById(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
             tickets = AppDatabase.getInstance(requireContext()).ticketDao().getAll()
-            recyclerView.adapter = SimpleListAdapter(
-                tickets.map { it.toListItem() },
-                this@TicketsFragment
-            )
+            dateFilter.setOnClickListener {
+                selectFilter(DATE_FILTER)
+            }
+            titleFilter.setOnClickListener {
+                selectFilter(TITLE_FILTER)
+            }
+            priceFilter.setOnClickListener {
+                selectFilter(PRICE_FILTER)
+            }
+            selectFilter(DATE_FILTER)
         }
 
         return root
@@ -91,6 +88,14 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         )
     }
 
+    private fun update(newTickets: List<TicketWithEvent>) {
+        tickets = newTickets
+        recyclerView.adapter = SimpleListAdapter(
+            tickets.map { it.toListItem() },
+            this@TicketsFragment
+        )
+    }
+
     private fun selectFilter(filter: Byte) {
         dateFilter.chipIcon = null
         titleFilter.chipIcon = null
@@ -99,9 +104,27 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         val icon = if (reversed) R.drawable.ic_keyboard_arrow_up
         else R.drawable.ic_keyboard_arrow_down
         when (filter) {
-            DATE_FILTER -> dateFilter.setChipIconResource(icon)
-            TITLE_FILTER -> titleFilter.setChipIconResource(icon)
-            PRICE_FILTER -> priceFilter.setChipIconResource(icon)
+            DATE_FILTER -> {
+                dateFilter.setChipIconResource(icon)
+                update(
+                    if (reversed) tickets.sortedBy { it.event.start }
+                    else tickets.sortedByDescending { it.event.start }
+                )
+            }
+            TITLE_FILTER -> {
+                titleFilter.setChipIconResource(icon)
+                update(
+                    if (reversed) tickets.sortedBy { it.event.title }
+                    else tickets.sortedByDescending { it.event.title }
+                )
+            }
+            PRICE_FILTER -> {
+                priceFilter.setChipIconResource(icon)
+                update(
+                    if (reversed)  tickets.sortedBy { it.event.price }
+                    else tickets.sortedByDescending { it.event.price }
+                )
+            }
         }
         previousFilter = filter
     }
