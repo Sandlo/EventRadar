@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
+import com.example.eventradar.adapters.ErrorAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
@@ -35,12 +36,15 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LoadingAdapter()
 
-        if (!intent.hasExtra(EventActivity.EVENT_INTENT_EXTRA)) return
+        if (!intent.hasExtra(EventActivity.EVENT_INTENT_EXTRA)) {
+            recyclerView.adapter = ErrorAdapter()
+            return
+        }
         CoroutineScope(Dispatchers.Main).launch {
             val event = AppDatabase.getInstance(this@BookingActivity).eventDao()
                 .get(intent.getLongExtra(EventActivity.EVENT_INTENT_EXTRA, -1))
 
-            if (event != null) recyclerView.adapter = SimpleListAdapter(
+            recyclerView.adapter = if (event != null) SimpleListAdapter(
                 listOf(
                     SimpleListItem(
                         event.title,
@@ -60,7 +64,7 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                     SimpleListItem("", resources.getString(R.string.booking_info))
                 ),
                 this@BookingActivity
-            )
+            ) else ErrorAdapter()
         }
     }
 

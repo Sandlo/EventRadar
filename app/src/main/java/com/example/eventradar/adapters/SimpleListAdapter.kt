@@ -1,6 +1,5 @@
 package com.example.eventradar.adapters
 
-import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -14,20 +13,17 @@ import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 class SimpleListAdapter(
     private val items: List<SimpleListItem>,
     private val helperInterface: RecyclerViewHelperInterface
-    ) : RecyclerView.Adapter<SimpleListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SimpleListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        return ViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.list_item_simple, parent, false)
-        )
-    }
+    ): ViewHolder = ViewHolder(
+        LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.list_item_simple, parent, false)
+    )
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (items[position].title.isEmpty()) {
             holder.title.visibility = View.GONE
@@ -45,9 +41,7 @@ class SimpleListAdapter(
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val drawable: ImageView = view.findViewById(R.id.drawable)

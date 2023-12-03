@@ -11,18 +11,16 @@ import com.example.eventradar.data.CategoryListItem
 
 class CategoryListAdapter(
     private val items: List<CategoryListItem>
-    ) : RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        return ViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.list_item_category, parent, false)
-        )
-    }
+    ): ViewHolder = ViewHolder(
+        LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.list_item_category, parent, false)
+    )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = items[position].title
@@ -38,9 +36,7 @@ class CategoryListAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)

@@ -6,7 +6,7 @@ import android.view.View
 import com.example.eventradar.R
 import android.view.LayoutInflater
 
-class LoadingAdapter : RecyclerView.Adapter<LoadingAdapter.ViewHolder>() {
+class ErrorAdapter : RecyclerView.Adapter<ErrorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -14,7 +14,7 @@ class LoadingAdapter : RecyclerView.Adapter<LoadingAdapter.ViewHolder>() {
     ): ViewHolder = ViewHolder(
         LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.list_item_loading, parent, false)
+            .inflate(R.layout.list_item_error, parent, false)
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

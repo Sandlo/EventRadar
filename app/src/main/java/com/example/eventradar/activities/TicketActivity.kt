@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
+import com.example.eventradar.adapters.ErrorAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
@@ -29,11 +30,14 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LoadingAdapter()
 
-        if (!intent.hasExtra(TICKET_INTENT_EXTRA)) return
+        if (!intent.hasExtra(TICKET_INTENT_EXTRA)) {
+            recyclerView.adapter = ErrorAdapter()
+            return
+        }
         CoroutineScope(Dispatchers.Main).launch {
             val ticket = AppDatabase.getInstance(this@TicketActivity).ticketDao()
                 .getWithEventWithAddress(intent.getLongExtra(TICKET_INTENT_EXTRA, -1))
-            if (ticket != null) recyclerView.adapter = SimpleListAdapter(
+            recyclerView.adapter = if (ticket != null)  SimpleListAdapter(
                 listOf(
                     SimpleListItem("", resources.getString(R.string.ticket_info)),
                     SimpleListItem(
@@ -54,7 +58,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                     SimpleListItem(resources.getString(R.string.ticket_cancel))
                 ),
                 this@TicketActivity
-            )
+            ) else ErrorAdapter()
         }
     }
 

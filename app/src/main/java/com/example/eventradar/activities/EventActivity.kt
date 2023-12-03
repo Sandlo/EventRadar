@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
+import com.example.eventradar.adapters.ErrorAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
@@ -52,7 +53,10 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LoadingAdapter()
 
-        if (!intent.hasExtra(EVENT_INTENT_EXTRA)) return
+        if (!intent.hasExtra(EVENT_INTENT_EXTRA)) {
+            recyclerView.adapter = ErrorAdapter()
+            return
+        }
         CoroutineScope(Dispatchers.Main).launch {
             val event = AppDatabase.getInstance(this@EventActivity).eventDao()
                 .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
@@ -98,6 +102,8 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                     ),
                     this@EventActivity
                 )
+            } else {
+                recyclerView.adapter = ErrorAdapter()
             }
         }
     }
