@@ -12,6 +12,7 @@ import com.example.eventradar.R
 import com.example.eventradar.activities.EventActivity
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.adapters.CategoryListAdapter
+import com.example.eventradar.adapters.EmptyAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.entities.InterestWithEventsWithReviews
@@ -48,7 +49,7 @@ class DiscoverFragment : Fragment() {
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
             events = AppDatabase.getInstance(requireContext()).interestDao().getAll()
-            recyclerView.adapter = CategoryListAdapter(
+            recyclerView.adapter = if (events.isNotEmpty()) CategoryListAdapter(
                 events.mapIndexed { index, event ->
                     event.toListItem(requireContext(), object : RecyclerViewHelperInterface {
                         override fun onItemClicked(position: Int) {
@@ -56,7 +57,7 @@ class DiscoverFragment : Fragment() {
                         }
                     })
                 }
-            )
+            ) else EmptyAdapter()
         }
 
         return root

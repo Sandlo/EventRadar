@@ -7,4 +7,5 @@
     <dimen name="padding_7">88dp</dimen>
     <dimen name="padding_8">128dp</dimen>
     <dimen name="star_size">12dp</dimen>
+    <dimen name="illustration_size">192dp</dimen>
 </resources>

@@ -59,5 +59,6 @@
     <string name="email_mobile_number">E-Mail / Handynummer</string>
     <string name="loading">Lädt</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
+    <string name="empty_list">Keine Ergebnisse gefunden</string>
 </resources>
 

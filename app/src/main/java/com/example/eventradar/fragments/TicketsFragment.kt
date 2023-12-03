@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.activities.TicketActivity
+import com.example.eventradar.adapters.EmptyAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
@@ -65,16 +66,20 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
             tickets = AppDatabase.getInstance(requireContext()).ticketDao().getAll()
-            dateFilter.setOnClickListener {
+            if (tickets.isNotEmpty()) {
+                dateFilter.setOnClickListener {
+                    selectFilter(DATE_FILTER)
+                }
+                titleFilter.setOnClickListener {
+                    selectFilter(TITLE_FILTER)
+                }
+                priceFilter.setOnClickListener {
+                    selectFilter(PRICE_FILTER)
+                }
                 selectFilter(DATE_FILTER)
+            } else {
+                recyclerView.adapter = EmptyAdapter()
             }
-            titleFilter.setOnClickListener {
-                selectFilter(TITLE_FILTER)
-            }
-            priceFilter.setOnClickListener {
-                selectFilter(PRICE_FILTER)
-            }
-            selectFilter(DATE_FILTER)
         }
 
         return root
