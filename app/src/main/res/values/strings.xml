@@ -60,5 +60,7 @@
     <string name="loading">Lädt</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="empty_list">Keine Ergebnisse gefunden</string>
+    <string name="dummy_database">Dummy-Einträge</string>
+    <string name="dummy_database_summary">Die Dummy-Datenbank wurde erfolgreich erstellt. Um auf die befüllte Datenbank zuzugreifen, ist es erforderlich, die Aktivität neu zu starten.</string>
 </resources>
 

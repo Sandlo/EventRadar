@@ -1,10 +1,14 @@
 package com.example.eventradar.data
 
 import android.content.Context
+import android.content.Intent
+import androidx.core.content.ContextCompat
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.eventradar.R
+import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.data.dao.AddressDao
 import com.example.eventradar.data.dao.EventDao
 import com.example.eventradar.data.dao.EventInterestDao
@@ -22,6 +26,7 @@ import com.example.eventradar.data.entities.Review
 import com.example.eventradar.data.entities.Ticket
 import com.example.eventradar.data.entities.ZipCode
 import com.example.eventradar.helpers.Base64
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -140,6 +145,22 @@ abstract class AppDatabase : RoomDatabase() {
                                     addressDao().insertAll(
                                         Address(1, "Moltkestraße", "76133", "30")
                                     )
+                                }
+                                ContextCompat.getMainExecutor(context).execute {
+                                    MaterialAlertDialogBuilder(context).setTitle(R.string.dummy_database)
+                                        .setMessage(R.string.dummy_database_summary)
+                                        .setPositiveButton(R.string.ok) { _, _ ->
+                                            context.startActivity(
+                                                Intent(
+                                                    context,
+                                                    MainActivity::class.java
+                                                ).addFlags(
+                                                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                                                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                )
+                                            )
+                                        }
+                                        .show()
                                 }
                             }
                         }
