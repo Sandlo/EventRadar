@@ -16,7 +16,7 @@ interface TicketDao {
 
     @Transaction
     @Query("SELECT * FROM ticket WHERE ticket_id = :id LIMIT 1")
-    suspend fun getWithEventWithAddress(id: Long): TicketWithEventWithAddress
+    suspend fun getWithEventWithAddress(id: Long): TicketWithEventWithAddress?
 
     @Insert
     suspend fun insertAll(vararg tickets: Ticket)

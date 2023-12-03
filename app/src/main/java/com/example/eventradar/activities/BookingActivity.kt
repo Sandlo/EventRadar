@@ -40,7 +40,7 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
             val event = AppDatabase.getInstance(this@BookingActivity).eventDao()
                 .get(intent.getLongExtra(EventActivity.EVENT_INTENT_EXTRA, -1))
 
-            recyclerView.adapter = SimpleListAdapter(
+            if (event != null) recyclerView.adapter = SimpleListAdapter(
                 listOf(
                     SimpleListItem(
                         event.title,

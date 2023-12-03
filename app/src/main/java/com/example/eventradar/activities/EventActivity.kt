@@ -56,46 +56,49 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         CoroutineScope(Dispatchers.Main).launch {
             val event = AppDatabase.getInstance(this@EventActivity).eventDao()
                 .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
-            findViewById<View>(R.id.frame).background =
-                Base64.decodeImage(this@EventActivity, event.event.image)
-            StarView.fillStars(
-                event.reviews.map { it.stars }.average().toFloat(),
-                listOf(
-                    findViewById(R.id.first_star),
-                    findViewById(R.id.second_star),
-                    findViewById(R.id.third_star),
-                    findViewById(R.id.fourth_star),
-                    findViewById(R.id.fifth_star)
-                )
-            )
-            findViewById<TextView>(R.id.title).text = event.event.title
-            findViewById<TextView>(R.id.summary).text =
-                event.event.getPriceAsString() + " inkl. MwSt."
-            recyclerView.adapter = SimpleListAdapter(
-                listOf(
-                    SimpleListItem(
-                        resources.getString(R.string.description),
-                        event.event.description,
-                        R.drawable.ic_circle_local_activity
-                    ),
-                    SimpleListItem(
-                        event.organizer.name,
-                        resources.getString(R.string.organizer),
-                        R.drawable.ic_circle_person
-                    ),
-                    SimpleListItem(
-                        event.event.getStartAsString(),
-                        resources.getString(R.string.`when`),
-                        R.drawable.ic_circle_calendar_today
-                    ),
-                    SimpleListItem(
-                        event.address.toString(),
-                        resources.getString(R.string.where),
-                        R.drawable.ic_circle_location_on
+
+            if (event != null) {
+                findViewById<View>(R.id.frame).background =
+                    Base64.decodeImage(this@EventActivity, event.event.image)
+                StarView.fillStars(
+                    event.reviews.map { it.stars }.average().toFloat(),
+                    listOf(
+                        findViewById(R.id.first_star),
+                        findViewById(R.id.second_star),
+                        findViewById(R.id.third_star),
+                        findViewById(R.id.fourth_star),
+                        findViewById(R.id.fifth_star)
                     )
-                ),
-                this@EventActivity
-            )
+                )
+                findViewById<TextView>(R.id.title).text = event.event.title
+                findViewById<TextView>(R.id.summary).text =
+                    event.event.getPriceAsString() + " inkl. MwSt."
+                recyclerView.adapter = SimpleListAdapter(
+                    listOf(
+                        SimpleListItem(
+                            resources.getString(R.string.description),
+                            event.event.description,
+                            R.drawable.ic_circle_local_activity
+                        ),
+                        SimpleListItem(
+                            event.organizer.name,
+                            resources.getString(R.string.organizer),
+                            R.drawable.ic_circle_person
+                        ),
+                        SimpleListItem(
+                            event.event.getStartAsString(),
+                            resources.getString(R.string.`when`),
+                            R.drawable.ic_circle_calendar_today
+                        ),
+                        SimpleListItem(
+                            event.address.toString(),
+                            resources.getString(R.string.where),
+                            R.drawable.ic_circle_location_on
+                        )
+                    ),
+                    this@EventActivity
+                )
+            }
         }
     }
 
