@@ -22,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
-
     companion object {
         const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
     }
@@ -33,19 +32,24 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         setContentView(R.layout.activity_event)
 
         findViewById<FloatingActionButton>(R.id.share).setOnClickListener {
-            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.app_name))
-                putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-            }, resources.getString(R.string.share)))
+            startActivity(
+                Intent.createChooser(
+                    Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.app_name))
+                        putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                    },
+                    resources.getString(R.string.share),
+                ),
+            )
         }
 
         findViewById<FloatingActionButton>(R.id.buy).setOnClickListener {
             startActivity(
                 Intent(this, BookingActivity::class.java).putExtra(
                     EVENT_INTENT_EXTRA,
-                    intent.getLongExtra(EVENT_INTENT_EXTRA, -1)
-                )
+                    intent.getLongExtra(EVENT_INTENT_EXTRA, -1),
+                ),
             )
         }
 
@@ -58,8 +62,9 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
             return
         }
         CoroutineScope(Dispatchers.Main).launch {
-            val event = AppDatabase.getInstance(this@EventActivity).eventDao()
-                .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
+            val event =
+                AppDatabase.getInstance(this@EventActivity).eventDao()
+                    .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
 
             if (event != null) {
                 findViewById<View>(R.id.frame).background =
@@ -71,37 +76,38 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                         findViewById(R.id.second_star),
                         findViewById(R.id.third_star),
                         findViewById(R.id.fourth_star),
-                        findViewById(R.id.fifth_star)
-                    )
+                        findViewById(R.id.fifth_star),
+                    ),
                 )
                 findViewById<TextView>(R.id.title).text = event.event.title
                 findViewById<TextView>(R.id.summary).text =
                     event.event.getPriceAsString() + " inkl. MwSt."
-                recyclerView.adapter = SimpleListAdapter(
-                    listOf(
-                        SimpleListItem(
-                            resources.getString(R.string.description),
-                            event.event.description,
-                            R.drawable.ic_circle_local_activity
+                recyclerView.adapter =
+                    SimpleListAdapter(
+                        listOf(
+                            SimpleListItem(
+                                resources.getString(R.string.description),
+                                event.event.description,
+                                R.drawable.ic_circle_local_activity,
+                            ),
+                            SimpleListItem(
+                                event.organizer.name,
+                                resources.getString(R.string.organizer),
+                                R.drawable.ic_circle_person,
+                            ),
+                            SimpleListItem(
+                                event.event.getStartAsString(),
+                                resources.getString(R.string.`when`),
+                                R.drawable.ic_circle_calendar_today,
+                            ),
+                            SimpleListItem(
+                                event.address.toString(),
+                                resources.getString(R.string.where),
+                                R.drawable.ic_circle_location_on,
+                            ),
                         ),
-                        SimpleListItem(
-                            event.organizer.name,
-                            resources.getString(R.string.organizer),
-                            R.drawable.ic_circle_person
-                        ),
-                        SimpleListItem(
-                            event.event.getStartAsString(),
-                            resources.getString(R.string.`when`),
-                            R.drawable.ic_circle_calendar_today
-                        ),
-                        SimpleListItem(
-                            event.address.toString(),
-                            resources.getString(R.string.where),
-                            R.drawable.ic_circle_location_on
-                        )
-                    ),
-                    this@EventActivity
-                )
+                        this@EventActivity,
+                    )
             } else {
                 recyclerView.adapter = ErrorAdapter()
             }

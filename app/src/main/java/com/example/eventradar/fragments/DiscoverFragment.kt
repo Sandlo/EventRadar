@@ -24,13 +24,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DiscoverFragment : Fragment() {
-
     private var events: List<InterestWithEventsWithReviews> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val root = inflater.inflate(R.layout.fragment_discover, container, false)
 
@@ -49,29 +48,41 @@ class DiscoverFragment : Fragment() {
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
             events = AppDatabase.getInstance(requireContext()).interestDao().getAll()
-            recyclerView.adapter = if (events.isNotEmpty()) CategoryListAdapter(
-                events.mapIndexed { index, event ->
-                    event.toListItem(requireContext(), object : RecyclerViewHelperInterface {
-                        override fun onItemClicked(position: Int) {
-                            onItemClicked(index, position)
-                        }
-                    })
+            recyclerView.adapter =
+                if (events.isNotEmpty()) {
+                    CategoryListAdapter(
+                        events.mapIndexed { index, event ->
+                            event.toListItem(
+                                requireContext(),
+                                object : RecyclerViewHelperInterface {
+                                    override fun onItemClicked(position: Int) {
+                                        onItemClicked(index, position)
+                                    }
+                                },
+                            )
+                        },
+                    )
+                } else {
+                    EmptyAdapter()
                 }
-            ) else EmptyAdapter()
         }
 
         return root
     }
 
-    internal fun onItemClicked(categoryPosition: Int, eventPosition: Int) {
-        if (events.size > categoryPosition && events[categoryPosition].events.size > eventPosition)
+    internal fun onItemClicked(
+        categoryPosition: Int,
+        eventPosition: Int,
+    ) {
+        if (events.size > categoryPosition && events[categoryPosition].events.size > eventPosition) {
             requireContext().startActivity(
                 Intent(requireContext(), EventActivity::class.java).apply {
                     putExtra(
                         EventActivity.EVENT_INTENT_EXTRA,
-                        events[categoryPosition].events[eventPosition].event.id
+                        events[categoryPosition].events[eventPosition].event.id,
                     )
-                }
+                },
             )
+        }
     }
 }

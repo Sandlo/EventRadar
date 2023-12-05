@@ -25,7 +25,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
-
     companion object {
         private const val DATE_FILTER: Byte = 0
         private const val TITLE_FILTER: Byte = 1
@@ -41,9 +40,9 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     private var reversed = false
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         val root = inflater.inflate(R.layout.fragment_tickets, container, false)
 
@@ -86,19 +85,22 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     }
 
     override fun onItemClicked(position: Int) {
-        if (tickets.size > position) requireContext().startActivity(
-            Intent(requireContext(), TicketActivity::class.java).apply {
-                putExtra(TicketActivity.TICKET_INTENT_EXTRA, tickets[position].ticket.id)
-            }
-        )
+        if (tickets.size > position) {
+            requireContext().startActivity(
+                Intent(requireContext(), TicketActivity::class.java).apply {
+                    putExtra(TicketActivity.TICKET_INTENT_EXTRA, tickets[position].ticket.id)
+                },
+            )
+        }
     }
 
     private fun update(newTickets: List<TicketWithEvent>) {
         tickets = newTickets
-        recyclerView.adapter = SimpleListAdapter(
-            tickets.map { it.toListItem() },
-            this@TicketsFragment
-        )
+        recyclerView.adapter =
+            SimpleListAdapter(
+                tickets.map { it.toListItem() },
+                this@TicketsFragment,
+            )
     }
 
     private fun selectFilter(filter: Byte) {
@@ -106,28 +108,41 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         titleFilter.chipIcon = null
         priceFilter.chipIcon = null
         reversed = if (previousFilter == filter) !reversed else false
-        val icon = if (reversed) R.drawable.ic_keyboard_arrow_up
-        else R.drawable.ic_keyboard_arrow_down
+        val icon =
+            if (reversed) {
+                R.drawable.ic_keyboard_arrow_up
+            } else {
+                R.drawable.ic_keyboard_arrow_down
+            }
         when (filter) {
             DATE_FILTER -> {
                 dateFilter.setChipIconResource(icon)
                 update(
-                    if (reversed) tickets.sortedBy { it.event.start }
-                    else tickets.sortedByDescending { it.event.start }
+                    if (reversed) {
+                        tickets.sortedBy { it.event.start }
+                    } else {
+                        tickets.sortedByDescending { it.event.start }
+                    },
                 )
             }
             TITLE_FILTER -> {
                 titleFilter.setChipIconResource(icon)
                 update(
-                    if (reversed) tickets.sortedBy { it.event.title }
-                    else tickets.sortedByDescending { it.event.title }
+                    if (reversed) {
+                        tickets.sortedBy { it.event.title }
+                    } else {
+                        tickets.sortedByDescending { it.event.title }
+                    },
                 )
             }
             PRICE_FILTER -> {
                 priceFilter.setChipIconResource(icon)
                 update(
-                    if (reversed)  tickets.sortedBy { it.event.price }
-                    else tickets.sortedByDescending { it.event.price }
+                    if (reversed) {
+                        tickets.sortedBy { it.event.price }
+                    } else {
+                        tickets.sortedByDescending { it.event.price }
+                    },
                 )
             }
         }

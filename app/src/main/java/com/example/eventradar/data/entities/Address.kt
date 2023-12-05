@@ -9,5 +9,5 @@ data class Address(
     @ColumnInfo(name = "address_id") @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "street") val street: String,
     @ColumnInfo(name = "zip_code") val zipCode: String,
-    @ColumnInfo(name = "number") val number: String
+    @ColumnInfo(name = "number") val number: String,
 )

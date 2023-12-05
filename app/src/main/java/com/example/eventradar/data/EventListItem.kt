@@ -6,5 +6,5 @@ data class EventListItem(
     val rating: Float,
     val title: String,
     val summary: String,
-    val background: Drawable
+    val background: Drawable,
 )

@@ -11,15 +11,15 @@ data class TicketWithEvent(
     @Embedded val ticket: Ticket,
     @Relation(
         parentColumn = "event_id",
-        entityColumn = "event_id"
+        entityColumn = "event_id",
     )
-    val event: Event
+    val event: Event,
 ) {
     fun toListItem(): SimpleListItem {
         return SimpleListItem(
             event.title,
             event.getSummary(),
-            R.drawable.ic_circle_tag
+            R.drawable.ic_circle_tag,
         )
     }
 }

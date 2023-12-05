@@ -10,7 +10,7 @@ data class TicketWithEventWithAddress(
     @Relation(
         parentColumn = "event_id",
         entityColumn = "event_id",
-        entity = Event::class
+        entity = Event::class,
     )
-    val event: EventWithAddress
+    val event: EventWithAddress,
 )

@@ -10,5 +10,5 @@ open class User(
     @ColumnInfo(name = "account_id") val accountId: Long,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "surname") val surname: String,
-    @ColumnInfo(name = "birthdate") val birthdate: Long
+    @ColumnInfo(name = "birthdate") val birthdate: Long,
 )

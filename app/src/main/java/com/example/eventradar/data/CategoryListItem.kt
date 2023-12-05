@@ -5,5 +5,5 @@ import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 data class CategoryListItem(
     val title: String,
     val list: List<EventListItem>,
-    val helperInterface: RecyclerViewHelperInterface
+    val helperInterface: RecyclerViewHelperInterface,
 )

@@ -40,19 +40,26 @@ import kotlinx.coroutines.launch
         Organizer::class,
         Review::class,
         Ticket::class,
-        ZipCode::class
+        ZipCode::class,
     ],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun ticketDao(): TicketDao
+
     abstract fun eventDao(): EventDao
+
     abstract fun interestDao(): InterestDao
+
     abstract fun eventInterestDao(): EventInterestDao
+
     abstract fun reviewDao(): ReviewDao
+
     abstract fun addressDao(): AddressDao
+
     abstract fun organizerDao(): OrganizerDao
+
     abstract fun zipCodeDao(): ZipCodeDao
 
     companion object {
@@ -78,7 +85,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     ticketDao().insertAll(
                                         Ticket(1, 1, 1, 0),
                                         Ticket(2, 2, 1, 0),
-                                        Ticket(3, 3, 1, 0)
+                                        Ticket(3, 3, 1, 0),
                                     )
                                     eventDao().insertAll(
                                         Event(
@@ -90,7 +97,7 @@ abstract class AppDatabase : RoomDatabase() {
                                             0,
                                             1,
                                             "Test",
-                                            Base64.getFromAssets(context, "bar.jpg")
+                                            Base64.getFromAssets(context, "bar.jpg"),
                                         ),
                                         Event(
                                             2,
@@ -101,7 +108,7 @@ abstract class AppDatabase : RoomDatabase() {
                                             0,
                                             1,
                                             "Test test",
-                                            Base64.getFromAssets(context, "club.jpg")
+                                            Base64.getFromAssets(context, "club.jpg"),
                                         ),
                                         Event(
                                             3,
@@ -112,13 +119,13 @@ abstract class AppDatabase : RoomDatabase() {
                                             0,
                                             1,
                                             "Test test test",
-                                            Base64.getFromAssets(context, "theater.jpg")
-                                        )
+                                            Base64.getFromAssets(context, "theater.jpg"),
+                                        ),
                                     )
                                     interestDao().insertAll(
                                         Interest(1, "Interesse 1"),
                                         Interest(2, "Interesse 2"),
-                                        Interest(3, "Interesse 3")
+                                        Interest(3, "Interesse 3"),
                                     )
                                     eventInterestDao().insertAll(
                                         EventInterest(1, 1),
@@ -134,16 +141,16 @@ abstract class AppDatabase : RoomDatabase() {
                                     reviewDao().insertAll(
                                         Review(1, 1, 1, "", 2.5f, 1000000000),
                                         Review(2, 2, 1, "", 3.5f, 2000000000),
-                                        Review(3, 3, 1, "", 4.5f, 3000000000)
+                                        Review(3, 3, 1, "", 4.5f, 3000000000),
                                     )
                                     organizerDao().insertAll(
-                                        Organizer(1, "Luca")
+                                        Organizer(1, "Luca"),
                                     )
                                     zipCodeDao().insertAll(
-                                        ZipCode("76133", "Karlsruhe")
+                                        ZipCode("76133", "Karlsruhe"),
                                     )
                                     addressDao().insertAll(
-                                        Address(1, "Moltkestraße", "76133", "30")
+                                        Address(1, "Moltkestraße", "76133", "30"),
                                     )
                                 }
                                 ContextCompat.getMainExecutor(context).execute {
@@ -153,18 +160,18 @@ abstract class AppDatabase : RoomDatabase() {
                                             context.startActivity(
                                                 Intent(
                                                     context,
-                                                    MainActivity::class.java
+                                                    MainActivity::class.java,
                                                 ).addFlags(
                                                     Intent.FLAG_ACTIVITY_NEW_TASK or
-                                                            Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                )
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK,
+                                                ),
                                             )
                                         }
                                         .show()
                                 }
                             }
                         }
-                    }
+                    },
                 )
                 .build()
         }

@@ -10,7 +10,7 @@ data class EventWithAddress(
     @Relation(
         parentColumn = "address_id",
         entityColumn = "address_id",
-        entity = Address::class
+        entity = Address::class,
     )
-    val address: AddressWithZipCode
+    val address: AddressWithZipCode,
 )

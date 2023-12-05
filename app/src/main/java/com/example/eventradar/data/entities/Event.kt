@@ -16,19 +16,21 @@ data class Event(
     @ColumnInfo(name = "end") val end: Long,
     @ColumnInfo(name = "address_id") val addressId: Long,
     @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "image") val image: String
+    @ColumnInfo(name = "image") val image: String,
 ) {
-    fun getStartAsString(): String = SimpleDateFormat(
-        "d. MMM yyyy 'um' H:mm 'Uhr'",
-        Locale.getDefault()
-    ).format(start)
+    fun getStartAsString(): String =
+        SimpleDateFormat(
+            "d. MMM yyyy 'um' H:mm 'Uhr'",
+            Locale.getDefault(),
+        ).format(start)
 
     fun getPriceAsString(): String = String.format("%.2f", price) + " €"
 
-    fun getSummary(): String = "${
-        SimpleDateFormat(
-            "d. MMM yyyy",
-            Locale.getDefault()
-        ).format(start)
-    } • ${getPriceAsString()}"
+    fun getSummary(): String =
+        "${
+            SimpleDateFormat(
+                "d. MMM yyyy",
+                Locale.getDefault(),
+            ).format(start)
+        } • ${getPriceAsString()}"
 }

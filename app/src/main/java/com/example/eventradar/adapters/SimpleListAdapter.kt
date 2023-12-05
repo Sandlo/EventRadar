@@ -1,30 +1,33 @@
 package com.example.eventradar.adapters
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
-import android.view.LayoutInflater
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
 class SimpleListAdapter(
     private val items: List<SimpleListItem>,
-    private val helperInterface: RecyclerViewHelperInterface
+    private val helperInterface: RecyclerViewHelperInterface,
 ) : RecyclerView.Adapter<SimpleListAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder = ViewHolder(
-        LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.list_item_simple, parent, false)
-    )
+        viewType: Int,
+    ): ViewHolder =
+        ViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.list_item_simple, parent, false),
+        )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         if (items[position].title.isEmpty()) {
             holder.title.visibility = View.GONE
         } else {

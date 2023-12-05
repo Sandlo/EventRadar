@@ -10,17 +10,17 @@ data class EventWithAddressOrganizerReviews(
     @Relation(
         parentColumn = "address_id",
         entityColumn = "address_id",
-        entity = Address::class
+        entity = Address::class,
     )
     val address: AddressWithZipCode,
     @Relation(
         parentColumn = "organizer_id",
-        entityColumn = "organizer_id"
+        entityColumn = "organizer_id",
     )
     val organizer: Organizer,
     @Relation(
         parentColumn = "event_id",
-        entityColumn = "event_id"
+        entityColumn = "event_id",
     )
-    val reviews: List<Review>
+    val reviews: List<Review>,
 )

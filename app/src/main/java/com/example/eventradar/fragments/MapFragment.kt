@@ -11,11 +11,10 @@ import com.example.eventradar.helpers.OutOfScopeDialog
 import com.google.android.material.search.SearchBar
 
 class MapFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val root = inflater.inflate(R.layout.fragment_map, container, false)
 

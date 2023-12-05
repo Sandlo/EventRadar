@@ -10,8 +10,11 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (resources.configuration.uiMode.and(
-                Configuration.UI_MODE_NIGHT_MASK
-        ) != Configuration.UI_MODE_NIGHT_YES) setTheme(R.style.LightStatusBarOverlay)
+                Configuration.UI_MODE_NIGHT_MASK,
+            ) != Configuration.UI_MODE_NIGHT_YES
+        ) {
+            setTheme(R.style.LightStatusBarOverlay)
+        }
         val color = SurfaceColors.SURFACE_2.getColor(this)
         window.statusBarColor = color
         window.navigationBarColor = color

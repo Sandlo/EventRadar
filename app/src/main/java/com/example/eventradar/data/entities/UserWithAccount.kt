@@ -9,7 +9,7 @@ data class UserWithAccount(
     @Embedded val user: User,
     @Relation(
         parentColumn = "account_id",
-        entityColumn = "account_id"
+        entityColumn = "account_id",
     )
-    val account: Account
+    val account: Account,
 )

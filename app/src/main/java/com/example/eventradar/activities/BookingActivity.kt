@@ -18,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
-
     companion object {
         private const val PAYMENT_PROVIDER_ITEM = 2
     }
@@ -41,30 +40,36 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
             return
         }
         CoroutineScope(Dispatchers.Main).launch {
-            val event = AppDatabase.getInstance(this@BookingActivity).eventDao()
-                .get(intent.getLongExtra(EventActivity.EVENT_INTENT_EXTRA, -1))
+            val event =
+                AppDatabase.getInstance(this@BookingActivity).eventDao()
+                    .get(intent.getLongExtra(EventActivity.EVENT_INTENT_EXTRA, -1))
 
-            recyclerView.adapter = if (event != null) SimpleListAdapter(
-                listOf(
-                    SimpleListItem(
-                        event.title,
-                        resources.getString(R.string.booking_title),
-                        R.drawable.ic_circle_tag
-                    ),
-                    SimpleListItem(
-                        event.getPriceAsString(),
-                        resources.getString(R.string.booking_price),
-                        R.drawable.ic_circle_euro
-                    ),
-                    SimpleListItem(
-                        resources.getString(R.string.booking_payment_google),
-                        resources.getString(R.string.booking_payment),
-                        R.drawable.ic_square_google_pay
-                    ),
-                    SimpleListItem("", resources.getString(R.string.booking_info))
-                ),
-                this@BookingActivity
-            ) else ErrorAdapter()
+            recyclerView.adapter =
+                if (event != null) {
+                    SimpleListAdapter(
+                        listOf(
+                            SimpleListItem(
+                                event.title,
+                                resources.getString(R.string.booking_title),
+                                R.drawable.ic_circle_tag,
+                            ),
+                            SimpleListItem(
+                                event.getPriceAsString(),
+                                resources.getString(R.string.booking_price),
+                                R.drawable.ic_circle_euro,
+                            ),
+                            SimpleListItem(
+                                resources.getString(R.string.booking_payment_google),
+                                resources.getString(R.string.booking_payment),
+                                R.drawable.ic_square_google_pay,
+                            ),
+                            SimpleListItem("", resources.getString(R.string.booking_info)),
+                        ),
+                        this@BookingActivity,
+                    )
+                } else {
+                    ErrorAdapter()
+                }
         }
     }
 

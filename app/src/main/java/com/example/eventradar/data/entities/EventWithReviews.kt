@@ -12,16 +12,16 @@ data class EventWithReviews(
     @Embedded val event: Event,
     @Relation(
         parentColumn = "event_id",
-        entityColumn = "event_id"
+        entityColumn = "event_id",
     )
-    val reviews: List<Review>
+    val reviews: List<Review>,
 ) {
     fun toListItem(context: Context): EventListItem {
         return EventListItem(
             reviews.map { it.stars }.average().toFloat(),
             event.title,
             event.getSummary(),
-            Base64.decodeImage(context, event.image)
+            Base64.decodeImage(context, event.image),
         )
     }
 }
