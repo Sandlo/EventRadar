@@ -10,6 +10,7 @@ import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.helpers.OutOfScopeDialog
+import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +37,10 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         CoroutineScope(Dispatchers.Main).launch {
             val ticket =
                 AppDatabase.getInstance(this@TicketActivity).ticketDao()
-                    .getWithEventWithAddress(intent.getLongExtra(TICKET_INTENT_EXTRA, -1))
+                    .getWithEventWithAddress(
+                        intent.getLongExtra(TICKET_INTENT_EXTRA, -1),
+                        Preferences.getUserId(this@TicketActivity),
+                    )
             recyclerView.adapter =
                 if (ticket != null) {
                     SimpleListAdapter(

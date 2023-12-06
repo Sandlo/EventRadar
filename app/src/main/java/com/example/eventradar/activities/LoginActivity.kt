@@ -53,7 +53,6 @@ class LoginActivity : BaseActivity() {
                 ) {
                     emailView.error =
                         resources.getString(R.string.login_error)
-                    passwordView.error = " "
                 } else {
                     Preferences.setLoggedIn(this@LoginActivity, userAccount.id)
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
