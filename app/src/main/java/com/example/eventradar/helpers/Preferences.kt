@@ -22,7 +22,7 @@ object Preferences {
             .apply()
     }
 
-    fun getId(context: Context): Long {
+    fun getUserId(context: Context): Long {
         return PreferenceManager.getDefaultSharedPreferences(context)
             .getLong(ACCOUNT_ID, NO_ACCOUNT)
     }

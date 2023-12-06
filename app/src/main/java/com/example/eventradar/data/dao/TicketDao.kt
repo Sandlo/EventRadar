@@ -11,12 +11,15 @@ import com.example.eventradar.data.entities.TicketWithEventWithAddress
 @Dao
 interface TicketDao {
     @Transaction
-    @Query("SELECT * FROM ticket")
-    suspend fun getAll(): List<TicketWithEvent>
+    @Query("SELECT * FROM ticket WHERE user_id = :userId")
+    suspend fun getAll(userId: Long): List<TicketWithEvent>
 
     @Transaction
-    @Query("SELECT * FROM ticket WHERE ticket_id = :id LIMIT 1")
-    suspend fun getWithEventWithAddress(id: Long): TicketWithEventWithAddress?
+    @Query("SELECT * FROM ticket WHERE ticket_id = :id AND user_id =:userId LIMIT 1")
+    suspend fun getWithEventWithAddress(
+        id: Long,
+        userId: Long,
+    ): TicketWithEventWithAddress?
 
     @Insert
     suspend fun insertAll(vararg tickets: Ticket)

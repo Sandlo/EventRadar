@@ -71,7 +71,7 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                 findViewById<ExtendedFloatingActionButton>(R.id.floating_action_button).setOnClickListener {
                     CoroutineScope(Dispatchers.Main).launch {
                         val unixTime = System.currentTimeMillis() / 1000L
-                        val userId = Preferences.getId(this@BookingActivity)
+                        val userId = Preferences.getUserId(this@BookingActivity)
                         val eventId = event.id
                         val ticket =
                             AppDatabase.getInstance(this@BookingActivity).ticketDao().insert(

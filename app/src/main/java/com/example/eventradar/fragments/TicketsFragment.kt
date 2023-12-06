@@ -17,6 +17,7 @@ import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.entities.TicketWithEvent
 import com.example.eventradar.helpers.OutOfScopeDialog
+import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.chip.Chip
 import com.google.android.material.search.SearchBar
@@ -64,7 +65,9 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
-            tickets = AppDatabase.getInstance(requireContext()).ticketDao().getAll()
+            tickets =
+                AppDatabase.getInstance(requireContext()).ticketDao()
+                    .getAll(Preferences.getUserId(requireContext()))
             if (tickets.isNotEmpty()) {
                 dateFilter.setOnClickListener {
                     selectFilter(DATE_FILTER)
@@ -125,6 +128,7 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
                     },
                 )
             }
+
             TITLE_FILTER -> {
                 titleFilter.setChipIconResource(icon)
                 update(
@@ -135,6 +139,7 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
                     },
                 )
             }
+
             PRICE_FILTER -> {
                 priceFilter.setChipIconResource(icon)
                 update(
