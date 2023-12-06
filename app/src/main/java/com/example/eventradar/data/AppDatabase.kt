@@ -89,13 +89,12 @@ abstract class AppDatabase : RoomDatabase() {
                             CoroutineScope(Dispatchers.IO).launch {
                                 getInstance(context).apply {
                                     ticketDao().insertAll(
-                                        Ticket(1, 1, 1, 0),
-                                        Ticket(2, 2, 1, 0),
-                                        Ticket(3, 3, 1, 0),
+                                        Ticket(1, 1, 0),
+                                        Ticket(2, 1, 0),
+                                        Ticket(3, 1, 0),
                                     )
                                     eventDao().insertAll(
                                         Event(
-                                            1,
                                             1,
                                             5.0,
                                             "Test 1",
@@ -106,7 +105,6 @@ abstract class AppDatabase : RoomDatabase() {
                                             Base64.getFromAssets(context, "bar.jpg"),
                                         ),
                                         Event(
-                                            2,
                                             1,
                                             4.0,
                                             "Test 2",
@@ -117,7 +115,6 @@ abstract class AppDatabase : RoomDatabase() {
                                             Base64.getFromAssets(context, "club.jpg"),
                                         ),
                                         Event(
-                                            3,
                                             1,
                                             3.0,
                                             "Test 3",
@@ -129,9 +126,9 @@ abstract class AppDatabase : RoomDatabase() {
                                         ),
                                     )
                                     interestDao().insertAll(
-                                        Interest(1, "Interesse 1"),
-                                        Interest(2, "Interesse 2"),
-                                        Interest(3, "Interesse 3"),
+                                        Interest("Interesse 1"),
+                                        Interest("Interesse 2"),
+                                        Interest("Interesse 3"),
                                     )
                                     eventInterestDao().insertAll(
                                         EventInterest(1, 1),
@@ -145,22 +142,21 @@ abstract class AppDatabase : RoomDatabase() {
                                         EventInterest(3, 3),
                                     )
                                     reviewDao().insertAll(
-                                        Review(1, 1, 1, "", 2.5f, 1000000000),
-                                        Review(2, 2, 1, "", 3.5f, 2000000000),
-                                        Review(3, 3, 1, "", 4.5f, 3000000000),
+                                        Review(1, 1, "", 2.5f, 1000000000),
+                                        Review(2, 1, "", 3.5f, 2000000000),
+                                        Review(3, 1, "", 4.5f, 3000000000),
                                     )
                                     organizerDao().insertAll(
-                                        Organizer(1, "Luca"),
+                                        Organizer("Luca"),
                                     )
                                     zipCodeDao().insertAll(
                                         ZipCode("76133", "Karlsruhe"),
                                     )
                                     addressDao().insertAll(
-                                        Address(1, "Moltkestraße", "76133", "30"),
+                                        Address("Moltkestraße", "76133", "30"),
                                     )
                                     accountDao().insertAll(
                                         Account(
-                                            1,
                                             "maxmustermann@gmx.de",
                                             "0800 897378423",
                                             BCrypt.hashpw("123456789", BCrypt.gensalt()),
