@@ -4,20 +4,21 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 
 object Preferences {
-    private const val IS_LOGGED_IN = "isLoggedIn"
+    private const val ACCOUNT_ID = "accountId"
+    const val NO_ACCOUNT: Long = -1L
 
     fun isLoggedIn(context: Context): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
-            .getBoolean(IS_LOGGED_IN, false)
+            .getLong(ACCOUNT_ID, NO_ACCOUNT) != NO_ACCOUNT
     }
 
     fun setLoggedIn(
         context: Context,
-        isLoggedIn: Boolean,
+        accountId: Long,
     ) {
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putBoolean(IS_LOGGED_IN, isLoggedIn)
+            .putLong(ACCOUNT_ID, accountId)
             .apply()
     }
 }

@@ -12,7 +12,7 @@ class InterestsActivity : BaseActivity() {
         setContentView(R.layout.activity_interests)
 
         findViewById<Button>(R.id.dummy_button).setOnClickListener {
-            Preferences.setLoggedIn(this, true)
+            Preferences.setLoggedIn(this, 1)
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
