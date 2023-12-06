@@ -20,4 +20,7 @@ interface TicketDao {
 
     @Insert
     suspend fun insertAll(vararg tickets: Ticket)
+
+    @Insert
+    suspend fun insert(ticket: Ticket): Long
 }
