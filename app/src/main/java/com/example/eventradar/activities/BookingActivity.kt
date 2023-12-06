@@ -10,7 +10,9 @@ import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.data.entities.Ticket
 import com.example.eventradar.helpers.OutOfScopeDialog
+import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.CoroutineScope
@@ -25,11 +27,6 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
-
-        findViewById<ExtendedFloatingActionButton>(R.id.floating_action_button).setOnClickListener {
-            // TODO: create ticket
-            startActivity(Intent(this, TicketActivity::class.java))
-        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -70,6 +67,31 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                 } else {
                     ErrorAdapter()
                 }
+            if (event != null) {
+                findViewById<ExtendedFloatingActionButton>(R.id.floating_action_button).setOnClickListener {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val unixTime = System.currentTimeMillis() / 1000L
+                        val userId = Preferences.getId(this@BookingActivity)
+                        val eventId = event.id
+                        val ticket =
+                            AppDatabase.getInstance(this@BookingActivity).ticketDao().insert(
+                                Ticket(
+                                    0,
+                                    eventId,
+                                    userId,
+                                    unixTime,
+                                ),
+                            )
+
+                        startActivity(
+                            Intent(this@BookingActivity, TicketActivity::class.java).putExtra(
+                                TicketActivity.TICKET_INTENT_EXTRA,
+                                ticket,
+                            ),
+                        )
+                    }
+                }
+            }
         }
     }
 

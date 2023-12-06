@@ -21,4 +21,9 @@ object Preferences {
             .putLong(ACCOUNT_ID, accountId)
             .apply()
     }
+
+    fun getId(context: Context): Long {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getLong(ACCOUNT_ID, NO_ACCOUNT)
+    }
 }
