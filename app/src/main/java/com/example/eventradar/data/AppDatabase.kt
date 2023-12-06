@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.eventradar.R
 import com.example.eventradar.activities.MainActivity
+import com.example.eventradar.data.dao.AccountDao
 import com.example.eventradar.data.dao.AddressDao
 import com.example.eventradar.data.dao.EventDao
 import com.example.eventradar.data.dao.EventInterestDao
@@ -17,6 +18,7 @@ import com.example.eventradar.data.dao.OrganizerDao
 import com.example.eventradar.data.dao.ReviewDao
 import com.example.eventradar.data.dao.TicketDao
 import com.example.eventradar.data.dao.ZipCodeDao
+import com.example.eventradar.data.entities.Account
 import com.example.eventradar.data.entities.Address
 import com.example.eventradar.data.entities.Event
 import com.example.eventradar.data.entities.EventInterest
@@ -30,9 +32,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.mindrot.jbcrypt.BCrypt
 
 @Database(
     entities = [
+        Account::class,
         Address::class,
         Event::class,
         EventInterest::class,
@@ -61,6 +65,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun organizerDao(): OrganizerDao
 
     abstract fun zipCodeDao(): ZipCodeDao
+
+    abstract fun accountDao(): AccountDao
 
     companion object {
         private const val DATABASE_NAME = "event.db"
@@ -151,6 +157,14 @@ abstract class AppDatabase : RoomDatabase() {
                                     )
                                     addressDao().insertAll(
                                         Address(1, "Moltkestraße", "76133", "30"),
+                                    )
+                                    accountDao().insertAll(
+                                        Account(
+                                            1,
+                                            "maxmustermann@gmx.de",
+                                            "0800 897378423",
+                                            BCrypt.hashpw("123456789", BCrypt.gensalt()),
+                                        ),
                                     )
                                 }
                                 ContextCompat.getMainExecutor(context).execute {

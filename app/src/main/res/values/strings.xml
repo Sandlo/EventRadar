@@ -62,5 +62,6 @@
     <string name="empty_list">Keine Ergebnisse gefunden</string>
     <string name="dummy_database">Dummy-Einträge</string>
     <string name="dummy_database_summary">Die Dummy-Datenbank wurde erfolgreich erstellt. Um auf die befüllte Datenbank zuzugreifen, ist es erforderlich, die Aktivität neu zu starten.</string>
+    <string name="login_error">Ungültige Email/Handynummer oder Passwort</string>
 </resources>
 

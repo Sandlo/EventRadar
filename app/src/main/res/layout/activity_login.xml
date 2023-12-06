@@ -32,6 +32,7 @@
         android:padding="@dimen/full_padding">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/e_mail_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/full_padding"
@@ -45,6 +46,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_2"

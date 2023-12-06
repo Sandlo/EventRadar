@@ -17,7 +17,7 @@ class MainActivity : BaseActivity() {
                 MaterialAlertDialogBuilder(context).setTitle(R.string.logout)
                     .setMessage(R.string.logout_summary)
                     .setPositiveButton(R.string.logout) { _, _ ->
-                        Preferences.setLoggedIn(context, false)
+                        Preferences.setLoggedIn(context, Preferences.NO_ACCOUNT)
                         context.startActivity(Intent(context, LoginActivity::class.java))
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
