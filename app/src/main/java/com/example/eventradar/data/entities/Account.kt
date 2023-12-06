@@ -6,8 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "account")
 data class Account(
-    @ColumnInfo(name = "account_id") @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "e_mail") val eMail: String,
     @ColumnInfo(name = "phone") val phone: String,
     @ColumnInfo(name = "password_hash") val passwordHash: String,
-)
+) {
+    @ColumnInfo(name = "account_id")
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+}

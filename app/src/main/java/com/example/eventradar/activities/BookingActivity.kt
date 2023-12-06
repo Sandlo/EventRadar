@@ -76,7 +76,6 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                         val ticket =
                             AppDatabase.getInstance(this@BookingActivity).ticketDao().insert(
                                 Ticket(
-                                    0,
                                     eventId,
                                     userId,
                                     unixTime,
