@@ -1,5 +1,6 @@
 package com.example.eventradar.data.entities
 
+import android.content.res.Resources
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Relation
@@ -15,10 +16,10 @@ data class TicketWithEvent(
     )
     val event: Event,
 ) {
-    fun toListItem(): SimpleListItem {
+    fun toListItem(resources: Resources): SimpleListItem {
         return SimpleListItem(
             event.title,
-            event.getSummary(),
+            event.getSummary(resources),
             R.drawable.ic_circle_tag,
         )
     }

@@ -52,12 +52,12 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                                 R.drawable.ic_circle_local_activity,
                             ),
                             SimpleListItem(
-                                ticket.event.event.getStartAsString(),
+                                ticket.event.event.getStartAsString(resources),
                                 resources.getString(R.string.`when`),
                                 R.drawable.ic_circle_calendar_today,
                             ),
                             SimpleListItem(
-                                ticket.event.address.toString(),
+                                ticket.event.address.toString(resources),
                                 resources.getString(R.string.where),
                                 R.drawable.ic_circle_location_on,
                             ),
