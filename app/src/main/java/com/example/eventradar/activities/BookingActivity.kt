@@ -10,6 +10,7 @@ import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.data.entities.Event
 import com.example.eventradar.data.entities.Ticket
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.helpers.Preferences
@@ -41,47 +42,18 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                 AppDatabase.getInstance(this@BookingActivity).eventDao()
                     .get(intent.getLongExtra(EventActivity.EVENT_INTENT_EXTRA, -1))
 
-            recyclerView.adapter =
-                if (event != null) {
-                    SimpleListAdapter(
-                        listOf(
-                            SimpleListItem(
-                                event.title,
-                                resources.getString(R.string.booking_title),
-                                R.drawable.ic_circle_tag,
-                            ),
-                            SimpleListItem(
-                                event.getPriceAsString(),
-                                resources.getString(R.string.booking_price),
-                                R.drawable.ic_circle_euro,
-                            ),
-                            SimpleListItem(
-                                resources.getString(R.string.booking_payment_google),
-                                resources.getString(R.string.booking_payment),
-                                R.drawable.ic_square_google_pay,
-                            ),
-                            SimpleListItem("", resources.getString(R.string.booking_info)),
-                        ),
-                        this@BookingActivity,
-                    )
-                } else {
-                    ErrorAdapter()
-                }
             if (event != null) {
+                showEvent(event, recyclerView)
                 findViewById<ExtendedFloatingActionButton>(R.id.floating_action_button).setOnClickListener {
                     CoroutineScope(Dispatchers.Main).launch {
-                        val unixTime = System.currentTimeMillis() / 1000L
-                        val userId = Preferences.getUserId(this@BookingActivity)
-                        val eventId = event.id
                         val ticket =
                             AppDatabase.getInstance(this@BookingActivity).ticketDao().insert(
                                 Ticket(
-                                    eventId,
-                                    userId,
-                                    unixTime,
+                                    event.id,
+                                    Preferences.getUserId(this@BookingActivity),
+                                    System.currentTimeMillis(),
                                 ),
                             )
-
                         startActivity(
                             Intent(this@BookingActivity, TicketActivity::class.java).putExtra(
                                 TicketActivity.TICKET_INTENT_EXTRA,
@@ -90,8 +62,38 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                         )
                     }
                 }
+            } else {
+                recyclerView.adapter = ErrorAdapter()
             }
         }
+    }
+
+    private fun showEvent(
+        event: Event,
+        recyclerView: RecyclerView,
+    ) {
+        recyclerView.adapter =
+            SimpleListAdapter(
+                listOf(
+                    SimpleListItem(
+                        event.title,
+                        resources.getString(R.string.booking_title),
+                        R.drawable.ic_circle_tag,
+                    ),
+                    SimpleListItem(
+                        event.getPriceAsString(),
+                        resources.getString(R.string.booking_price),
+                        R.drawable.ic_circle_euro,
+                    ),
+                    SimpleListItem(
+                        resources.getString(R.string.booking_payment_google),
+                        resources.getString(R.string.booking_payment),
+                        R.drawable.ic_square_google_pay,
+                    ),
+                    SimpleListItem("", resources.getString(R.string.booking_info)),
+                ),
+                this,
+            )
     }
 
     override fun onItemClicked(position: Int) {

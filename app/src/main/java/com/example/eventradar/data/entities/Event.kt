@@ -27,7 +27,7 @@ data class Event(
             Locale.getDefault(),
         ).format(start)
 
-    fun getPriceAsString(): String = String.format("%.2f", price) + " €"
+    fun getPriceAsString(): String = "%.2f".format(Locale.getDefault(), price) + " €"
 
     fun getSummary(): String =
         "${

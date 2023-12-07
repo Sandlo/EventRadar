@@ -84,85 +84,90 @@ abstract class AppDatabase : RoomDatabase() {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(
                     object : Callback() {
+                        @Suppress("MagicNumber", "LongMethod")
+                        private suspend fun fillDatabase(database: AppDatabase) {
+                            database.apply {
+                                ticketDao().insertAll(
+                                    Ticket(1, 1, 0),
+                                    Ticket(2, 1, 0),
+                                    Ticket(3, 1, 0),
+                                )
+                                eventDao().insertAll(
+                                    Event(
+                                        1,
+                                        5.0,
+                                        "Test 1",
+                                        1000000000,
+                                        0,
+                                        1,
+                                        "Test",
+                                        Base64.getFromAssets(context, "bar.jpg"),
+                                    ),
+                                    Event(
+                                        1,
+                                        4.0,
+                                        "Test 2",
+                                        2000000000,
+                                        0,
+                                        1,
+                                        "Test test",
+                                        Base64.getFromAssets(context, "club.jpg"),
+                                    ),
+                                    Event(
+                                        1,
+                                        3.0,
+                                        "Test 3",
+                                        3000000000,
+                                        0,
+                                        1,
+                                        "Test test test",
+                                        Base64.getFromAssets(context, "theater.jpg"),
+                                    ),
+                                )
+                                interestDao().insertAll(
+                                    Interest("Interesse 1"),
+                                    Interest("Interesse 2"),
+                                    Interest("Interesse 3"),
+                                )
+                                eventInterestDao().insertAll(
+                                    EventInterest(1, 1),
+                                    EventInterest(2, 1),
+                                    EventInterest(3, 1),
+                                    EventInterest(1, 2),
+                                    EventInterest(2, 2),
+                                    EventInterest(3, 2),
+                                    EventInterest(1, 3),
+                                    EventInterest(2, 3),
+                                    EventInterest(3, 3),
+                                )
+                                reviewDao().insertAll(
+                                    Review(1, 1, "", 2.5f, 1000000000),
+                                    Review(2, 1, "", 3.5f, 2000000000),
+                                    Review(3, 1, "", 4.5f, 3000000000),
+                                )
+                                organizerDao().insertAll(
+                                    Organizer("Luca"),
+                                )
+                                zipCodeDao().insertAll(
+                                    ZipCode("76133", "Karlsruhe"),
+                                )
+                                addressDao().insertAll(
+                                    Address("Moltkestraße", "76133", "30"),
+                                )
+                                accountDao().insertAll(
+                                    Account(
+                                        "maxmustermann@gmx.de",
+                                        "0800 897378423",
+                                        BCrypt.hashpw("123456789", BCrypt.gensalt()),
+                                    ),
+                                )
+                            }
+                        }
+
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
                             CoroutineScope(Dispatchers.IO).launch {
-                                getInstance(context).apply {
-                                    ticketDao().insertAll(
-                                        Ticket(1, 1, 0),
-                                        Ticket(2, 1, 0),
-                                        Ticket(3, 1, 0),
-                                    )
-                                    eventDao().insertAll(
-                                        Event(
-                                            1,
-                                            5.0,
-                                            "Test 1",
-                                            1000000000,
-                                            0,
-                                            1,
-                                            "Test",
-                                            Base64.getFromAssets(context, "bar.jpg"),
-                                        ),
-                                        Event(
-                                            1,
-                                            4.0,
-                                            "Test 2",
-                                            2000000000,
-                                            0,
-                                            1,
-                                            "Test test",
-                                            Base64.getFromAssets(context, "club.jpg"),
-                                        ),
-                                        Event(
-                                            1,
-                                            3.0,
-                                            "Test 3",
-                                            3000000000,
-                                            0,
-                                            1,
-                                            "Test test test",
-                                            Base64.getFromAssets(context, "theater.jpg"),
-                                        ),
-                                    )
-                                    interestDao().insertAll(
-                                        Interest("Interesse 1"),
-                                        Interest("Interesse 2"),
-                                        Interest("Interesse 3"),
-                                    )
-                                    eventInterestDao().insertAll(
-                                        EventInterest(1, 1),
-                                        EventInterest(2, 1),
-                                        EventInterest(3, 1),
-                                        EventInterest(1, 2),
-                                        EventInterest(2, 2),
-                                        EventInterest(3, 2),
-                                        EventInterest(1, 3),
-                                        EventInterest(2, 3),
-                                        EventInterest(3, 3),
-                                    )
-                                    reviewDao().insertAll(
-                                        Review(1, 1, "", 2.5f, 1000000000),
-                                        Review(2, 1, "", 3.5f, 2000000000),
-                                        Review(3, 1, "", 4.5f, 3000000000),
-                                    )
-                                    organizerDao().insertAll(
-                                        Organizer("Luca"),
-                                    )
-                                    zipCodeDao().insertAll(
-                                        ZipCode("76133", "Karlsruhe"),
-                                    )
-                                    addressDao().insertAll(
-                                        Address("Moltkestraße", "76133", "30"),
-                                    )
-                                    accountDao().insertAll(
-                                        Account(
-                                            "maxmustermann@gmx.de",
-                                            "0800 897378423",
-                                            BCrypt.hashpw("123456789", BCrypt.gensalt()),
-                                        ),
-                                    )
-                                }
+                                fillDatabase(getInstance(context))
                                 ContextCompat.getMainExecutor(context).execute {
                                     MaterialAlertDialogBuilder(context).setTitle(R.string.dummy_database)
                                         .setMessage(R.string.dummy_database_summary)
