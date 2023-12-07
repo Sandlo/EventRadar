@@ -30,11 +30,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 /**
  * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
  */
-class EventActivity : AppCompatActivity(), RecyclerViewHelperInterface {
+class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
     companion object {
         /**
          * Konstante für den Schlüssel, der verwendet wird, um Event-Daten als Intent-Extra zwischen
@@ -46,6 +45,7 @@ class EventActivity : AppCompatActivity(), RecyclerViewHelperInterface {
     /**
      * Initialisiert die Eventaktivität und lädt Eventdetails und interaktive Funktionen.
      */
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
