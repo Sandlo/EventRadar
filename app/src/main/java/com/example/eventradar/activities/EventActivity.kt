@@ -94,8 +94,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         frame.background = Base64.decodeImage(this@EventActivity, event.event.image)
         StarView.fillStars(event.reviews.map { it.stars }.average().toFloat(), stars)
         frame.findViewById<TextView>(R.id.title).text = event.event.title
-        frame.findViewById<TextView>(R.id.summary).text =
-            event.event.getPriceAsString() + " inkl. MwSt."
+        frame.findViewById<TextView>(R.id.summary).text = event.event.getPriceAsLongString(resources)
         recyclerView.adapter =
             SimpleListAdapter(
                 listOf(
@@ -110,12 +109,12 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                         R.drawable.ic_circle_person,
                     ),
                     SimpleListItem(
-                        event.event.getStartAsString(),
+                        event.event.getStartAsString(resources),
                         resources.getString(R.string.`when`),
                         R.drawable.ic_circle_calendar_today,
                     ),
                     SimpleListItem(
-                        event.address.toString(),
+                        event.address.toString(resources),
                         resources.getString(R.string.where),
                         R.drawable.ic_circle_location_on,
                     ),

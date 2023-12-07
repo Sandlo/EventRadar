@@ -101,7 +101,7 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         tickets = newTickets
         recyclerView.adapter =
             SimpleListAdapter(
-                tickets.map { it.toListItem() },
+                tickets.map { it.toListItem(resources) },
                 this@TicketsFragment,
             )
     }

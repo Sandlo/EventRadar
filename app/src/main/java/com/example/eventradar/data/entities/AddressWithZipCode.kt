@@ -1,8 +1,10 @@
 package com.example.eventradar.data.entities
 
+import android.content.res.Resources
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Relation
+import com.example.eventradar.R
 
 @Entity
 data class AddressWithZipCode(
@@ -13,7 +15,12 @@ data class AddressWithZipCode(
     )
     val zipCode: ZipCode,
 ) {
-    override fun toString(): String {
-        return address.street + " " + address.number + ", " + zipCode.zipCode + " " + zipCode.city
-    }
+    fun toString(resources: Resources): String =
+        resources.getString(
+            R.string.address_format,
+            address.street,
+            address.number,
+            zipCode.zipCode,
+            zipCode.city,
+        )
 }

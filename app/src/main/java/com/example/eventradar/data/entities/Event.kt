@@ -1,9 +1,11 @@
 package com.example.eventradar.data.entities
 
+import android.content.res.Resources
 import android.icu.text.SimpleDateFormat
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.eventradar.R
 import java.util.Locale
 
 @Entity(tableName = "event")
@@ -21,19 +23,38 @@ data class Event(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
-    fun getStartAsString(): String =
+    private fun getStartDate(): String =
         SimpleDateFormat(
-            "d. MMM yyyy 'um' H:mm 'Uhr'",
+            "d. MMM yyyy",
             Locale.getDefault(),
         ).format(start)
 
-    fun getPriceAsString(): String = "%.2f".format(Locale.getDefault(), price) + " €"
+    private fun getStartTime(): String =
+        SimpleDateFormat(
+            "H:mm",
+            Locale.getDefault(),
+        ).format(start)
 
-    fun getSummary(): String =
-        "${
-            SimpleDateFormat(
-                "d. MMM yyyy",
-                Locale.getDefault(),
-            ).format(start)
-        } • ${getPriceAsString()}"
+    fun getStartAsString(resources: Resources): String =
+        resources.getString(
+            R.string.start_format,
+            getStartDate(),
+            getStartTime(),
+        )
+
+    fun getPriceAsString(resources: Resources): String =
+        resources.getString(R.string.currency_format, "%.2f".format(Locale.getDefault(), price))
+
+    fun getPriceAsLongString(resources: Resources): String =
+        resources.getString(
+            R.string.vat_format,
+            getPriceAsString(resources),
+        )
+
+    fun getSummary(resources: Resources): String =
+        resources.getString(
+            R.string.summary_format,
+            getStartDate(),
+            getPriceAsString(resources),
+        )
 }

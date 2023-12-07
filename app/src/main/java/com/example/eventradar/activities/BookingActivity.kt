@@ -81,7 +81,7 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
                         R.drawable.ic_circle_tag,
                     ),
                     SimpleListItem(
-                        event.getPriceAsString(),
+                        event.getPriceAsString(resources),
                         resources.getString(R.string.booking_price),
                         R.drawable.ic_circle_euro,
                     ),

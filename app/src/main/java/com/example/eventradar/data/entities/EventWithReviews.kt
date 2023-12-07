@@ -20,7 +20,7 @@ data class EventWithReviews(
         return EventListItem(
             reviews.map { it.stars }.average().toFloat(),
             event.title,
-            event.getSummary(),
+            event.getSummary(context.resources),
             Base64.decodeImage(context, event.image),
         )
     }
