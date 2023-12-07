@@ -20,11 +20,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Aktivität für Buchungsprozesse, zeigt verschiedene Buchungsoptionen an.
+ */
 class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
     companion object {
         private const val PAYMENT_PROVIDER_ITEM = 2
     }
 
+    /**
+     * Initialisiert die Buchungsaktivität und konfiguriert die Anzeige von Eventdaten.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
@@ -96,6 +102,9 @@ class BookingActivity : BaseActivity(), RecyclerViewHelperInterface {
             )
     }
 
+    /**
+     * Reagiert auf Klickereignisse in der Buchungsliste, insbesondere bei Auswahl von Zahlungsanbietern.
+     */
     override fun onItemClicked(position: Int) {
         if (position == PAYMENT_PROVIDER_ITEM) OutOfScopeDialog.show(this)
     }

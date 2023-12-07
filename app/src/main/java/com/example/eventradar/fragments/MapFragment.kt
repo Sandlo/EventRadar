@@ -10,7 +10,13 @@ import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.google.android.material.search.SearchBar
 
+/**
+ * Fragment zur Darstellung einer interaktiven Karte für Veranstaltungsorte.
+ */
 class MapFragment : Fragment() {
+    /**
+     * Erstellt die Ansicht für das Kartenfragment und initialisiert die Suchleiste.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -25,6 +25,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Fragment für die Anzeige und Filterung von Benutzertickets.
+ */
 class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     companion object {
         private const val DATE_FILTER: Byte = 0
@@ -40,6 +43,9 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     private var previousFilter: Byte = -1
     private var reversed = false
 
+    /**
+     * Erstellt die Ansicht für das Ticketsfragment, initialisiert Filter und lädt die Ticketliste.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,6 +93,9 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
         return root
     }
 
+    /**
+     * Behandelt Klickereignisse auf Ticketelemente und leitet zum Detailbereich des ausgewählten Tickets weiter.
+     */
     override fun onItemClicked(position: Int) {
         if (tickets.size > position) {
             requireContext().startActivity(

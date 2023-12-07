@@ -21,12 +21,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+/**
+ * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
+ */
 class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
     companion object {
         const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
     }
 
+    /**
+     * Initialisiert die Eventaktivität und lädt Eventdetails und interaktive Funktionen.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
@@ -123,6 +128,9 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
             )
     }
 
+    /**
+     * Reagiert auf Klickereignisse in der Eventliste, aktuell keine spezifische Implementierung.
+     */
     override fun onItemClicked(position: Int) {
         // Do nothing.
     }
