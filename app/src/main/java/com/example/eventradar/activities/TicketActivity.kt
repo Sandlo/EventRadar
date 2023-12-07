@@ -16,12 +16,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Aktivität zur Anzeige von Ticketinformationen und Interaktionsmöglichkeiten wie Stornierung.
+ */
 class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
     companion object {
         const val TICKET_INTENT_EXTRA: String = "ticket_intent_extra"
         private const val CANCELLATION_ITEM = 4
     }
 
+    /**
+     * Initialisiert die Ticketaktivität und lädt Ticketdetails in eine Liste.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
@@ -71,6 +77,9 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
     }
 
+    /**
+     * Reagiert auf Klickereignisse in der Ticketliste, insbesondere bei Auswahl der Stornierungsoption.
+     */
     override fun onItemClicked(position: Int) {
         if (position == CANCELLATION_ITEM) OutOfScopeDialog.show(this)
     }

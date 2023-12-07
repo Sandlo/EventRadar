@@ -10,8 +10,14 @@ import com.example.eventradar.helpers.Preferences
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+/**
+ * Hauptaktivität, die die Navigation innerhalb der App steuert.
+ */
 class MainActivity : BaseActivity() {
     companion object {
+        /**
+         * Zeigt einen Dialog für das Konto-Management, abhängig vom Anmeldestatus des Benutzers.
+         */
         fun onAccountClicked(context: Context) {
             if (Preferences.isLoggedIn(context)) {
                 MaterialAlertDialogBuilder(context).setTitle(R.string.logout)
@@ -28,6 +34,9 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Initialisiert die Hauptaktivität und konfiguriert die Navigationselemente.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -23,9 +23,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Fragment zur Entdeckung und Anzeige von Veranstaltungen basierend auf Benutzerinteressen.
+ */
 class DiscoverFragment : Fragment() {
     private var events: List<InterestWithEventsWithReviews> = listOf()
 
+    /**
+     * Erstellt die Ansicht für das Entdeckungsfragment und initialisiert Elemente wie Suchleiste und Eventliste.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,6 +76,9 @@ class DiscoverFragment : Fragment() {
         return root
     }
 
+    /**
+     * Behandelt Klickereignisse auf Veranstaltungen und leitet zum entsprechenden EventActivity weiter.
+     */
     internal fun onItemClicked(
         categoryPosition: Int,
         eventPosition: Int,
