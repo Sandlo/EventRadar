@@ -33,6 +33,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mindrot.jbcrypt.BCrypt
+import java.util.Calendar
+import java.util.TimeZone
+
+fun getFixedDateInMillis(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0): Long {
+    val calendar = Calendar.getInstance()
+    calendar.timeZone = TimeZone.getTimeZone("CET")
+    calendar.set(year, month - 1, day, hour, minute, second)
+    calendar.set(Calendar.MILLISECOND, 0)
+    return calendar.timeInMillis
+}
 
 /**
  * Die Klasse AppDatabase repräsentiert die Room-Datenbank für die Event Radar-Anwendung.
@@ -134,6 +144,10 @@ abstract class AppDatabase : RoomDatabase() {
                                     Ticket(1, 1, 0),
                                     Ticket(2, 1, 0),
                                     Ticket(3, 1, 0),
+                                    Ticket(4, 1, 1706299000000),
+                                    Ticket(5, 1, 1706297700000),
+                                    Ticket(6, 1, 1706199000000),
+                                    Ticket(7, 1, 1705999000000),
                                 )
                                 eventDao().insertAll(
                                     Event(
@@ -166,11 +180,52 @@ abstract class AppDatabase : RoomDatabase() {
                                         "Test test test",
                                         Base64.getFromAssets(context, "theater.jpg"),
                                     ),
+                                    Event(
+                                        1,
+                                        29.00,
+                                        "Lucas Kochabend",
+                                        1706227200000,
+                                        1706211000000,
+                                        1,
+                                        "Alle mögen gutes Essen, deshalb werden Sie auch Luca mögen!",
+                                        Base64.getFromAssets(context, "lucas_kochen.jpg"),
+                                    ),
+                                    Event(
+                                        1,
+                                        8.50,
+                                        "Domis Dampflockausstellung",
+                                        1706299900000,
+                                        1706300000000,
+                                        1,
+                                        "Unser Dampflockexperte Domi lädt zu einem sinnlichen Abentuer in seine Privataussletung ein.",
+                                        Base64.getFromAssets(context, "dampflock.jpg"),
+                                    ),
+                                    Event(
+                                        1,
+                                        11.50,
+                                        "Musical: Der große Joel alleine im Wald?",
+                                        1706299900000,
+                                        1706300000000,
+                                        1,
+                                        "Eine unvergessleicher Abend voller Tanz und Stimmung",
+                                        Base64.getFromAssets(context, "musical.jpg"),
+                                    ),
+                                    Event(
+                                        1,
+                                        8.50,
+                                        "Tanz mit Tim",
+                                        1706299900000,
+                                        1706300000000,
+                                        1,
+                                        "Wer sein Tanzbein mal wieder so richtig schwingen will, darf diesen Event nicht verpassen!",
+                                        Base64.getFromAssets(context, "tanz.jpg"),
+                                    ),
                                 )
                                 interestDao().insertAll(
-                                    Interest("Interesse 1"),
-                                    Interest("Interesse 2"),
-                                    Interest("Interesse 3"),
+                                    Interest("Kultur"),
+                                    Interest("Tanzen"),
+                                    Interest("Alkohol"),
+                                    Interest("Essen"),
                                 )
                                 eventInterestDao().insertAll(
                                     EventInterest(1, 1),
@@ -182,11 +237,21 @@ abstract class AppDatabase : RoomDatabase() {
                                     EventInterest(1, 3),
                                     EventInterest(2, 3),
                                     EventInterest(3, 3),
+                                    EventInterest(4, 2),
+                                    EventInterest(4, 3),
+                                    EventInterest(5, 4),
+                                    EventInterest(5, 3),
+                                    EventInterest(7, 2),
+                                    EventInterest(7, 3),
                                 )
                                 reviewDao().insertAll(
                                     Review(1, 1, "", 2.5f, 1000000000),
                                     Review(2, 1, "", 3.5f, 2000000000),
                                     Review(3, 1, "", 4.5f, 3000000000),
+                                    Review(4, 1, "", 5.0f, 2090000002),
+                                    Review(5, 1, "", 4.5f, 2440000002),
+                                    Review(6, 1, "", 4.0f, 2570000000),
+                                    Review(7, 1, "", 1.5f, 2650000000),
                                 )
                                 organizerDao().insertAll(
                                     Organizer("Luca"),
