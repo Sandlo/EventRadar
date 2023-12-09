@@ -43,7 +43,6 @@ class RegisterActivity : BaseActivity() {
         repeatPassword = findViewById(R.id.repeat_password)
 
         findViewById<FloatingActionButton>(R.id.floating_action_button).setOnClickListener {
-
             CoroutineScope(Dispatchers.Main).launch {
                 listOf(
                     forename,
