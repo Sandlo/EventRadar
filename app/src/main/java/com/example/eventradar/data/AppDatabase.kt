@@ -18,6 +18,7 @@ import com.example.eventradar.data.dao.InterestDao
 import com.example.eventradar.data.dao.OrganizerDao
 import com.example.eventradar.data.dao.ReviewDao
 import com.example.eventradar.data.dao.TicketDao
+import com.example.eventradar.data.dao.UserDao
 import com.example.eventradar.data.dao.ZipCodeDao
 import com.example.eventradar.data.entities.Account
 import com.example.eventradar.data.entities.AccountInterest
@@ -28,6 +29,7 @@ import com.example.eventradar.data.entities.Interest
 import com.example.eventradar.data.entities.Organizer
 import com.example.eventradar.data.entities.Review
 import com.example.eventradar.data.entities.Ticket
+import com.example.eventradar.data.entities.User
 import com.example.eventradar.data.entities.ZipCode
 import com.example.eventradar.helpers.Base64
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -51,11 +53,13 @@ import org.mindrot.jbcrypt.BCrypt
         Organizer::class,
         Review::class,
         Ticket::class,
+        User::class,
         ZipCode::class,
     ],
     version = 1,
     exportSchema = false,
 )
+@Suppress("TooManyFunctions")
 abstract class AppDatabase : RoomDatabase() {
     /**
      * DAO zum Zugriff auf Ticket-Daten.
@@ -103,6 +107,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
 
     abstract fun accountInterestDao(): AccountInterestDao
+
+    abstract fun userDao(): UserDao
 
     companion object {
         private const val DATABASE_NAME = "event.db"
