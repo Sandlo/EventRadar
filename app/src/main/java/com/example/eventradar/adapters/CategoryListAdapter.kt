@@ -9,9 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
 import com.example.eventradar.data.CategoryListItem
 
+/**
+ * Adapter für eine RecyclerView, die Kategorien mit zugehörigen Events anzeigt.
+ */
 class CategoryListAdapter(
     private val items: List<CategoryListItem>,
 ) : RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
+
+    /**
+     * Erstellt einen neuen ViewHolder für Kategorieelemente.
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -22,6 +29,9 @@ class CategoryListAdapter(
                 .inflate(R.layout.list_item_category, parent, false),
         )
 
+    /**
+     * Bindet Daten an einen ViewHolder, um eine Kategorie mit ihren Events darzustellen.
+     */
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int,
@@ -41,8 +51,14 @@ class CategoryListAdapter(
             )
     }
 
+    /**
+     * Gibt die Anzahl der Kategorieelemente zurück.
+     */
     override fun getItemCount(): Int = items.size
 
+    /**
+     * ViewHolder-Klasse für Kategorieelemente.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
         val list: RecyclerView = view.findViewById(R.id.list)
