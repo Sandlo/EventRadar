@@ -18,6 +18,12 @@
     <string name="phone">Handynummer</string>
     <string name="password">Passwort</string>
     <string name="repeat_password">Passwort wiederholen</string>
+    <string name="email_error">Ungültige E-Mail</string>
+    <string name="forename_error">Vorname ist erforderlich</string>
+    <string name="surname_error">Nachname ist erforderlich</string>
+    <string name="birthdate_error">Geburtsdatum ist erforderlich</string>
+    <string name="phone_error">Ungültige Handynummer</string>
+    <string name="password_empty_error">Passwort ist erforderlich</string>
     <string name ="passwords_do_not_match">Passwörter stimmen nicht überein</string>
 
     <string name="title">Titel</string>
