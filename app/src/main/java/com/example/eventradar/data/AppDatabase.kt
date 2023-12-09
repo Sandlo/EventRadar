@@ -10,6 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.eventradar.R
 import com.example.eventradar.activities.MainActivity
 import com.example.eventradar.data.dao.AccountDao
+import com.example.eventradar.data.dao.AccountInterestDao
 import com.example.eventradar.data.dao.AddressDao
 import com.example.eventradar.data.dao.EventDao
 import com.example.eventradar.data.dao.EventInterestDao
@@ -19,6 +20,7 @@ import com.example.eventradar.data.dao.ReviewDao
 import com.example.eventradar.data.dao.TicketDao
 import com.example.eventradar.data.dao.ZipCodeDao
 import com.example.eventradar.data.entities.Account
+import com.example.eventradar.data.entities.AccountInterest
 import com.example.eventradar.data.entities.Address
 import com.example.eventradar.data.entities.Event
 import com.example.eventradar.data.entities.EventInterest
@@ -41,6 +43,7 @@ import org.mindrot.jbcrypt.BCrypt
 @Database(
     entities = [
         Account::class,
+        AccountInterest::class,
         Address::class,
         Event::class,
         EventInterest::class,
@@ -98,6 +101,8 @@ abstract class AppDatabase : RoomDatabase() {
      * DAO zum Zugriff auf Account-Daten.
      */
     abstract fun accountDao(): AccountDao
+
+    abstract fun accountInterestDao(): AccountInterestDao
 
     companion object {
         private const val DATABASE_NAME = "event.db"
@@ -278,6 +283,11 @@ abstract class AppDatabase : RoomDatabase() {
                                         "0800 897378423",
                                         BCrypt.hashpw("123456789", BCrypt.gensalt()),
                                     ),
+                                )
+                                accountInterestDao().insertAll(
+                                    AccountInterest(1, 1),
+                                    AccountInterest(1, 2),
+                                    AccountInterest(1, 3),
                                 )
                             }
                         }
