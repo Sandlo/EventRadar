@@ -34,6 +34,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mindrot.jbcrypt.BCrypt
 
+/**
+ * Die Klasse AppDatabase repräsentiert die Room-Datenbank für die Event Radar-Anwendung.
+ * Sie definiert die Datenbankentitäten, die Version und stellt Datenbankoperationen bereit.
+ *
+ * @property ticketDao DAO zum Zugriff auf Ticket-Daten.
+ * @property eventDao DAO zum Zugriff auf Event-Daten.
+ * @property interestDao DAO zum Zugriff auf Interessen-Daten.
+ * @property eventInterestDao DAO zum Zugriff auf EventInterest-Daten.
+ * @property reviewDao DAO zum Zugriff auf Review-Daten.
+ * @property addressDao DAO zum Zugriff auf Address-Daten.
+ * @property organizerDao DAO zum Zugriff auf Organizer-Daten.
+ * @property zipCodeDao DAO zum Zugriff auf ZipCode-Daten.
+ * @property accountDao DAO zum Zugriff auf Account-Daten.
+ */
 @Database(
     entities = [
         Account::class,
@@ -74,12 +88,24 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
 
+        /**
+         * Holen Sie eine Instanz von AppDatabase mit einem bereitgestellten Kontext.
+         *
+         * @param context Der Anwendungskontext.
+         * @return Eine Instanz von AppDatabase.
+         */
         fun getInstance(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }
             }
         }
 
+        /**
+         * Erstellen Sie die Room-Datenbank und initialisieren Sie sie mit Dummy-Daten.
+         *
+         * @param context Der Anwendungskontext.
+         * @return Eine Instanz der erstellten AppDatabase.
+         */
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(
