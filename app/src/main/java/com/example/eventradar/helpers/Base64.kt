@@ -8,15 +8,16 @@ import androidx.core.graphics.drawable.toDrawable
 import java.io.InputStream
 
 /**
- * Helper object for decoding Base64-encoded images and reading files from assets.
+ * Hilfsobjekt zum Dekodieren von Base64-codierten Bildern und Lesen von Dateien aus dem Assets-Verzeichnis.
  */
+
 object Base64 {
     /**
-     * Decodes a Base64-encoded string into a Drawable.
+     * Dekodiert eine Base64-codierte Zeichenkette in ein Drawable.
      *
-     * @param context The application context.
-     * @param base64 The Base64-encoded string of the image.
-     * @return A Drawable of the decoded image.
+     * @param context Der Anwendungskontext.
+     * @param base64 Die Base64-codierte Zeichenkette des Bildes.
+     * @return Ein Drawable des dekodierten Bildes.
      */
     fun decodeImage(
         context: Context,
@@ -28,11 +29,11 @@ object Base64 {
     }
 
     /**
-     * Reads the content of a file from the assets directory and returns it as a Base64-encoded string.
+     * Liest den Inhalt einer Datei aus dem Assets-Verzeichnis und gibt ihn als Base64-codierte Zeichenkette zurück.
      *
-     * @param context The application context.
-     * @param path The path to the file in the assets directory.
-     * @return A Base64-encoded string of the file content.
+     * @param context Der Anwendungskontext.
+     * @param path Der Pfad zur Datei im Assets-Verzeichnis.
+     * @return Eine Base64-codierte Zeichenkette des Dateiinhalts.
      */
     fun getFromAssets(
         context: Context,

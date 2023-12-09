@@ -37,16 +37,6 @@ import org.mindrot.jbcrypt.BCrypt
 /**
  * Die Klasse AppDatabase repräsentiert die Room-Datenbank für die Event Radar-Anwendung.
  * Sie definiert die Datenbankentitäten, die Version und stellt Datenbankoperationen bereit.
- *
- * @property ticketDao DAO zum Zugriff auf Ticket-Daten.
- * @property eventDao DAO zum Zugriff auf Event-Daten.
- * @property interestDao DAO zum Zugriff auf Interessen-Daten.
- * @property eventInterestDao DAO zum Zugriff auf EventInterest-Daten.
- * @property reviewDao DAO zum Zugriff auf Review-Daten.
- * @property addressDao DAO zum Zugriff auf Address-Daten.
- * @property organizerDao DAO zum Zugriff auf Organizer-Daten.
- * @property zipCodeDao DAO zum Zugriff auf ZipCode-Daten.
- * @property accountDao DAO zum Zugriff auf Account-Daten.
  */
 @Database(
     entities = [
@@ -64,22 +54,49 @@ import org.mindrot.jbcrypt.BCrypt
     exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
+    /**
+     * DAO zum Zugriff auf Ticket-Daten.
+     */
     abstract fun ticketDao(): TicketDao
 
+    /**
+     * DAO zum Zugriff auf Event-Daten.
+     */
     abstract fun eventDao(): EventDao
 
+    /**
+     * DAO zum Zugriff auf Interessen-Daten.
+     */
     abstract fun interestDao(): InterestDao
 
+    /**
+     * DAO zum Zugriff auf EventInterest-Daten.
+     */
     abstract fun eventInterestDao(): EventInterestDao
 
+    /**
+     * DAO zum Zugriff auf Review-Daten.
+     */
     abstract fun reviewDao(): ReviewDao
 
+    /**
+     * DAO zum Zugriff auf Address-Daten.
+     */
     abstract fun addressDao(): AddressDao
 
+    /**
+     * DAO zum Zugriff auf Organizer-Daten.
+     */
     abstract fun organizerDao(): OrganizerDao
 
+    /**
+     * DAO zum Zugriff auf ZipCode-Daten.
+     */
     abstract fun zipCodeDao(): ZipCodeDao
 
+    /**
+     * DAO zum Zugriff auf Account-Daten.
+     */
     abstract fun accountDao(): AccountDao
 
     companion object {

@@ -3,16 +3,17 @@ package com.example.eventradar.data
 import android.graphics.drawable.Drawable
 
 /**
- * Data class representing an event list item with a rating, title, summary, and background drawable.
+ * Datenklasse, die ein Veranstaltungsliste-Element mit einer Bewertung, einem Titel, einer
+ * Zusammenfassung und einem Hintergrund-Drawable repräsentiert.
  *
- * @param rating The rating of the event.
- * @param title The title of the event.
- * @param summary The summary or description of the event.
- * @param background The background drawable associated with the event.
+ * @param rating Die Bewertung der Veranstaltung.
+ * @param title Der Titel der Veranstaltung.
+ * @param summary Die Zusammenfassung oder Beschreibung der Veranstaltung.
+ * @param background Das mit der Veranstaltung verbundene Hintergrund-Drawable.
  */
 data class EventListItem(
     val rating: Float,
     val title: String,
     val summary: String,
-    val background: Drawable
+    val background: Drawable,
 )

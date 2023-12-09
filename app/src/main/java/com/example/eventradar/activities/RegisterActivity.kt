@@ -9,7 +9,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * Aktivität für die Benutzerregistrierung mit Option zur Weiterleitung zur Interessenauswahl.
  */
 class RegisterActivity : BaseActivity() {
-
     /**
      * Initialisiert die Registrierungsaktivität und setzt einen Event-Handler für den Fortfahren-Button.
      */

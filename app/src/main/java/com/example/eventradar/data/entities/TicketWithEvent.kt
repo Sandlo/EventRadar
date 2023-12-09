@@ -23,7 +23,8 @@ data class TicketWithEvent(
     val event: Event,
 ) {
     /**
-     * Diese Methode konvertiert das TicketWithEvent-Objekt in ein SimpleListItem-Objekt für die Anzeige in einer RecyclerView.
+     * Diese Methode konvertiert das TicketWithEvent-Objekt in ein SimpleListItem-Objekt für die
+     * Anzeige in einer RecyclerView.
      *
      * @property resources Die Ressourcen.
      * @return Ein SimpleListItem-Objekt, das die Informationen des Events enthält.

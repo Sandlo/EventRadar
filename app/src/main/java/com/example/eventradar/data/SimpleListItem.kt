@@ -1,14 +1,14 @@
 package com.example.eventradar.data
 
 /**
- * Data class representing a simple list item with a title, summary, and an icon.
+ * Datenklasse, die ein einfaches Listen-Element mit einem Titel, einer Zusammenfassung und einem Symbol repräsentiert.
  *
- * @param title The title of the list item.
- * @param summary The summary or description of the list item.
- * @param icon The resource ID of the icon associated with the list item.
+ * @param title Der Titel des Listen-Elements.
+ * @param summary Die Zusammenfassung oder Beschreibung des Listen-Elements.
+ * @param icon Die Ressourcen-ID des mit dem Listen-Element verbundenen Symbols.
  */
 data class SimpleListItem(
     val title: String = "",
     val summary: String = "",
-    val icon: Int = android.R.color.transparent
+    val icon: Int = android.R.color.transparent,
 )

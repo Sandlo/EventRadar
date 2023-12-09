@@ -10,7 +10,6 @@ import com.example.eventradar.helpers.Preferences
  * Aktivität für die Auswahl und Verwaltung von Benutzerinteressen.
  */
 class InterestsActivity : BaseActivity() {
-
     /**
      * Initialisiert die Interessenaktivität und setzt Event-Handler für Benutzerinteraktionen.
      */

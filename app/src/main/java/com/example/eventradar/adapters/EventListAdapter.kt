@@ -19,7 +19,6 @@ class EventListAdapter(
     private val items: List<EventListItem>,
     private val helperInterface: RecyclerViewHelperInterface,
 ) : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
-
     /**
      * Erstellt einen neuen ViewHolder für Veranstaltungselemente.
      */
@@ -47,7 +46,6 @@ class EventListAdapter(
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
-
     /**
      * Gibt die Anzahl der Veranstaltungselemente zurück.
      */
@@ -57,7 +55,14 @@ class EventListAdapter(
      * ViewHolder-Klasse für Veranstaltungselemente.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        /**
+         * RelativeLayout für das gesamte Layout des Veranstaltungselements.
+         */
         val frame: RelativeLayout = view.findViewById(R.id.frame)
+
+        /**
+         * Liste von ImageView-Elementen, die Sterne zur Bewertung der Veranstaltung repräsentieren.
+         */
         val stars: List<ImageView> =
             listOf(
                 view.findViewById(R.id.first_star),
@@ -66,7 +71,15 @@ class EventListAdapter(
                 view.findViewById(R.id.fourth_star),
                 view.findViewById(R.id.fifth_star),
             )
+
+        /**
+         * TextView zur Anzeige des Titels der Veranstaltung.
+         */
         val title: TextView = view.findViewById(R.id.title)
+
+        /**
+         * TextView zur Anzeige einer Zusammenfassung der Veranstaltung.
+         */
         val summary: TextView = view.findViewById(R.id.summary)
     }
 }

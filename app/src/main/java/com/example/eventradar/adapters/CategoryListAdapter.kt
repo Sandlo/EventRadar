@@ -15,7 +15,6 @@ import com.example.eventradar.data.CategoryListItem
 class CategoryListAdapter(
     private val items: List<CategoryListItem>,
 ) : RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
-
     /**
      * Erstellt einen neuen ViewHolder für Kategorieelemente.
      */
@@ -60,7 +59,14 @@ class CategoryListAdapter(
      * ViewHolder-Klasse für Kategorieelemente.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        /**
+         * TextView zur Anzeige des Kategorietitels.
+         */
         val title: TextView = view.findViewById(R.id.title)
+
+        /**
+         * RecyclerView zur Anzeige einer Liste von Elementen in der Kategorie.
+         */
         val list: RecyclerView = view.findViewById(R.id.list)
     }
 }

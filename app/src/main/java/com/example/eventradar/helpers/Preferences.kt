@@ -8,6 +8,10 @@ import androidx.preference.PreferenceManager
  */
 object Preferences {
     private const val ACCOUNT_ID = "accountId"
+
+    /**
+     * Konstante, die den Standardwert für ein nicht vorhandenes Benutzerkonto repräsentiert.
+     */
     const val NO_ACCOUNT: Long = -1L
 
     /**
