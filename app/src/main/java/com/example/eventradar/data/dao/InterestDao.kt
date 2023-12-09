@@ -20,6 +20,12 @@ interface InterestDao {
     suspend fun getAll(): List<InterestWithEventsWithReviews>
 
     /**
+     * Holt alle Interessen aus der Datenbank.
+     */
+    @Query("SELECT * FROM interest")
+    suspend fun getAllInterests(): List<Interest>
+
+    /**
      * Fügt einen oder mehrere Interessensdatensätze in die Datenbank ein.
      */
     @Insert
