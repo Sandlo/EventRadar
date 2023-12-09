@@ -10,10 +10,17 @@ import com.example.eventradar.R
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
+/**
+ * Ein RecyclerView-Adapter, der einfache Listenelemente mit Titel, Zusammenfassung und Icon anzeigt.
+ */
 class SimpleListAdapter(
     private val items: List<SimpleListItem>,
     private val helperInterface: RecyclerViewHelperInterface,
 ) : RecyclerView.Adapter<SimpleListAdapter.ViewHolder>() {
+
+    /**
+     * Erstellt einen neuen ViewHolder für einfache Listenelemente.
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -24,6 +31,9 @@ class SimpleListAdapter(
                 .inflate(R.layout.list_item_simple, parent, false),
         )
 
+    /**
+     * Bindet Daten an einen ViewHolder, um ein einfaches Listenelement darzustellen.
+     */
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int,
@@ -44,8 +54,14 @@ class SimpleListAdapter(
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
+    /**
+     * Gibt die Anzahl der Listenelemente zurück.
+     */
     override fun getItemCount(): Int = items.size
 
+    /**
+     * ViewHolder-Klasse für die Darstellung einfacher Listenelemente.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val drawable: ImageView = view.findViewById(R.id.drawable)
         val title: TextView = view.findViewById(R.id.title)

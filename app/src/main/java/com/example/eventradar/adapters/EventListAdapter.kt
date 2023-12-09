@@ -12,10 +12,17 @@ import com.example.eventradar.data.EventListItem
 import com.example.eventradar.helpers.StarView
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
+/**
+ * Adapter für eine RecyclerView, der Veranstaltungselemente anzeigt.
+ */
 class EventListAdapter(
     private val items: List<EventListItem>,
     private val helperInterface: RecyclerViewHelperInterface,
 ) : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
+
+    /**
+     * Erstellt einen neuen ViewHolder für Veranstaltungselemente.
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -26,6 +33,9 @@ class EventListAdapter(
                 .inflate(R.layout.list_item_event, parent, false),
         )
 
+    /**
+     * Bindet Daten an einen ViewHolder, um ein Veranstaltungselement darzustellen.
+     */
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int,
@@ -37,8 +47,15 @@ class EventListAdapter(
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
+
+    /**
+     * Gibt die Anzahl der Veranstaltungselemente zurück.
+     */
     override fun getItemCount(): Int = items.size
 
+    /**
+     * ViewHolder-Klasse für Veranstaltungselemente.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val frame: RelativeLayout = view.findViewById(R.id.frame)
         val stars: List<ImageView> =
