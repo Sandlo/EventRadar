@@ -3,14 +3,15 @@ package com.example.eventradar.data
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
 /**
- * Data class representing a category list item with a title, list of event items, and a helper interface.
+ * Datenklasse, die ein Kategorieliste-Element mit einem Titel, einer Liste von
+ * Veranstaltungselementen und einem Hilfeschnittstellen-Interface repräsentiert.
  *
- * @param title The title of the category.
- * @param list The list of event items in the category.
- * @param helperInterface The RecyclerViewHelperInterface associated with the category.
+ * @param title Der Titel der Kategorie.
+ * @param list Die Liste der Veranstaltungselemente in der Kategorie.
+ * @param helperInterface Die mit der Kategorie verbundene RecyclerViewHelperInterface.
  */
 data class CategoryListItem(
     val title: String,
     val list: List<EventListItem>,
-    val helperInterface: RecyclerViewHelperInterface
+    val helperInterface: RecyclerViewHelperInterface,
 )

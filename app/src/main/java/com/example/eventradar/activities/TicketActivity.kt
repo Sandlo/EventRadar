@@ -21,6 +21,10 @@ import kotlinx.coroutines.launch
  */
 class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
     companion object {
+        /**
+         * Konstante für den Schlüssel, der verwendet wird, um Ticket-Daten als Intent-Extra
+         * zwischen Aktivitäten zu übertragen.
+         */
         const val TICKET_INTENT_EXTRA: String = "ticket_intent_extra"
         private const val CANCELLATION_ITEM = 4
     }

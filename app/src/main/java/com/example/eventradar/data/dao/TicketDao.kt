@@ -8,7 +8,6 @@ import com.example.eventradar.data.entities.Ticket
 import com.example.eventradar.data.entities.TicketWithEvent
 import com.example.eventradar.data.entities.TicketWithEventWithAddress
 
-
 /**
  * Data Access Object (DAO) Schnittstelle für den Zugriff auf Ticketdaten in der Datenbank.
  */

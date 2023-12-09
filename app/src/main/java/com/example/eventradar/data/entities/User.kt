@@ -19,7 +19,6 @@ open class User(
     @ColumnInfo(name = "surname") val surname: String,
     @ColumnInfo(name = "birthdate") val birthdate: Long,
 ) {
-
     /**
      * Die eindeutige ID des Benutzers.
      */

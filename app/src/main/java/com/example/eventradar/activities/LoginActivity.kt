@@ -18,7 +18,6 @@ import org.mindrot.jbcrypt.BCrypt
  * Aktivität für Benutzeranmeldung mit verschiedenen Authentifizierungsoptionen.
  */
 class LoginActivity : BaseActivity() {
-
     /**
      * Initialisiert die Login-Aktivität und konfiguriert Event-Handler für Anmeldeoptionen.
      */

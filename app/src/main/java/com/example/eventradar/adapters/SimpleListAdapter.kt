@@ -17,7 +17,6 @@ class SimpleListAdapter(
     private val items: List<SimpleListItem>,
     private val helperInterface: RecyclerViewHelperInterface,
 ) : RecyclerView.Adapter<SimpleListAdapter.ViewHolder>() {
-
     /**
      * Erstellt einen neuen ViewHolder für einfache Listenelemente.
      */
@@ -63,8 +62,19 @@ class SimpleListAdapter(
      * ViewHolder-Klasse für die Darstellung einfacher Listenelemente.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        /**
+         * ImageView zur Anzeige eines Bildes.
+         */
         val drawable: ImageView = view.findViewById(R.id.drawable)
+
+        /**
+         * TextView zur Anzeige des Titels.
+         */
         val title: TextView = view.findViewById(R.id.title)
+
+        /**
+         * TextView zur Anzeige einer Zusammenfassung.
+         */
         val summary: TextView = view.findViewById(R.id.summary)
     }
 }

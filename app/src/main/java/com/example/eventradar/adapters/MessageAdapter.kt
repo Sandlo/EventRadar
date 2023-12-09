@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
  * Ein abstrakter Adapter für die Anzeige einer einzelnen Nachricht oder eines Zustands in einer RecyclerView.
  */
 abstract class MessageAdapter(private val layout: Int) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
-
     /**
      * Erstellt einen neuen ViewHolder für die spezifizierte Layout-Ressource.
      */

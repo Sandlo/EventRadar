@@ -21,11 +21,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 /**
  * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
  */
 class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
     companion object {
+        /**
+         * Konstante für den Schlüssel, der verwendet wird, um Event-Daten als Intent-Extra zwischen
+         * Aktivitäten zu übertragen.
+         */
         const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
     }
 

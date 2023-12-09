@@ -31,6 +31,9 @@ data class Event(
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "image") val image: String,
 ) {
+    /**
+     * Die eindeutige ID des Ereignisses.
+     */
     @ColumnInfo(name = "event_id")
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
