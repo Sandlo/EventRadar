@@ -227,11 +227,11 @@ abstract class AppDatabase : RoomDatabase() {
                                     ),
                                 )
                                 interestDao().insertAll(
-                                    Interest("Kultur"),
-                                    Interest("Tanzen"),
-                                    Interest("Alkohol"),
-                                    Interest("Essen"),
-                                    Interest("Party"),
+                                    Interest("Kultur", "bar.jpg"),
+                                    Interest("Tanzen", "club.jpg"),
+                                    Interest("Alkohol", "theater.jpg"),
+                                    Interest("Essen", "bar.jpg"),
+                                    Interest("Party", "club.jpg"),
                                 )
                                 eventInterestDao().insertAll(
                                     EventInterest(1, 1),

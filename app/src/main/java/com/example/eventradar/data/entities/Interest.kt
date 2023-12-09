@@ -12,6 +12,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "interest")
 data class Interest(
     @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "image") val image: String,
 ) {
     /**
      * Die eindeutige ID des Interesses.
