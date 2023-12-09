@@ -7,6 +7,13 @@ import androidx.room.Relation
 import com.example.eventradar.data.EventListItem
 import com.example.eventradar.helpers.Base64
 
+/**
+ * Die Klasse EventWithReviews repräsentiert ein Ereignis zusammen mit seinen Bewertungen
+ * in der Room-Datenbank.
+ *
+ * @property event Das Ereignis.
+ * @property reviews Eine Liste von Bewertungen für das Ereignis.
+ */
 @Entity
 data class EventWithReviews(
     @Embedded val event: Event,
@@ -16,9 +23,16 @@ data class EventWithReviews(
     )
     val reviews: List<Review>,
 ) {
+    /**
+     * Wandelt das Ereignis mit Bewertungen in ein EventListItem-Objekt um.
+     *
+     * @param context Der Kontext des Aufrufers.
+     * @return Ein EventListItem-Objekt, das aus dem Ereignis und seinen Bewertungen erstellt wurde.
+     */
     fun toListItem(context: Context): EventListItem {
+        val averageRating = reviews.map { it.stars }.average().toFloat()
         return EventListItem(
-            reviews.map { it.stars }.average().toFloat(),
+            averageRating,
             event.title,
             event.getSummary(context.resources),
             Base64.decodeImage(context, event.image),

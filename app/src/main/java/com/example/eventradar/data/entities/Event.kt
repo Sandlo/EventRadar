@@ -8,6 +8,18 @@ import androidx.room.PrimaryKey
 import com.example.eventradar.R
 import java.util.Locale
 
+/**
+ * Die Klasse Event repräsentiert ein Ereignis in der Room-Datenbank.
+ *
+ * @property organizerId Die ID des Organisators des Ereignisses.
+ * @property price Der Preis des Ereignisses.
+ * @property title Der Titel des Ereignisses.
+ * @property start Der Startzeitpunkt des Ereignisses (in Millisekunden seit der Epoche).
+ * @property end Der Endzeitpunkt des Ereignisses (in Millisekunden seit der Epoche).
+ * @property addressId Die ID der Adresse des Ereignisses.
+ * @property description Die Beschreibung des Ereignisses.
+ * @property image Die Bild-Daten des Ereignisses in Base64-codierter Form.
+ */
 @Entity(tableName = "event")
 data class Event(
     @ColumnInfo(name = "organizer_id") val organizerId: Long,
@@ -35,6 +47,12 @@ data class Event(
             Locale.getDefault(),
         ).format(start)
 
+    /**
+     * Gibt den Startzeitpunkt des Ereignisses als formatierten String zurück.
+     *
+     * @property resources Die Ressourcen.
+     * @return Der formatierte Startzeitpunkt.
+     */
     fun getStartAsString(resources: Resources): String =
         resources.getString(
             R.string.start_format,
@@ -42,15 +60,33 @@ data class Event(
             getStartTime(),
         )
 
+    /**
+     * Gibt den Preis des Ereignisses als formatierten String zurück.
+     *
+     * @property resources Die Ressourcen.
+     * @return Der formatierte Preis.
+     */
     fun getPriceAsString(resources: Resources): String =
         resources.getString(R.string.currency_format, "%.2f".format(Locale.getDefault(), price))
 
+    /**
+     * Gibt den Preis des Ereignisses als formatierten String in Langform zurück.
+     *
+     * @property resources Die Ressourcen.
+     * @return Der formatierte Preis.
+     */
     fun getPriceAsLongString(resources: Resources): String =
         resources.getString(
             R.string.vat_format,
             getPriceAsString(resources),
         )
 
+    /**
+     * Gibt eine Zusammenfassung des Ereignisses als formatierten String zurück.
+     *
+     * @property resources Die Ressourcen.
+     * @return Die formatierte Zusammenfassung.
+     */
     fun getSummary(resources: Resources): String =
         resources.getString(
             R.string.summary_format,
