@@ -4,9 +4,18 @@ import android.widget.ImageView
 import com.example.eventradar.R
 import kotlin.math.min
 
+/**
+ * Hilfsklasse zur Anzeige von Sternbewertungen.
+ */
 object StarView {
     private const val HALF_STAR_THRESHOLD = 0.5
 
+    /**
+     * Füllt die Sternsymbole entsprechend der Bewertung.
+     *
+     * @param rating Die Bewertung im Bereich von 0 bis 5.
+     * @param stars Eine Liste von ImageView-Elementen, die die Sternsymbole darstellen.
+     */
     fun fillStars(
         rating: Float,
         stars: List<ImageView>,
