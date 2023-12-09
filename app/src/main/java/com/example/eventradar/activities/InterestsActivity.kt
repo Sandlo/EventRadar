@@ -1,5 +1,6 @@
 package com.example.eventradar.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,6 +62,7 @@ class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
                     accountInterestDao.insertAll(accountInterest)
                 }
             }
+            startActivity(Intent(this@InterestsActivity, MainActivity::class.java))
         }
     }
 

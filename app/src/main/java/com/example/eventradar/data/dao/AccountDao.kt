@@ -21,4 +21,7 @@ interface AccountDao {
      */
     @Insert
     suspend fun insertAll(vararg accounts: Account)
+
+    @Insert
+    suspend fun insert(account: Account): Long
 }
