@@ -2,19 +2,25 @@ package com.example.eventradar.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.util.Patterns
+import android.view.MotionEvent
 import com.example.eventradar.R
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.entities.Account
 import com.example.eventradar.data.entities.User
 import com.example.eventradar.helpers.Preferences
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mindrot.jbcrypt.BCrypt
+import java.util.Calendar
 
 /**
  * Aktivität für die Benutzerregistrierung mit Option zur Weiterleitung zur Interessenauswahl.
@@ -27,6 +33,38 @@ class RegisterActivity : BaseActivity() {
     private lateinit var phoneNumber: TextInputLayout
     private lateinit var password: TextInputLayout
     private lateinit var repeatPassword: TextInputLayout
+    private var selectedDate: Long = 0
+
+    private fun showDatePickerDialog() {
+        val constraintsBuilder =
+            CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointBackward.now())
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setCalendarConstraints(constraintsBuilder.build())
+                .setTitleText(resources.getString(R.string.select_birthdate))
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+        birthdate.editText?.let { _ ->
+            datePicker.addOnPositiveButtonClickListener {
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = it
+                selectedDate = it
+                val selectedDate =
+                    "${calendar.get(Calendar.DAY_OF_MONTH)}.${calendar.get(Calendar.MONTH) + 1}.${calendar.get(
+                        Calendar.YEAR,
+                    )}"
+                updateBirthdateEditText(selectedDate)
+            }
+        }
+
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    private fun updateBirthdateEditText(selectedDate: String) {
+        val birthdateEditText = birthdate.editText
+        birthdateEditText?.setText(selectedDate)
+    }
 
     /**
      * Initialisiert die Registrierungsaktivität und setzt einen Event-Handler für den Fortfahren-Button.
@@ -42,6 +80,17 @@ class RegisterActivity : BaseActivity() {
         password = findViewById(R.id.password)
         repeatPassword = findViewById(R.id.repeat_password)
 
+        birthdate.editText?.apply {
+            inputType = InputType.TYPE_NULL
+            keyListener = null
+            setOnTouchListener { _, motionEvent ->
+                if (motionEvent.action == MotionEvent.ACTION_UP) {
+                    showDatePickerDialog()
+                    return@setOnTouchListener true
+                }
+                return@setOnTouchListener false
+            }
+        }
         findViewById<FloatingActionButton>(R.id.floating_action_button).setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 listOf(
@@ -75,8 +124,7 @@ class RegisterActivity : BaseActivity() {
                                 account,
                                 forename.editText?.text.toString(),
                                 surname.editText?.text.toString(),
-                                birthdate.editText?.text.toString().toLong(),
-                                // TODO: fix birthdate
+                                selectedDate,
                             ),
                         )
                     Preferences.setLoggedIn(this@RegisterActivity, account)
