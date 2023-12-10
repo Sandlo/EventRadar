@@ -17,6 +17,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/full_padding"
-        android:contentDescription="bla bla bla"
+        android:contentDescription="@string/title_discover"
         app:srcCompat="@drawable/ic_done" />
 </RelativeLayout>

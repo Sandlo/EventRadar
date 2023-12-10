@@ -83,14 +83,16 @@ class RegisterActivity : BaseActivity() {
         birthdate.editText?.apply {
             inputType = InputType.TYPE_NULL
             keyListener = null
-            setOnTouchListener { _, motionEvent ->
-                if (motionEvent.action == MotionEvent.ACTION_UP) {
+            setOnTouchListener { view, motionEvent ->
+                return@setOnTouchListener if (motionEvent.action == MotionEvent.ACTION_UP) {
                     showDatePickerDialog()
-                    return@setOnTouchListener true
+                    true
+                } else {
+                    view.performClick()
                 }
-                return@setOnTouchListener false
             }
         }
+
         findViewById<FloatingActionButton>(R.id.floating_action_button).setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 listOf(
@@ -106,32 +108,36 @@ class RegisterActivity : BaseActivity() {
                 }
 
                 if (validate()) {
-                    val account =
-                        AppDatabase.getInstance(this@RegisterActivity).accountDao()
-                            .insert(
-                                Account(
-                                    email.editText?.text.toString(),
-                                    phoneNumber.editText?.text.toString(),
-                                    BCrypt.hashpw(
-                                        password.editText?.text.toString(),
-                                        BCrypt.gensalt(),
-                                    ),
-                                ),
-                            )
-                    AppDatabase.getInstance(this@RegisterActivity).userDao()
-                        .insertAll(
-                            User(
-                                account,
-                                forename.editText?.text.toString(),
-                                surname.editText?.text.toString(),
-                                selectedDate,
-                            ),
-                        )
-                    Preferences.setLoggedIn(this@RegisterActivity, account)
+                    Preferences.setLoggedIn(this@RegisterActivity, createUser())
                     startActivity(Intent(this@RegisterActivity, InterestsActivity::class.java))
                 }
             }
         }
+    }
+
+    private suspend fun createUser(): Long {
+        val account =
+            AppDatabase.getInstance(this@RegisterActivity).accountDao()
+                .insert(
+                    Account(
+                        email.editText?.text.toString(),
+                        phoneNumber.editText?.text.toString(),
+                        BCrypt.hashpw(
+                            password.editText?.text.toString(),
+                            BCrypt.gensalt(),
+                        ),
+                    ),
+                )
+        AppDatabase.getInstance(this@RegisterActivity).userDao()
+            .insertAll(
+                User(
+                    account,
+                    forename.editText?.text.toString(),
+                    surname.editText?.text.toString(),
+                    selectedDate,
+                ),
+            )
+        return account
     }
 
     private fun validate(): Boolean {
