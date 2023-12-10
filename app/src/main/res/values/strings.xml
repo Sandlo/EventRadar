@@ -17,6 +17,7 @@
     <string name="mail">E-Mail</string>
     <string name="phone">Handynummer</string>
     <string name="password">Passwort</string>
+    <string name="select_birthdate">Geburtsdatum auswählen</string>
     <string name="repeat_password">Passwort wiederholen</string>
     <string name="email_error">Ungültige E-Mail</string>
     <string name="forename_error">Vorname ist erforderlich</string>
