@@ -74,20 +74,16 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
             tickets =
                 AppDatabase.getInstance(requireContext()).ticketDao()
                     .getAll(Preferences.getUserId(requireContext()))
-            if (tickets.isNotEmpty()) {
-                dateFilter.setOnClickListener {
-                    selectFilter(DATE_FILTER)
-                }
-                titleFilter.setOnClickListener {
-                    selectFilter(TITLE_FILTER)
-                }
-                priceFilter.setOnClickListener {
-                    selectFilter(PRICE_FILTER)
-                }
+            dateFilter.setOnClickListener {
                 selectFilter(DATE_FILTER)
-            } else {
-                recyclerView.adapter = EmptyAdapter()
             }
+            titleFilter.setOnClickListener {
+                selectFilter(TITLE_FILTER)
+            }
+            priceFilter.setOnClickListener {
+                selectFilter(PRICE_FILTER)
+            }
+            selectFilter(DATE_FILTER)
         }
 
         return root
@@ -109,10 +105,14 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     private fun update(newTickets: List<TicketWithEvent>) {
         tickets = newTickets
         recyclerView.adapter =
-            SimpleListAdapter(
-                tickets.map { it.toListItem(resources) },
-                this@TicketsFragment,
-            )
+            if (tickets.isNotEmpty()) {
+                SimpleListAdapter(
+                    tickets.map { it.toListItem(resources) },
+                    this@TicketsFragment,
+                )
+            } else {
+                EmptyAdapter()
+            }
     }
 
     private fun selectFilter(filter: Byte) {
