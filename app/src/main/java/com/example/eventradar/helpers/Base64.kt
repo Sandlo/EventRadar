@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.util.Base64
+import android.view.Gravity
 import androidx.core.graphics.drawable.toDrawable
 import java.io.InputStream
 
@@ -24,8 +25,11 @@ object Base64 {
         base64: String,
     ): Drawable {
         val decodedString: ByteArray = Base64.decode(base64, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            .toDrawable(context.resources)
+        val bitmap =
+            BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                .toDrawable(context.resources)
+        bitmap.gravity = Gravity.CENTER
+        return bitmap
     }
 
     /**
