@@ -63,6 +63,7 @@
     <string name="dummy_database">Dummy-Einträge</string>
     <string name="dummy_database_summary">Die Dummy-Datenbank wurde erfolgreich erstellt. Um auf die befüllte Datenbank zuzugreifen, ist es erforderlich, die Aktivität neu zu starten.</string>
     <string name="login_error">Ungültige Email/Handynummer oder Passwort</string>
+    <string name="booking_login_required">Sie müssen angemeldet sein, um ein Ticket buchen zu können.</string>
 
     <string name="currency_format">%1$s €</string>
     <string name="vat_format">%1$s inkl. MwSt.</string>

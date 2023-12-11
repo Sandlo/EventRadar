@@ -15,8 +15,10 @@ import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.data.entities.EventWithAddressOrganizerReviews
 import com.example.eventradar.helpers.Base64
+import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.helpers.StarView
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,25 +44,26 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         setContentView(R.layout.activity_event)
 
         findViewById<FloatingActionButton>(R.id.share).setOnClickListener {
-            startActivity(
-                Intent.createChooser(
-                    Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.app_name))
-                        putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-                    },
-                    resources.getString(R.string.share),
-                ),
-            )
+            onBuyClicked()
         }
 
         findViewById<FloatingActionButton>(R.id.buy).setOnClickListener {
-            startActivity(
-                Intent(this, BookingActivity::class.java).putExtra(
-                    EVENT_INTENT_EXTRA,
-                    intent.getLongExtra(EVENT_INTENT_EXTRA, -1),
-                ),
-            )
+            if (Preferences.isLoggedIn(this)) {
+                startActivity(
+                    Intent(this, BookingActivity::class.java).putExtra(
+                        EVENT_INTENT_EXTRA,
+                        intent.getLongExtra(EVENT_INTENT_EXTRA, -1),
+                    ),
+                )
+            } else {
+                MaterialAlertDialogBuilder(this).setTitle(R.string.title_login)
+                    .setMessage(R.string.booking_login_required)
+                    .setPositiveButton(R.string.title_login) { _, _ ->
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                    .show()
+            }
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
@@ -96,6 +99,25 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
     }
 
+    private fun onBuyClicked() {
+        if (Preferences.isLoggedIn(this)) {
+            startActivity(
+                Intent(this, BookingActivity::class.java).putExtra(
+                    EVENT_INTENT_EXTRA,
+                    intent.getLongExtra(EVENT_INTENT_EXTRA, -1),
+                ),
+            )
+        } else {
+            MaterialAlertDialogBuilder(this).setTitle(R.string.title_login)
+                .setMessage(R.string.booking_login_required)
+                .setPositiveButton(R.string.title_login) { _, _ ->
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+                .setNegativeButton(R.string.cancel) { _, _ -> }
+                .show()
+        }
+    }
+
     private fun showEvent(
         event: EventWithAddressOrganizerReviews,
         frame: View,
@@ -105,7 +127,8 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         frame.background = Base64.decodeImage(this@EventActivity, event.event.image)
         StarView.fillStars(event.reviews.map { it.stars }.average().toFloat(), stars)
         frame.findViewById<TextView>(R.id.title).text = event.event.title
-        frame.findViewById<TextView>(R.id.summary).text = event.event.getPriceAsLongString(resources)
+        frame.findViewById<TextView>(R.id.summary).text =
+            event.event.getPriceAsLongString(resources)
         recyclerView.adapter =
             SimpleListAdapter(
                 listOf(
