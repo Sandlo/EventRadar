@@ -3,12 +3,15 @@ package com.example.eventradar.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.eventradar.R
+import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.helpers.Preferences
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.search.SearchBar
 
 /**
  * Hauptaktivität, die die Navigation innerhalb der App steuert.
@@ -18,7 +21,7 @@ class MainActivity : BaseActivity() {
         /**
          * Zeigt einen Dialog für das Konto-Management, abhängig vom Anmeldestatus des Benutzers.
          */
-        fun onAccountClicked(context: Context) {
+        private fun onAccountClicked(context: Context) {
             if (Preferences.isLoggedIn(context)) {
                 MaterialAlertDialogBuilder(context).setTitle(R.string.logout)
                     .setMessage(R.string.logout_summary)
@@ -30,6 +33,28 @@ class MainActivity : BaseActivity() {
                     .show()
             } else {
                 context.startActivity(Intent(context, LoginActivity::class.java))
+            }
+        }
+
+        /**
+         * Initialisiert die Suchleiste in der Ansicht und konfiguriert deren Verhalten.
+         */
+        fun setupSearchBar(view: View) {
+            view.findViewById<SearchBar>(R.id.search_bar).let {
+                it.menu.getItem(0).setIcon(
+                    if (Preferences.isLoggedIn(view.context)) {
+                        R.drawable.ic_account_circle
+                    } else {
+                        R.drawable.ic_account_circle_off
+                    },
+                )
+                it.setOnClickListener {
+                    OutOfScopeDialog.show(view.context)
+                }
+                it.setOnMenuItemClickListener {
+                    onAccountClicked(view.context)
+                    true
+                }
             }
         }
     }

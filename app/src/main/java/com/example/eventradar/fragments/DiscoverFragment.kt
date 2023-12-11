@@ -16,9 +16,7 @@ import com.example.eventradar.adapters.EmptyAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.entities.InterestWithEventsWithReviews
-import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
-import com.google.android.material.search.SearchBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,15 +37,7 @@ class DiscoverFragment : Fragment() {
     ): View {
         val root = inflater.inflate(R.layout.fragment_discover, container, false)
 
-        root.findViewById<SearchBar>(R.id.search_bar).let {
-            it.setOnClickListener {
-                OutOfScopeDialog.show(requireContext())
-            }
-            it.setOnMenuItemClickListener {
-                MainActivity.onAccountClicked(requireContext())
-                true
-            }
-        }
+        MainActivity.setupSearchBar(root)
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

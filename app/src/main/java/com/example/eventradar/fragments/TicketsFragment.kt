@@ -16,11 +16,9 @@ import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.entities.TicketWithEvent
-import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import com.google.android.material.chip.Chip
-import com.google.android.material.search.SearchBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,15 +51,7 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
     ): View {
         val root = inflater.inflate(R.layout.fragment_tickets, container, false)
 
-        root.findViewById<SearchBar>(R.id.search_bar).let {
-            it.setOnClickListener {
-                OutOfScopeDialog.show(requireContext())
-            }
-            it.setOnMenuItemClickListener {
-                MainActivity.onAccountClicked(requireContext())
-                true
-            }
-        }
+        MainActivity.setupSearchBar(root)
 
         dateFilter = root.findViewById(R.id.date_filter)
         titleFilter = root.findViewById(R.id.title_filter)
