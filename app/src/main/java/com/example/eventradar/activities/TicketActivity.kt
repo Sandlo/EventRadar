@@ -37,6 +37,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         setContentView(R.layout.activity_ticket)
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LoadingAdapter()
 

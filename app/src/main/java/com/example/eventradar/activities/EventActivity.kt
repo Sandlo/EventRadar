@@ -64,6 +64,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LoadingAdapter()
 

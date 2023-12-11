@@ -24,103 +24,108 @@
         </com.google.android.material.appbar.AppBarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@id/app_bar"
-        android:padding="@dimen/full_padding">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/e_mail_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/full_padding"
-            android:hint="@string/email_mobile_number"
-            app:startIconDrawable="@drawable/ic_mail">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_2"
-            android:hint="@string/password"
-            app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_key">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+        android:layout_below="@id/app_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_2"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/full_padding">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/e_mail_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/full_padding"
+                android:hint="@string/email_mobile_number"
+                app:startIconDrawable="@drawable/ic_mail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_2"
+                android:hint="@string/password"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_key">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_2"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/google_sign_in_button"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/half_padding"
+                    android:layout_weight="1"
+                    android:text="@string/google_login"
+                    android:textColor="?attr/colorOnSurface"
+                    app:background="?attr/colorSurface"
+                    app:icon="@drawable/ic_google"
+                    app:iconTint="@null" />
+
+                <Button
+                    android:id="@+id/facebook_sign_in_button"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_padding"
+                    android:layout_weight="1"
+                    android:text="@string/facebook_login"
+                    android:textColor="?attr/colorOnSurface"
+                    app:background="?attr/colorSurface"
+                    app:icon="@drawable/ic_facebook"
+                    app:iconTint="@null" />
+            </LinearLayout>
 
             <Button
-                android:id="@+id/google_sign_in_button"
-                style="@style/Widget.Material3.Button.ElevatedButton"
-                android:layout_width="0dp"
+                android:id="@+id/register"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/half_padding"
-                android:layout_weight="1"
-                android:text="@string/google_login"
-                android:textColor="?attr/colorOnSurface"
-                app:background="?attr/colorSurface"
-                app:icon="@drawable/ic_google"
-                app:iconTint="@null" />
+                android:text="@string/register" />
 
             <Button
-                android:id="@+id/facebook_sign_in_button"
-                style="@style/Widget.Material3.Button.ElevatedButton"
-                android:layout_width="0dp"
+                android:id="@+id/guest"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/half_padding"
-                android:layout_weight="1"
-                android:text="@string/facebook_login"
-                android:textColor="?attr/colorOnSurface"
-                app:background="?attr/colorSurface"
-                app:icon="@drawable/ic_facebook"
-                app:iconTint="@null" />
+                android:text="@string/guest_login" />
+
+            <Button
+                android:id="@+id/reset_password"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reset_password" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/register"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register" />
-
-        <Button
-            android:id="@+id/guest"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/guest_login" />
-
-        <Button
-            android:id="@+id/reset_password"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/reset_password" />
-    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/continue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/full_padding"
         android:contentDescription="@string/title_login"
         app:srcCompat="@drawable/ic_done" />
