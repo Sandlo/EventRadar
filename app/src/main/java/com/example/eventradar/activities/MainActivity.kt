@@ -66,12 +66,19 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<BottomNavigationView>(R.id.nav_view).setupWithNavController(
+        val navController =
             (
                 supportFragmentManager.findFragmentById(
                     R.id.nav_host_fragment_activity_main,
                 ) as NavHostFragment
-            ).navController,
-        )
+            ).navController
+
+        findViewById<BottomNavigationView>(R.id.nav_view).setupWithNavController(navController)
+
+        when (intent.action) {
+            "com.example.eventradar.SHOW_DISCOVER" -> navController.navigate(R.id.navigation_discover)
+            "com.example.eventradar.SHOW_MAP" -> navController.navigate(R.id.navigation_map)
+            "com.example.eventradar.SHOW_TICKETS" -> navController.navigate(R.id.navigation_tickets)
+        }
     }
 }
