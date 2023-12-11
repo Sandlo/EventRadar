@@ -1,6 +1,8 @@
 package com.example.eventradar.activities
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -35,6 +37,20 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
+
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    startActivity(
+                        Intent(this@TicketActivity, MainActivity::class.java).apply {
+                            action = "com.example.eventradar.SHOW_TICKETS"
+                        },
+                    )
+                    finish()
+                }
+            },
+        )
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
         recyclerView.isNestedScrollingEnabled = false

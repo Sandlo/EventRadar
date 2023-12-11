@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.eventradar.R
@@ -76,9 +77,17 @@ class MainActivity : BaseActivity() {
         findViewById<BottomNavigationView>(R.id.nav_view).setupWithNavController(navController)
 
         when (intent.action) {
-            "com.example.eventradar.SHOW_DISCOVER" -> navController.navigate(R.id.navigation_discover)
-            "com.example.eventradar.SHOW_MAP" -> navController.navigate(R.id.navigation_map)
-            "com.example.eventradar.SHOW_TICKETS" -> navController.navigate(R.id.navigation_tickets)
+            "com.example.eventradar.SHOW_DISCOVER" -> navigate(navController, R.id.navigation_discover)
+            "com.example.eventradar.SHOW_MAP" -> navigate(navController, R.id.navigation_map)
+            "com.example.eventradar.SHOW_TICKETS" -> navigate(navController, R.id.navigation_tickets)
         }
+    }
+
+    private fun navigate(
+        navController: NavController,
+        id: Int,
+    ) {
+        navController.graph.setStartDestination(id)
+        navController.navigate(id)
     }
 }
