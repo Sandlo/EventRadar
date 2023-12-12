@@ -1,10 +1,14 @@
 package com.example.eventradar.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -18,6 +22,7 @@ import com.example.eventradar.helpers.Base64
 import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.helpers.StarView
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
@@ -27,7 +32,7 @@ import kotlinx.coroutines.launch
 /**
  * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
  */
-class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
+class EventActivity : AppCompatActivity(), RecyclerViewHelperInterface {
     companion object {
         /**
          * Konstante für den Schlüssel, der verwendet wird, um Event-Daten als Intent-Extra zwischen
@@ -42,6 +47,8 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
+
+        setupLayout()
 
         findViewById<FloatingActionButton>(R.id.share).setOnClickListener {
             startActivity(
@@ -89,6 +96,39 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                 )
             } else {
                 recyclerView.adapter = ErrorAdapter()
+            }
+        }
+    }
+
+    @SuppressLint("InternalInsetResource", "DiscouragedApi")
+    private fun setupLayout() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        )
+
+        var resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            (
+                findViewById<View>(
+                    R.id.root,
+                ).layoutParams as MarginLayoutParams
+            ).setMargins(0, 0, 0, resources.getDimensionPixelSize(resourceId))
+        }
+
+        findViewById<MaterialToolbar>(R.id.top_app_bar).apply {
+            resourceId =
+                resources.getIdentifier(
+                    "status_bar_height",
+                    "dimen",
+                    "android",
+                )
+            if (resourceId > 0) {
+                (layoutParams as MarginLayoutParams).setMargins(0, resources.getDimensionPixelSize(resourceId), 0, 0)
+            }
+
+            setNavigationOnClickListener {
+                finish()
             }
         }
     }
