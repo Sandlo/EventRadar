@@ -33,16 +33,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mindrot.jbcrypt.BCrypt
-import java.util.Calendar
-import java.util.TimeZone
-
-fun getFixedDateInMillis(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0): Long {
-    val calendar = Calendar.getInstance()
-    calendar.timeZone = TimeZone.getTimeZone("CET")
-    calendar.set(year, month - 1, day, hour, minute, second)
-    calendar.set(Calendar.MILLISECOND, 0)
-    return calendar.timeInMillis
-}
 
 /**
  * Die Klasse AppDatabase repräsentiert die Room-Datenbank für die Event Radar-Anwendung.
@@ -187,7 +177,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1706227200000,
                                         1706211000000,
                                         1,
-                                        "Alle mögen gutes Essen, deshalb werden Sie auch Luca mögen!",
+                                        "Alle mögen gutes Essen, deshalb werden Sie " +
+                                            "auch Luca mögen!",
                                         Base64.getFromAssets(context, "kochen.jpg"),
                                     ),
                                     Event(
@@ -197,7 +188,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1706299900000,
                                         1706300000000,
                                         1,
-                                        "Unser Dampflockexperte Domi lädt zu einem sinnlichen Abentuer in seine Privataussletung ein.",
+                                        "Unser Dampflockexperte Domi lädt zu einem " +
+                                            "sinnlichen Abentuer in seine Privataussletung ein.",
                                         Base64.getFromAssets(context, "bahn.jpg"),
                                     ),
                                     Event(
@@ -207,7 +199,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1706299900000,
                                         1706300000000,
                                         1,
-                                        "Eine unvergessleicher Abend voller Tanz und Stimmung",
+                                        "Eine unvergessleicher Abend voller Tanz und " +
+                                            "Stimmung",
                                         Base64.getFromAssets(context, "musical.jpg"),
                                     ),
                                     Event(
@@ -217,7 +210,9 @@ abstract class AppDatabase : RoomDatabase() {
                                         1706299900000,
                                         1706300000000,
                                         1,
-                                        "Wer sein Tanzbein mal wieder so richtig schwingen will, darf diesen Event nicht verpassen!",
+                                        "Wer sein Tanzbein mal wieder so richtig " +
+                                            "schwingen will, darf diesen Event nicht " +
+                                            "verpassen!",
                                         Base64.getFromAssets(context, "tanz.jpg"),
                                     ),
                                     Event(
@@ -230,14 +225,13 @@ abstract class AppDatabase : RoomDatabase() {
                                         "Feier mit uns gemeinsam in das neue Jahr!",
                                         Base64.getFromAssets(context, "silvester.jpg"),
                                     ),
-
-                                    )
+                                )
                                 interestDao().insertAll(
                                     Interest("Kultur"),
                                     Interest("Tanzen"),
                                     Interest("Alkohol"),
                                     Interest("Essen"),
-                                    Interest("Party")
+                                    Interest("Party"),
                                 )
                                 eventInterestDao().insertAll(
                                     EventInterest(1, 1),
@@ -303,15 +297,14 @@ abstract class AppDatabase : RoomDatabase() {
                                                 MainActivity::class.java,
                                             ).addFlags(
                                                 Intent.FLAG_ACTIVITY_NEW_TASK or
-                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK,
+                                                    Intent.FLAG_ACTIVITY_CLEAR_TASK,
                                             ),
                                         )
                                     }
                                     .show()
                             }
                         }
-
-                    }
+                    },
                 )
                 .build()
         }
