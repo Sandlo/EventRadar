@@ -27,7 +27,7 @@ object Base64 {
         val decodedString: ByteArray = Base64.decode(base64, Base64.DEFAULT)
         val bitmap =
             BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                .toDrawable(context.resources)
+                ?.toDrawable(context.resources) ?: error("Invalid Base64")
         bitmap.gravity = Gravity.CENTER
         return bitmap
     }
