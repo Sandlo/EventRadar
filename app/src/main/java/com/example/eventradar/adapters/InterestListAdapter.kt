@@ -3,7 +3,7 @@ package com.example.eventradar.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +39,7 @@ class InterestListAdapter(
                 holder.gradient.context.theme,
             )
         holder.title.text = items[position].name
-        holder.frame.background = (Base64.decodeImage(holder.frame.context, items[position].image))
+        holder.image.setImageDrawable(Base64.decodeImage(holder.image.context, items[position].image))
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
@@ -54,7 +54,7 @@ class InterestListAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val frame: RelativeLayout = view.findViewById(R.id.frame)
+        val image: ImageView = view.findViewById(R.id.image)
         val gradient: View = view.findViewById(R.id.gradient)
         val title: TextView = view.findViewById(R.id.title)
     }

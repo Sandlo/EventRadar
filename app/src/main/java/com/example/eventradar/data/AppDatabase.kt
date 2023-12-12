@@ -238,11 +238,14 @@ abstract class AppDatabase : RoomDatabase() {
                                     ),
                                 )
                                 interestDao().insertAll(
-                                    Interest("Kultur", "bar.jpg"),
-                                    Interest("Tanzen", "club.jpg"),
-                                    Interest("Alkohol", "theater.jpg"),
-                                    Interest("Essen", "bar.jpg"),
-                                    Interest("Party", "club.jpg"),
+                                    Interest("Kultur", Base64.getFromAssets(context, "bar.jpg")),
+                                    Interest("Tanzen", Base64.getFromAssets(context, "club.jpg")),
+                                    Interest(
+                                        "Alkohol",
+                                        Base64.getFromAssets(context, "theater.jpg"),
+                                    ),
+                                    Interest("Essen", Base64.getFromAssets(context, "bar.jpg")),
+                                    Interest("Party", Base64.getFromAssets(context, "club.jpg")),
                                 )
                                 eventInterestDao().insertAll(
                                     EventInterest(1, 1),
