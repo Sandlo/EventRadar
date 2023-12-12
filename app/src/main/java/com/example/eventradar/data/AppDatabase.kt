@@ -188,7 +188,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1706211000000,
                                         1,
                                         "Alle mögen gutes Essen, deshalb werden Sie auch Luca mögen!",
-                                        Base64.getFromAssets(context, "lucas_kochen.jpg"),
+                                        Base64.getFromAssets(context, "kochen.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -198,7 +198,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1706300000000,
                                         1,
                                         "Unser Dampflockexperte Domi lädt zu einem sinnlichen Abentuer in seine Privataussletung ein.",
-                                        Base64.getFromAssets(context, "dampflock.jpg"),
+                                        Base64.getFromAssets(context, "bahn.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -220,12 +220,24 @@ abstract class AppDatabase : RoomDatabase() {
                                         "Wer sein Tanzbein mal wieder so richtig schwingen will, darf diesen Event nicht verpassen!",
                                         Base64.getFromAssets(context, "tanz.jpg"),
                                     ),
-                                )
+                                    Event(
+                                        1,
+                                        8.50,
+                                        "Silvesterparty",
+                                        1706299900000,
+                                        1704088800000,
+                                        1,
+                                        "Feier mit uns gemeinsam in das neue Jahr!",
+                                        Base64.getFromAssets(context, "silvester.jpg"),
+                                    ),
+
+                                    )
                                 interestDao().insertAll(
                                     Interest("Kultur"),
                                     Interest("Tanzen"),
                                     Interest("Alkohol"),
                                     Interest("Essen"),
+                                    Interest("Party")
                                 )
                                 eventInterestDao().insertAll(
                                     EventInterest(1, 1),
@@ -243,6 +255,10 @@ abstract class AppDatabase : RoomDatabase() {
                                     EventInterest(5, 3),
                                     EventInterest(7, 2),
                                     EventInterest(7, 3),
+                                    EventInterest(8, 3),
+                                    EventInterest(8, 2),
+                                    EventInterest(8, 4),
+                                    EventInterest(8, 5),
                                 )
                                 reviewDao().insertAll(
                                     Review(1, 1, "", 2.5f, 1000000000),
@@ -276,25 +292,26 @@ abstract class AppDatabase : RoomDatabase() {
                             super.onCreate(db)
                             CoroutineScope(Dispatchers.IO).launch {
                                 fillDatabase(getInstance(context))
-                                ContextCompat.getMainExecutor(context).execute {
-                                    MaterialAlertDialogBuilder(context).setTitle(R.string.dummy_database)
-                                        .setMessage(R.string.dummy_database_summary)
-                                        .setPositiveButton(R.string.ok) { _, _ ->
-                                            context.startActivity(
-                                                Intent(
-                                                    context,
-                                                    MainActivity::class.java,
-                                                ).addFlags(
-                                                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                            }
+                            ContextCompat.getMainExecutor(context).execute {
+                                MaterialAlertDialogBuilder(context).setTitle(R.string.dummy_database)
+                                    .setMessage(R.string.dummy_database_summary)
+                                    .setPositiveButton(R.string.ok) { _, _ ->
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                MainActivity::class.java,
+                                            ).addFlags(
+                                                Intent.FLAG_ACTIVITY_NEW_TASK or
                                                         Intent.FLAG_ACTIVITY_CLEAR_TASK,
-                                                ),
-                                            )
-                                        }
-                                        .show()
-                                }
+                                            ),
+                                        )
+                                    }
+                                    .show()
                             }
                         }
-                    },
+
+                    }
                 )
                 .build()
         }
