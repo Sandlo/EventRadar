@@ -44,26 +44,20 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         setContentView(R.layout.activity_event)
 
         findViewById<FloatingActionButton>(R.id.share).setOnClickListener {
-            onBuyClicked()
+            startActivity(
+                Intent.createChooser(
+                    Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.app_name))
+                        putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                    },
+                    resources.getString(R.string.share),
+                ),
+            )
         }
 
         findViewById<FloatingActionButton>(R.id.buy).setOnClickListener {
-            if (Preferences.isLoggedIn(this)) {
-                startActivity(
-                    Intent(this, BookingActivity::class.java).putExtra(
-                        EVENT_INTENT_EXTRA,
-                        intent.getLongExtra(EVENT_INTENT_EXTRA, -1),
-                    ),
-                )
-            } else {
-                MaterialAlertDialogBuilder(this).setTitle(R.string.title_login)
-                    .setMessage(R.string.booking_login_required)
-                    .setPositiveButton(R.string.title_login) { _, _ ->
-                        startActivity(Intent(this, LoginActivity::class.java))
-                    }
-                    .setNegativeButton(R.string.cancel) { _, _ -> }
-                    .show()
-            }
+            onBuyClicked()
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
