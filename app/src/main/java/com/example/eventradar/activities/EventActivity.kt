@@ -1,8 +1,10 @@
 package com.example.eventradar.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Surface
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
@@ -109,11 +111,33 @@ class EventActivity : AppCompatActivity(), RecyclerViewHelperInterface {
 
         var resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
         if (resourceId > 0) {
-            (
-                findViewById<View>(
-                    R.id.root,
-                ).layoutParams as MarginLayoutParams
-            ).setMargins(0, 0, 0, resources.getDimensionPixelSize(resourceId))
+            @Suppress("DEPRECATION")
+            val rotation = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.rotation
+            val layoutParams = findViewById<View>(R.id.root).layoutParams as MarginLayoutParams
+
+            when (rotation) {
+                Surface.ROTATION_90 ->
+                    layoutParams.setMargins(
+                        0,
+                        0,
+                        resources.getDimensionPixelSize(resourceId),
+                        0,
+                    )
+                Surface.ROTATION_270 ->
+                    layoutParams.setMargins(
+                        resources.getDimensionPixelSize(resourceId),
+                        0,
+                        0,
+                        0,
+                    )
+                else ->
+                    layoutParams.setMargins(
+                        0,
+                        0,
+                        0,
+                        resources.getDimensionPixelSize(resourceId),
+                    )
+            }
         }
 
         findViewById<MaterialToolbar>(R.id.top_app_bar).apply {
@@ -124,7 +148,12 @@ class EventActivity : AppCompatActivity(), RecyclerViewHelperInterface {
                     "android",
                 )
             if (resourceId > 0) {
-                (layoutParams as MarginLayoutParams).setMargins(0, resources.getDimensionPixelSize(resourceId), 0, 0)
+                (layoutParams as MarginLayoutParams).setMargins(
+                    0,
+                    resources.getDimensionPixelSize(resourceId),
+                    0,
+                    0,
+                )
             }
 
             setNavigationOnClickListener {
