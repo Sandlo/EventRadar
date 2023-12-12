@@ -13,9 +13,11 @@
         android:layout_height="match_parent">
 
         <View
+            android:id="@+id/gradient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_dim" />
+            android:background="@drawable/gradient_dim"
+            android:alpha="0.7"/>
 
         <View
             android:layout_width="match_parent"

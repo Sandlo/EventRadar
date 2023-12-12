@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
     private var interest = listOf<Interest>()
     private var selectedInterest = mutableListOf<Interest>()
+    private lateinit var adapter: InterestListAdapter
 
     /**
      * Initialisiert die Interessenaktivität und setzt Event-Handler für Benutzerinteraktionen.
@@ -39,11 +40,12 @@ class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
             interest =
                 AppDatabase.getInstance(this@InterestsActivity).interestDao()
                     .getAllInterests()
-            recyclerView.adapter =
+            adapter =
                 InterestListAdapter(
                     interest,
                     this@InterestsActivity,
                 )
+            recyclerView.adapter = adapter
         }
 
         findViewById<FloatingActionButton>(R.id.continue_interests).setOnClickListener {
@@ -68,9 +70,11 @@ class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
 
     override fun onItemClicked(position: Int) {
         if (selectedInterest.contains(interest[position])) {
+            adapter.setSelected(position, false)
             selectedInterest.remove(interest[position])
             return
         }
+        adapter.setSelected(position, true)
         selectedInterest.add(interest[position])
     }
 }

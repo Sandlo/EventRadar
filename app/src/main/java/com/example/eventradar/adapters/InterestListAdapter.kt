@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
 import com.example.eventradar.data.entities.Interest
@@ -15,6 +16,8 @@ class InterestListAdapter(
     private val items: List<Interest>,
     private val helperInterface: RecyclerViewHelperInterface,
 ) : RecyclerView.Adapter<InterestListAdapter.ViewHolder>() {
+    private val states = Array(items.size) { _ -> false }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -29,6 +32,12 @@ class InterestListAdapter(
         holder: ViewHolder,
         position: Int,
     ) {
+        holder.gradient.background =
+            ResourcesCompat.getDrawable(
+                holder.gradient.resources,
+                if (states[position]) R.drawable.gradient_primary else R.drawable.gradient_dim,
+                holder.gradient.context.theme,
+            )
         holder.title.text = items[position].name
         holder.frame.background = (Base64.decodeImage(holder.frame.context, items[position].image))
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
@@ -36,8 +45,17 @@ class InterestListAdapter(
 
     override fun getItemCount(): Int = items.size
 
+    fun setSelected(
+        position: Int,
+        state: Boolean,
+    ) {
+        states[position] = state
+        notifyItemChanged(position)
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val frame: RelativeLayout = view.findViewById(R.id.frame)
+        val gradient: View = view.findViewById(R.id.gradient)
         val title: TextView = view.findViewById(R.id.title)
     }
 }
