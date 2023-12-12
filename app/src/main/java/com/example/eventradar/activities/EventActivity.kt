@@ -158,7 +158,9 @@ class EventActivity : AppCompatActivity(), RecyclerViewHelperInterface {
         stars: List<ImageView>,
         recyclerView: RecyclerView,
     ) {
-        frame.background = Base64.decodeImage(this@EventActivity, event.event.image)
+        frame.findViewById<ImageView>(R.id.image).setImageDrawable(
+            Base64.decodeImage(this@EventActivity, event.event.image),
+        )
         StarView.fillStars(event.reviews.map { it.stars }.average().toFloat(), stars)
         frame.findViewById<TextView>(R.id.title).text = event.event.title
         frame.findViewById<TextView>(R.id.summary).text =

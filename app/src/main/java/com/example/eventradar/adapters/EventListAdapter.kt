@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -39,7 +38,7 @@ class EventListAdapter(
         holder: ViewHolder,
         position: Int,
     ) {
-        holder.frame.background = items[position].background
+        holder.image.setImageDrawable(items[position].background)
         StarView.fillStars(items[position].rating, holder.stars)
         holder.title.text = items[position].title
         holder.summary.text = items[position].summary
@@ -56,9 +55,9 @@ class EventListAdapter(
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         /**
-         * RelativeLayout für das gesamte Layout des Veranstaltungselements.
+         * ImageView zur Anzeige des Bilds der Veranstaltung.
          */
-        val frame: RelativeLayout = view.findViewById(R.id.frame)
+        val image: ImageView = view.findViewById(R.id.image)
 
         /**
          * Liste von ImageView-Elementen, die Sterne zur Bewertung der Veranstaltung repräsentieren.
