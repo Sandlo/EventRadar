@@ -3,6 +3,7 @@ package com.example.eventradar.activities
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Surface
 import android.view.View
@@ -30,6 +31,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import android.provider.CalendarContract
+import android.widget.Toast
+
+
 /**
  * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
  */
@@ -41,6 +46,9 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
          */
         const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
     }
+
+    // Klassenvariable für die Adresse
+    private var eventAddress: String? = null
 
     /**
      * Initialisiert die Eventaktivität und lädt Eventdetails und interaktive Funktionen.
@@ -78,12 +86,14 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
             recyclerView.adapter = ErrorAdapter()
             return
         }
+
         CoroutineScope(Dispatchers.Main).launch {
             val event =
                 AppDatabase.getInstance(this@EventActivity).eventDao()
                     .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
 
             if (event != null) {
+                eventAddress = event.address.toString()
                 showEvent(
                     event,
                     findViewById(R.id.frame),
@@ -223,9 +233,45 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
     }
 
     /**
-     * Reagiert auf Klickereignisse in der Eventliste, aktuell keine spezifische Implementierung.
+     * Reagiert auf Klickereignisse in der Eventliste.
+     * Öffnet Google Maps, wenn auf das Standortelement geklickt wird.
      */
     override fun onItemClicked(position: Int) {
-        // Do nothing.
+        if (position == 3 && eventAddress != null) {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(eventAddress)}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            if (mapIntent.resolveActivity(packageManager) != null) {
+                startActivity(mapIntent)
+            }
+        }
+        if (position == 2) {
+            CoroutineScope(Dispatchers.Main).launch {
+                val event =
+                    AppDatabase.getInstance(this@EventActivity).eventDao()
+                        .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
+
+                if (event != null) {
+                    val eventTitle = event.event.title
+                    val eventStartTimeMillis = event.event.start
+                    val eventEndTimeMillis = event.event.end
+
+                    val intent = Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI) // Verwenden Sie dieses URI, um Google Calendar zu öffnen
+                        .putExtra(CalendarContract.Events.TITLE, eventTitle)
+                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, eventStartTimeMillis)
+                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, eventEndTimeMillis)
+
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this@EventActivity, "Es ist keine Kalender-App installiert.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+        }
     }
+
+
 }
