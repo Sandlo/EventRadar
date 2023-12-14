@@ -22,6 +22,9 @@ interface AccountDao {
     @Insert
     suspend fun insertAll(vararg accounts: Account)
 
+    /**
+     * Fügt einen Account in die Datenbank ein und gibt die ID des neuen Accounts zurück.
+     */
     @Insert
     suspend fun insert(account: Account): Long
 }

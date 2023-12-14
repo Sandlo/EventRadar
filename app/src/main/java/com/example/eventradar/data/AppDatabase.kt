@@ -106,8 +106,14 @@ abstract class AppDatabase : RoomDatabase() {
      */
     abstract fun accountDao(): AccountDao
 
+    /**
+     * DAO zum Zugriff auf AccountInterest-Daten.
+     */
     abstract fun accountInterestDao(): AccountInterestDao
 
+    /**
+     * DAO zum Zugriff auf User-Daten.
+     */
     abstract fun userDao(): UserDao
 
     companion object {
