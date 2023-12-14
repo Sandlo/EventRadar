@@ -3,6 +3,11 @@ package com.example.eventradar.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
+/**
+ * Data-Klasse für die Verknüpfung von Accounts und Interessen.
+ * @property accountId ID des Accounts.
+ * @property interestId ID des Interesses.
+ */
 @Entity(
     tableName = "account_interest",
     primaryKeys = ["account_id", "interest_id"],

@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
  * Die Klasse Interest repräsentiert ein Interesse in der Room-Datenbank.
  *
  * @property name Der Name des Interesses.
+ * @property image Base64-kodiertes Bild des Interesses.
  */
 @Entity(tableName = "interest")
 data class Interest(

@@ -12,12 +12,18 @@ import com.example.eventradar.data.entities.Interest
 import com.example.eventradar.helpers.Base64
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 
+/**
+ * Adapter für die Darstellung von Interessen in einer RecyclerView.
+ */
 class InterestListAdapter(
     private val items: List<Interest>,
     private val helperInterface: RecyclerViewHelperInterface,
 ) : RecyclerView.Adapter<InterestListAdapter.ViewHolder>() {
     private val states = Array(items.size) { _ -> false }
 
+    /**
+     * Erstellt eine neue ViewHolder-Instanz für die Darstellung eines Interesses.
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -28,6 +34,9 @@ class InterestListAdapter(
                 .inflate(R.layout.list_item_interest, parent, false),
         )
 
+    /**
+     * Bindet die Daten eines Interesses an eine ViewHolder-Instanz.
+     */
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int,
@@ -43,8 +52,14 @@ class InterestListAdapter(
         holder.itemView.setOnClickListener { helperInterface.onItemClicked(position) }
     }
 
+    /**
+     * Gibt die Anzahl der Interessen zurück.
+     */
     override fun getItemCount(): Int = items.size
 
+    /**
+     * Gibt die IDs der ausgewählten Interessen zurück.
+     */
     fun setSelected(
         position: Int,
         state: Boolean,
@@ -53,6 +68,12 @@ class InterestListAdapter(
         notifyItemChanged(position)
     }
 
+    /**
+     * ViewHolder für die Darstellung eines Interesses.
+     * @property image ImageView für das Interessenbild.
+     * @property gradient View für den Farbverlauf.
+     * @property title TextView für den Interessennamen.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.image)
         val gradient: View = view.findViewById(R.id.gradient)
