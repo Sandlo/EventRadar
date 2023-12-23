@@ -1,4 +1,4 @@
-name: Continuous Integration (CI) mit GitHub Actions
+name: Continuous Integration
 
 on:
   push:
@@ -33,3 +33,18 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew detekt
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Run
+        run: |
+          chmod +x gradlew
+          ./gradlew build
