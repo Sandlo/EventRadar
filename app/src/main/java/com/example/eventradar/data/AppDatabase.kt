@@ -260,7 +260,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1735682400000,
                                         1,
                                         "Ein Festival, das Lichtinstallationen von internationalen Künstlern in der ganzen Stadt präsentiert. ",
-                                        Base64.getFromAssets(context, "Lichter.jpg"),
+                                        Base64.getFromAssets(context, "lichter.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -270,7 +270,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1722463200000,
                                         1,
                                         "Ein Musikfestival, das Bands und Musiker aus verschiedenen Ländern und Kulturen zusammenbringt. ",
-                                        Base64.getFromAssets(context, "Rhythmus.jpg"),
+                                        Base64.getFromAssets(context, "rhythmus.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -280,7 +280,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1725141600000,
                                         1,
                                         "Ein Festival, das Straßenkünstler, Akrobaten und Performer aus der ganzen Welt in einer Stadt versammelt. ",
-                                        Base64.getFromAssets(context, "Straßenkunst.jpg"),
+                                        Base64.getFromAssets(context, "straßenkunst.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -290,7 +290,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1727740740000,
                                         1,
                                         "Ein Open-Air-Filmfestival, das klassische und zeitgenössische Filme unter dem Sternenhimmel zeigt. ",
-                                        Base64.getFromAssets(context, "Filmnächte.jpg"),
+                                        Base64.getFromAssets(context, "filmnächte.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -300,7 +300,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1717300800000,
                                         1,
                                         "Eine Party, die sich auf elektronische Musik konzentriert und Top-DJs aus der ganzen Welt einlädt. ",
-                                        Base64.getFromAssets(context, "Elektronische.jpg"),
+                                        Base64.getFromAssets(context, "elektronische.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -310,7 +310,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1721102400000,
                                         1,
                                         "Eine Themenparty, die die Musik und Mode der 80er und 90er Jahre feiert.",
-                                        Base64.getFromAssets(context, "Retro.jpg"),
+                                        Base64.getFromAssets(context, "retro.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -320,7 +320,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1724205600000,
                                         1,
                                         "Eine Open-Air-Party im Mannheimer Stadtpark mit Live-Musik und Tanzflächen. ",
-                                        Base64.getFromAssets(context, "TanzUnter.jpg"),
+                                        Base64.getFromAssets(context, "tanzunter.jpg"),
                                     ),
                                     Event(
                                         1,
@@ -330,18 +330,18 @@ abstract class AppDatabase : RoomDatabase() {
                                         1726027200000,
                                         1,
                                         "Eine Partyreihe, die Musikstile aus verschiedenen Kulturen und Ländern präsentiert.  ",
-                                        Base64.getFromAssets(context, "ClubDer.jpg"),
+                                        Base64.getFromAssets(context, "clubder.jpg"),
                                     ),
                                 )
 
                                 interestDao().insertAll(
-                                    Interest("Kultur", Base64.getFromAssets(context, "bar.jpg")),
-                                    Interest("Tanzen", Base64.getFromAssets(context, "club.jpg")),
+                                    Interest("Kultur", Base64.getFromAssets(context, "kultur.jpg")),
+                                    Interest("Tanzen", Base64.getFromAssets(context, "musicalm.jpg")),
                                     Interest(
                                         "Alkohol",
-                                        Base64.getFromAssets(context, "theater.jpg"),
+                                        Base64.getFromAssets(context, "bar.jpg"),
                                     ),
-                                    Interest("Essen", Base64.getFromAssets(context, "bar.jpg")),
+                                    Interest("Essen", Base64.getFromAssets(context, "essen.jpg")),
                                     Interest("Party", Base64.getFromAssets(context, "club.jpg")),
                                 )
                                 eventInterestDao().insertAll(
@@ -349,6 +349,8 @@ abstract class AppDatabase : RoomDatabase() {
                                     EventInterest(1, 3),
                                     EventInterest(2, 4),
                                     EventInterest(2, 3),
+                                    EventInterest(3, 1),
+                                    EventInterest(3, 2),
                                     EventInterest(4, 2),
                                     EventInterest(4, 3),
                                     EventInterest(5, 3),
