@@ -417,22 +417,22 @@ abstract class AppDatabase : RoomDatabase() {
                         super.onCreate(db)
                         CoroutineScope(Dispatchers.IO).launch {
                             fillDatabase(getInstance(context))
-                        }
-                        ContextCompat.getMainExecutor(context).execute {
-                            MaterialAlertDialogBuilder(context).setTitle(R.string.dummy_database)
-                                .setMessage(R.string.dummy_database_summary)
-                                .setPositiveButton(R.string.ok) { _, _ ->
-                                    context.startActivity(
-                                        Intent(
-                                            context,
-                                            MainActivity::class.java,
-                                        ).addFlags(
-                                            Intent.FLAG_ACTIVITY_NEW_TASK or
-                                                Intent.FLAG_ACTIVITY_CLEAR_TASK,
-                                        ),
-                                    )
-                                }
-                                .show()
+                            ContextCompat.getMainExecutor(context).execute {
+                                MaterialAlertDialogBuilder(context).setTitle(R.string.dummy_database)
+                                    .setMessage(R.string.dummy_database_summary)
+                                    .setPositiveButton(R.string.ok) { _, _ ->
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                MainActivity::class.java,
+                                            ).addFlags(
+                                                Intent.FLAG_ACTIVITY_NEW_TASK or
+                                                    Intent.FLAG_ACTIVITY_CLEAR_TASK,
+                                            ),
+                                        )
+                                    }
+                                    .show()
+                            }
                         }
                     }
                 },

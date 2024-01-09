@@ -8,8 +8,8 @@
 
         <ImageView
             android:id="@+id/drawable"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/list_item_icon_size"
+            android:layout_height="@dimen/list_item_icon_size"
             android:layout_marginStart="@dimen/full_padding"
             android:contentDescription="@null" />
 
