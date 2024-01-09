@@ -220,7 +220,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1719770400000,
                                         1,
                                         "Eine Ausstellung, die Kunstwerke aus verschiedenen " +
-                                                "Epochen präsentiert, von der Renaissance bis zur modernen Kunst.",
+                                            "Epochen präsentiert, von der Renaissance bis zur modernen Kunst.",
                                         Base64.getFromAssets(context, "zeitreise.jpg"),
                                     ),
                                     Event(
@@ -231,7 +231,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1723744800000,
                                         1,
                                         "Eine Fotografie Ausstellung, die Werke von zeitgenössischen " +
-                                                "Fotografen aus der ganzen Welt zeigt.",
+                                            "Fotografen aus der ganzen Welt zeigt.",
                                         Base64.getFromAssets(context, "fotografie.jpg"),
                                     ),
                                     Event(
@@ -242,7 +242,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1727719200000,
                                         1,
                                         "Eine Ausstellung, die innovative Designkonzepte aus den Bereichen Mode, " +
-                                                "Möbel, Grafik und Industriedesign präsentiert.",
+                                            "Möbel, Grafik und Industriedesign präsentiert.",
                                         Base64.getFromAssets(context, "design.jpg"),
                                     ),
                                     Event(
@@ -253,7 +253,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         17303976000000,
                                         1,
                                         "Eine Ausstellung, die Kunstwerke präsentiert, die die " +
-                                                "Schönheit und Vielfalt der Natur darstellen.",
+                                            "Schönheit und Vielfalt der Natur darstellen.",
                                         Base64.getFromAssets(context, "natur.jpg"),
                                     ),
                                     Event(
@@ -264,7 +264,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1735682400000,
                                         1,
                                         "Ein Festival, das Lichtinstallationen von internationalen " +
-                                                "Künstlern in der ganzen Stadt präsentiert. ",
+                                            "Künstlern in der ganzen Stadt präsentiert. ",
                                         Base64.getFromAssets(context, "lichter.jpg"),
                                     ),
                                     Event(
@@ -275,7 +275,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1722463200000,
                                         1,
                                         "Ein Musikfestival, das Bands und Musiker aus verschiedenen " +
-                                                "Ländern und Kulturen zusammenbringt. ",
+                                            "Ländern und Kulturen zusammenbringt. ",
                                         Base64.getFromAssets(context, "rhythmus.jpg"),
                                     ),
                                     Event(
@@ -286,7 +286,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1725141600000,
                                         1,
                                         "Ein Festival, das Straßenkünstler, Akrobaten und Performer " +
-                                                "aus der ganzen Welt in einer Stadt versammelt. ",
+                                            "aus der ganzen Welt in einer Stadt versammelt. ",
                                         Base64.getFromAssets(context, "straßenkunst.jpg"),
                                     ),
                                     Event(
@@ -297,7 +297,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1727740740000,
                                         1,
                                         "Ein Open-Air-Filmfestival, das klassische und zeitgenössische " +
-                                                "Filme unter dem Sternenhimmel zeigt. ",
+                                            "Filme unter dem Sternenhimmel zeigt. ",
                                         Base64.getFromAssets(context, "filmnächte.jpg"),
                                     ),
                                     Event(
@@ -308,7 +308,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1717300800000,
                                         1,
                                         "Eine Party, die sich auf elektronische Musik konzentriert " +
-                                                "und Top-DJs aus der ganzen Welt einlädt. ",
+                                            "und Top-DJs aus der ganzen Welt einlädt. ",
                                         Base64.getFromAssets(context, "elektronische.jpg"),
                                     ),
                                     Event(
@@ -339,7 +339,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         1726027200000,
                                         1,
                                         "Eine Partyreihe, die Musikstile aus verschiedenen " +
-                                                "Kulturen und Ländern präsentiert.  ",
+                                            "Kulturen und Ländern präsentiert.  ",
                                         Base64.getFromAssets(context, "clubder.jpg"),
                                     ),
                                 )
