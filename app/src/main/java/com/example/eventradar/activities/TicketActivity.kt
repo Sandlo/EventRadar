@@ -3,6 +3,9 @@ package com.example.eventradar.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import android.net.Uri
+import android.provider.CalendarContract
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -29,7 +32,14 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
          */
         const val TICKET_INTENT_EXTRA: String = "ticket_intent_extra"
         private const val CANCELLATION_ITEM = 4
+        private const val LOCATION_ITEM = 3
+        private const val DATE_ITEM = 2
     }
+
+    private var ticketAddress: String? = null
+    private var ticketEventStart: Long? = null
+    private var ticketEventEnd: Long? = null
+    private var ticketEventTitle: String? = null
 
     /**
      * Initialisiert die Ticketaktivität und lädt Ticketdetails in eine Liste.
@@ -68,33 +78,38 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                         intent.getLongExtra(TICKET_INTENT_EXTRA, -1),
                         Preferences.getUserId(this@TicketActivity),
                     )
-            recyclerView.adapter =
-                if (ticket != null) {
-                    SimpleListAdapter(
-                        listOf(
-                            SimpleListItem("", resources.getString(R.string.ticket_info)),
-                            SimpleListItem(
-                                ticket.event.event.title,
-                                resources.getString(R.string.what),
-                                R.drawable.ic_circle_local_activity,
-                            ),
-                            SimpleListItem(
-                                ticket.event.event.getStartAsString(resources),
-                                resources.getString(R.string.`when`),
-                                R.drawable.ic_circle_calendar_today,
-                            ),
-                            SimpleListItem(
-                                ticket.event.address.toString(resources),
-                                resources.getString(R.string.where),
-                                R.drawable.ic_circle_location_on,
-                            ),
-                            SimpleListItem(resources.getString(R.string.ticket_cancel)),
+            if (ticket != null) {
+                // Zuweisen der Werte zu den Klassenvariablen
+                ticketEventTitle = ticket.event.event.title
+                ticketEventStart = ticket.event.event.start
+                ticketEventEnd = ticket.event.event.end
+                ticketAddress = ticket.event.address.toString()
+
+                recyclerView.adapter = SimpleListAdapter(
+                    listOf(
+                        SimpleListItem("", resources.getString(R.string.ticket_info)),
+                        SimpleListItem(
+                            ticket.event.event.title,
+                            resources.getString(R.string.what),
+                            R.drawable.ic_circle_local_activity,
                         ),
-                        this@TicketActivity,
-                    )
-                } else {
-                    ErrorAdapter()
-                }
+                        SimpleListItem(
+                            ticket.event.event.getStartAsString(resources),
+                            resources.getString(R.string.`when`),
+                            R.drawable.ic_circle_calendar_today,
+                        ),
+                        SimpleListItem(
+                            ticket.event.address.toString(resources),
+                            resources.getString(R.string.where),
+                            R.drawable.ic_circle_location_on,
+                        ),
+                        SimpleListItem(resources.getString(R.string.ticket_cancel)),
+                    ),
+                    this@TicketActivity,
+                )
+            } else {
+                recyclerView.adapter = ErrorAdapter()
+            }
         }
     }
 
@@ -102,6 +117,32 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
      * Reagiert auf Klickereignisse in der Ticketliste, insbesondere bei Auswahl der Stornierungsoption.
      */
     override fun onItemClicked(position: Int) {
-        if (position == CANCELLATION_ITEM) OutOfScopeDialog.show(this)
+        when (position) {
+            CANCELLATION_ITEM -> OutOfScopeDialog.show(this)
+            LOCATION_ITEM -> {
+                ticketAddress?.let {
+                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(it)}")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    if (mapIntent.resolveActivity(packageManager) != null) {
+                        startActivity(mapIntent)
+                    }
+                }
+            }
+            DATE_ITEM -> {
+                if (ticketEventTitle != null && ticketEventStart != null && ticketEventEnd != null) {
+                    val intent = Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.Events.TITLE, ticketEventTitle)
+                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, ticketEventStart)
+                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, ticketEventEnd)
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "Es ist keine Kalender-App installiert.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 }
