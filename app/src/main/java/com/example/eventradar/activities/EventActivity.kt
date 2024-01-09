@@ -3,8 +3,6 @@ package com.example.eventradar.activities
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.Surface
 import android.view.View
@@ -12,7 +10,6 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -23,6 +20,7 @@ import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
 import com.example.eventradar.data.entities.EventWithAddressOrganizerReviews
 import com.example.eventradar.helpers.Base64
+import com.example.eventradar.helpers.External
 import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.helpers.StarView
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
@@ -32,9 +30,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import android.provider.CalendarContract
-import android.widget.Toast
-
 
 /**
  * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
@@ -46,10 +41,12 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
          * Aktivitäten zu übertragen.
          */
         const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
+
+        private const val LOCATION_ITEM = 3
+        private const val DATE_ITEM = 2
     }
 
-    // Klassenvariable für die Adresse
-    private var eventAddress: String? = null
+    private var event: EventWithAddressOrganizerReviews? = null
 
     /**
      * Initialisiert die Eventaktivität und lädt Eventdetails und interaktive Funktionen.
@@ -89,14 +86,13 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val event =
+            event =
                 AppDatabase.getInstance(this@EventActivity).eventDao()
                     .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
 
             if (event != null) {
-                eventAddress = event.address.toString()
                 showEvent(
-                    event,
+                    event ?: error("Event is null."),
                     findViewById(R.id.frame),
                     listOf(
                         findViewById(R.id.first_star),
@@ -238,41 +234,13 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
      * Öffnet Google Maps, wenn auf das Standortelement geklickt wird.
      */
     override fun onItemClicked(position: Int) {
-        if (position == 3 && eventAddress != null) {
-            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(eventAddress)}")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
-            if (mapIntent.resolveActivity(packageManager) != null) {
-                startActivity(mapIntent)
+        when (position) {
+            LOCATION_ITEM -> {
+                External.openMaps(this, event?.address ?: error("Event is null."))
             }
-        }
-        if (position == 2) {
-            CoroutineScope(Dispatchers.Main).launch {
-                val event =
-                    AppDatabase.getInstance(this@EventActivity).eventDao()
-                        .getWithAddressOrganizerReviews(intent.getLongExtra(EVENT_INTENT_EXTRA, -1))
-
-                if (event != null) {
-                    val eventTitle = event.event.title
-                    val eventStartTimeMillis = event.event.start
-                    val eventEndTimeMillis = event.event.end
-
-                    val intent = Intent(Intent.ACTION_INSERT)
-                        .setData(CalendarContract.Events.CONTENT_URI) // Verwenden Sie dieses URI, um Google Calendar zu öffnen
-                        .putExtra(CalendarContract.Events.TITLE, eventTitle)
-                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, eventStartTimeMillis)
-                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, eventEndTimeMillis)
-
-                    try {
-                        startActivity(intent)
-                    } catch (exception: PackageManager.NameNotFoundException){
-                        Toast.makeText(this@EventActivity, "Es ist keine Kalender-App installiert.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
+            DATE_ITEM -> {
+                External.openCalendar(this, event?.event ?: error("Event is null."))
             }
         }
     }
-
-
 }
