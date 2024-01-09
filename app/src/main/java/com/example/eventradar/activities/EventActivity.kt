@@ -3,6 +3,7 @@ package com.example.eventradar.activities
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Surface
@@ -262,9 +263,9 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
                         .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, eventStartTimeMillis)
                         .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, eventEndTimeMillis)
 
-                    if (intent.resolveActivity(packageManager) != null) {
+                    try {
                         startActivity(intent)
-                    } else {
+                    } catch (exception: PackageManager.NameNotFoundException){
                         Toast.makeText(this@EventActivity, "Es ist keine Kalender-App installiert.", Toast.LENGTH_SHORT).show()
                     }
                 }
