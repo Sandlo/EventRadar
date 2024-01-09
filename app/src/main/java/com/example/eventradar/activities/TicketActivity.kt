@@ -1,13 +1,8 @@
 package com.example.eventradar.activities
 
 import android.content.Intent
-import android.content.pm.PackageManager.NameNotFoundException
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
-import android.net.Uri
-import android.provider.CalendarContract
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -16,6 +11,8 @@ import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.adapters.SimpleListAdapter
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.data.SimpleListItem
+import com.example.eventradar.data.entities.TicketWithEventWithAddress
+import com.example.eventradar.helpers.External
 import com.example.eventradar.helpers.OutOfScopeDialog
 import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
@@ -38,10 +35,7 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         private const val DATE_ITEM = 2
     }
 
-    private var ticketAddress: String? = null
-    private var ticketEventStart: Long? = null
-    private var ticketEventEnd: Long? = null
-    private var ticketEventTitle: String? = null
+    private var ticket: TicketWithEventWithAddress? = null
 
     /**
      * Initialisiert die Ticketaktivität und lädt Ticketdetails in eine Liste.
@@ -74,41 +68,36 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
             return
         }
         CoroutineScope(Dispatchers.Main).launch {
-            val ticket =
+            ticket =
                 AppDatabase.getInstance(this@TicketActivity).ticketDao()
                     .getWithEventWithAddress(
                         intent.getLongExtra(TICKET_INTENT_EXTRA, -1),
                         Preferences.getUserId(this@TicketActivity),
                     )
             if (ticket != null) {
-                // Zuweisen der Werte zu den Klassenvariablen
-                ticketEventTitle = ticket.event.event.title
-                ticketEventStart = ticket.event.event.start
-                ticketEventEnd = ticket.event.event.end
-                ticketAddress = ticket.event.address.toString()
-
-                recyclerView.adapter = SimpleListAdapter(
-                    listOf(
-                        SimpleListItem("", resources.getString(R.string.ticket_info)),
-                        SimpleListItem(
-                            ticket.event.event.title,
-                            resources.getString(R.string.what),
-                            R.drawable.ic_circle_local_activity,
+                recyclerView.adapter =
+                    SimpleListAdapter(
+                        listOf(
+                            SimpleListItem("", resources.getString(R.string.ticket_info)),
+                            SimpleListItem(
+                                ticket?.event?.event?.title ?: error("Ticket is null."),
+                                resources.getString(R.string.what),
+                                R.drawable.ic_circle_local_activity,
+                            ),
+                            SimpleListItem(
+                                ticket?.event?.event?.getStartAsString(resources) ?: error("Ticket is null."),
+                                resources.getString(R.string.`when`),
+                                R.drawable.ic_circle_calendar_today,
+                            ),
+                            SimpleListItem(
+                                ticket?.event?.address?.toString(resources) ?: error("Ticket is null."),
+                                resources.getString(R.string.where),
+                                R.drawable.ic_circle_location_on,
+                            ),
+                            SimpleListItem(resources.getString(R.string.ticket_cancel)),
                         ),
-                        SimpleListItem(
-                            ticket.event.event.getStartAsString(resources),
-                            resources.getString(R.string.`when`),
-                            R.drawable.ic_circle_calendar_today,
-                        ),
-                        SimpleListItem(
-                            ticket.event.address.toString(resources),
-                            resources.getString(R.string.where),
-                            R.drawable.ic_circle_location_on,
-                        ),
-                        SimpleListItem(resources.getString(R.string.ticket_cancel)),
-                    ),
-                    this@TicketActivity,
-                )
+                        this@TicketActivity,
+                    )
             } else {
                 recyclerView.adapter = ErrorAdapter()
             }
@@ -122,28 +111,10 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
         when (position) {
             CANCELLATION_ITEM -> OutOfScopeDialog.show(this)
             LOCATION_ITEM -> {
-                ticketAddress?.let {
-                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(it)}")
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                    mapIntent.setPackage("com.google.android.apps.maps")
-                    if (mapIntent.resolveActivity(packageManager) != null) {
-                        startActivity(mapIntent)
-                    }
-                }
+                External.openMaps(this, ticket?.event?.address ?: error("Ticket is null."))
             }
             DATE_ITEM -> {
-                if (ticketEventTitle != null && ticketEventStart != null && ticketEventEnd != null) {
-                    val intent = Intent(Intent.ACTION_INSERT)
-                        .setData(CalendarContract.Events.CONTENT_URI)
-                        .putExtra(CalendarContract.Events.TITLE, ticketEventTitle)
-                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, ticketEventStart)
-                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, ticketEventEnd)
-                    try {
-                        startActivity(intent)
-                    } catch (exception: NameNotFoundException){
-                        Toast.makeText(this, "Es ist keine Kalender-App installiert.", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                External.openCalendar(this, ticket?.event?.event ?: error("Ticket is null."))
             }
         }
     }

@@ -18,4 +18,3 @@ data class EventInterest(
     @ColumnInfo(name = "event_id") val eventId: Long,
     @ColumnInfo(name = "interest_id") val interestId: Long,
 )
-
