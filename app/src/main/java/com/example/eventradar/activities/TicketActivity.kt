@@ -1,6 +1,8 @@
 package com.example.eventradar.activities
 
 import android.content.Intent
+import android.content.pm.PackageManager.NameNotFoundException
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import android.net.Uri
@@ -136,9 +138,9 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                         .putExtra(CalendarContract.Events.TITLE, ticketEventTitle)
                         .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, ticketEventStart)
                         .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, ticketEventEnd)
-                    if (intent.resolveActivity(packageManager) != null) {
+                    try {
                         startActivity(intent)
-                    } else {
+                    } catch (exception: NameNotFoundException){
                         Toast.makeText(this, "Es ist keine Kalender-App installiert.", Toast.LENGTH_SHORT).show()
                     }
                 }
