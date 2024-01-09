@@ -219,7 +219,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1714557600000,
                                         1719770400000,
                                         1,
-                                        "Eine Ausstellung, die Kunstwerke aus verschiedenen Epochen präsentiert, von der Renaissance bis zur modernen Kunst.",
+                                        "Eine Ausstellung, die Kunstwerke aus verschiedenen " +
+                                                "Epochen präsentiert, von der Renaissance bis zur modernen Kunst.",
                                         Base64.getFromAssets(context, "zeitreise.jpg"),
                                     ),
                                     Event(
@@ -229,7 +230,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1721037600000,
                                         1723744800000,
                                         1,
-                                        "Eine Fotografie Ausstellung, die Werke von zeitgenössischen Fotografen aus der ganzen Welt zeigt.",
+                                        "Eine Fotografie Ausstellung, die Werke von zeitgenössischen " +
+                                                "Fotografen aus der ganzen Welt zeigt.",
                                         Base64.getFromAssets(context, "fotografie.jpg"),
                                     ),
                                     Event(
@@ -239,7 +241,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1725184800000,
                                         1727719200000,
                                         1,
-                                        "Eine Fotografie Ausstellung, die Werke von zeitgenössischen Fotografen aus der ganzen Welt zeigt.",
+                                        "Eine Ausstellung, die innovative Designkonzepte aus den Bereichen Mode, " +
+                                                "Möbel, Grafik und Industriedesign präsentiert.",
                                         Base64.getFromAssets(context, "design.jpg"),
                                     ),
                                     Event(
@@ -249,7 +252,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         17277768000000,
                                         17303976000000,
                                         1,
-                                        "Eine Ausstellung, die Kunstwerke präsentiert, die die Schönheit und Vielfalt der Natur darstellen.",
+                                        "Eine Ausstellung, die Kunstwerke präsentiert, die die " +
+                                                "Schönheit und Vielfalt der Natur darstellen.",
                                         Base64.getFromAssets(context, "natur.jpg"),
                                     ),
                                     Event(
@@ -259,7 +263,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1733076000000,
                                         1735682400000,
                                         1,
-                                        "Ein Festival, das Lichtinstallationen von internationalen Künstlern in der ganzen Stadt präsentiert. ",
+                                        "Ein Festival, das Lichtinstallationen von internationalen " +
+                                                "Künstlern in der ganzen Stadt präsentiert. ",
                                         Base64.getFromAssets(context, "lichter.jpg"),
                                     ),
                                     Event(
@@ -269,7 +274,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1719835200000,
                                         1722463200000,
                                         1,
-                                        "Ein Musikfestival, das Bands und Musiker aus verschiedenen Ländern und Kulturen zusammenbringt. ",
+                                        "Ein Musikfestival, das Bands und Musiker aus verschiedenen " +
+                                                "Ländern und Kulturen zusammenbringt. ",
                                         Base64.getFromAssets(context, "rhythmus.jpg"),
                                     ),
                                     Event(
@@ -279,7 +285,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1722506400000,
                                         1725141600000,
                                         1,
-                                        "Ein Festival, das Straßenkünstler, Akrobaten und Performer aus der ganzen Welt in einer Stadt versammelt. ",
+                                        "Ein Festival, das Straßenkünstler, Akrobaten und Performer " +
+                                                "aus der ganzen Welt in einer Stadt versammelt. ",
                                         Base64.getFromAssets(context, "straßenkunst.jpg"),
                                     ),
                                     Event(
@@ -289,7 +296,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1725220800000,
                                         1727740740000,
                                         1,
-                                        "Ein Open-Air-Filmfestival, das klassische und zeitgenössische Filme unter dem Sternenhimmel zeigt. ",
+                                        "Ein Open-Air-Filmfestival, das klassische und zeitgenössische " +
+                                                "Filme unter dem Sternenhimmel zeigt. ",
                                         Base64.getFromAssets(context, "filmnächte.jpg"),
                                     ),
                                     Event(
@@ -299,7 +307,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1717279200000,
                                         1717300800000,
                                         1,
-                                        "Eine Party, die sich auf elektronische Musik konzentriert und Top-DJs aus der ganzen Welt einlädt. ",
+                                        "Eine Party, die sich auf elektronische Musik konzentriert " +
+                                                "und Top-DJs aus der ganzen Welt einlädt. ",
                                         Base64.getFromAssets(context, "elektronische.jpg"),
                                     ),
                                     Event(
@@ -329,7 +338,8 @@ abstract class AppDatabase : RoomDatabase() {
                                         1726005600000,
                                         1726027200000,
                                         1,
-                                        "Eine Partyreihe, die Musikstile aus verschiedenen Kulturen und Ländern präsentiert.  ",
+                                        "Eine Partyreihe, die Musikstile aus verschiedenen " +
+                                                "Kulturen und Ländern präsentiert.  ",
                                         Base64.getFromAssets(context, "clubder.jpg"),
                                     ),
                                 )
