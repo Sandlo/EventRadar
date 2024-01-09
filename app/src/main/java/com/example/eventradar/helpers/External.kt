@@ -11,8 +11,13 @@ import com.example.eventradar.R
 import com.example.eventradar.data.entities.AddressWithZipCode
 import com.example.eventradar.data.entities.Event
 
+/**
+ * Objekt zur Interaktion mit externen Anwendungen wie dem Kalender und Karten.
+ * Stellt Funktionen bereit, um Ereignisse im Kalender des Benutzers zu öffnen oder
+ * eine Adresse in Google Maps anzuzeigen. Dies dient dazu, die Benutzererfahrung
+ * durch nahtlose Integration mit anderen häufig genutzten Apps zu verbessern.
+ */
 object External {
-
     /**
      * Öffnet den Kalender des Benutzers und fügt ein neues Ereignis hinzu.
      *
