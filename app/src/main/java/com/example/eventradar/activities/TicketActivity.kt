@@ -24,17 +24,6 @@ import kotlinx.coroutines.launch
  * Aktivität zur Anzeige von Ticketinformationen und Interaktionsmöglichkeiten wie Stornierung.
  */
 class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
-    companion object {
-        /**
-         * Konstante für den Schlüssel, der verwendet wird, um Ticket-Daten als Intent-Extra
-         * zwischen Aktivitäten zu übertragen.
-         */
-        const val TICKET_INTENT_EXTRA: String = "ticket_intent_extra"
-        private const val CANCELLATION_ITEM = 4
-        private const val LOCATION_ITEM = 3
-        private const val DATE_ITEM = 2
-    }
-
     private var ticket: TicketWithEventWithAddress? = null
 
     /**
@@ -80,17 +69,17 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
                         listOf(
                             SimpleListItem("", resources.getString(R.string.ticket_info)),
                             SimpleListItem(
-                                ticket?.event?.event?.title ?: error("Ticket is null."),
+                                ticket?.event?.event?.title ?: error(TICKET_IS_NULL),
                                 resources.getString(R.string.what),
                                 R.drawable.ic_circle_local_activity,
                             ),
                             SimpleListItem(
-                                ticket?.event?.event?.getStartAsString(resources) ?: error("Ticket is null."),
+                                ticket?.event?.event?.getStartAsString(resources) ?: error(TICKET_IS_NULL),
                                 resources.getString(R.string.`when`),
                                 R.drawable.ic_circle_calendar_today,
                             ),
                             SimpleListItem(
-                                ticket?.event?.address?.toString(resources) ?: error("Ticket is null."),
+                                ticket?.event?.address?.toString(resources) ?: error(TICKET_IS_NULL),
                                 resources.getString(R.string.where),
                                 R.drawable.ic_circle_location_on,
                             ),
@@ -110,12 +99,21 @@ class TicketActivity : BaseActivity(), RecyclerViewHelperInterface {
     override fun onItemClicked(position: Int) {
         when (position) {
             CANCELLATION_ITEM -> OutOfScopeDialog.show(this)
-            LOCATION_ITEM -> {
-                External.openMaps(this, ticket?.event?.address ?: error("Ticket is null."))
-            }
-            DATE_ITEM -> {
-                External.openCalendar(this, ticket?.event?.event ?: error("Ticket is null."))
-            }
+            LOCATION_ITEM -> External.openMaps(this, ticket?.event?.address ?: error(TICKET_IS_NULL))
+            DATE_ITEM -> External.openCalendar(this, ticket?.event?.event ?: error(TICKET_IS_NULL))
         }
+    }
+
+    companion object {
+        /**
+         * Konstante für den Schlüssel, der verwendet wird, um Ticket-Daten als Intent-Extra
+         * zwischen Aktivitäten zu übertragen.
+         */
+        const val TICKET_INTENT_EXTRA: String = "ticket_intent_extra"
+
+        private const val CANCELLATION_ITEM = 4
+        private const val LOCATION_ITEM = 3
+        private const val DATE_ITEM = 2
+        private const val TICKET_IS_NULL = "Ticket is null."
     }
 }

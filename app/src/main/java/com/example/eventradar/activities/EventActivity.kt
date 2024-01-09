@@ -35,17 +35,6 @@ import kotlinx.coroutines.launch
  * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
  */
 class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
-    companion object {
-        /**
-         * Konstante für den Schlüssel, der verwendet wird, um Event-Daten als Intent-Extra zwischen
-         * Aktivitäten zu übertragen.
-         */
-        const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
-
-        private const val LOCATION_ITEM = 3
-        private const val DATE_ITEM = 2
-    }
-
     private var event: EventWithAddressOrganizerReviews? = null
 
     /**
@@ -92,7 +81,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
 
             if (event != null) {
                 showEvent(
-                    event ?: error("Event is null."),
+                    event ?: error(EVENT_IS_NULL),
                     findViewById(R.id.frame),
                     listOf(
                         findViewById(R.id.first_star),
@@ -235,12 +224,20 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
      */
     override fun onItemClicked(position: Int) {
         when (position) {
-            LOCATION_ITEM -> {
-                External.openMaps(this, event?.address ?: error("Event is null."))
-            }
-            DATE_ITEM -> {
-                External.openCalendar(this, event?.event ?: error("Event is null."))
-            }
+            LOCATION_ITEM -> External.openMaps(this, event?.address ?: error(EVENT_IS_NULL))
+            DATE_ITEM -> External.openCalendar(this, event?.event ?: error(EVENT_IS_NULL))
         }
+    }
+
+    companion object {
+        /**
+         * Konstante für den Schlüssel, der verwendet wird, um Event-Daten als Intent-Extra zwischen
+         * Aktivitäten zu übertragen.
+         */
+        const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
+
+        private const val LOCATION_ITEM = 3
+        private const val DATE_ITEM = 2
+        private const val EVENT_IS_NULL = "Event is null."
     }
 }

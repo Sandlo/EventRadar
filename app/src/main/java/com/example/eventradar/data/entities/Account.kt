@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
  * @property passwordHash Der gehashte Wert des Benutzerpassworts.
  */
 @Entity(tableName = "account")
-data class Account(
+class Account(
     @ColumnInfo(name = "e_mail") val eMail: String,
     @ColumnInfo(name = "phone") val phone: String,
     @ColumnInfo(name = "password_hash") val passwordHash: String,

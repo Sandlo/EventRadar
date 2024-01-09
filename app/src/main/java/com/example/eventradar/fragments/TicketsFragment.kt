@@ -27,12 +27,6 @@ import kotlinx.coroutines.launch
  * Fragment für die Anzeige und Filterung von Benutzertickets.
  */
 class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
-    companion object {
-        private const val DATE_FILTER: Byte = 0
-        private const val TITLE_FILTER: Byte = 1
-        private const val PRICE_FILTER: Byte = 2
-    }
-
     private var tickets: List<TicketWithEvent> = listOf()
     private lateinit var dateFilter: Chip
     private lateinit var titleFilter: Chip
@@ -151,5 +145,11 @@ class TicketsFragment : Fragment(), RecyclerViewHelperInterface {
             }
         }
         previousFilter = filter
+    }
+
+    companion object {
+        private const val DATE_FILTER: Byte = 0
+        private const val TITLE_FILTER: Byte = 1
+        private const val PRICE_FILTER: Byte = 2
     }
 }

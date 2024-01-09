@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
  * @property name Der Name des Veranstalters.
  */
 @Entity(tableName = "organizer")
-data class Organizer(
+class Organizer(
     @ColumnInfo(name = "name") val name: String,
 ) {
     /**

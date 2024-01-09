@@ -86,7 +86,7 @@ class RegisterActivity : BaseActivity() {
             inputType = InputType.TYPE_NULL
             keyListener = null
             setOnTouchListener { view, motionEvent ->
-                return@setOnTouchListener if (motionEvent.action == MotionEvent.ACTION_UP) {
+                if (motionEvent.action == MotionEvent.ACTION_UP) {
                     showDatePickerDialog()
                     true
                 } else {

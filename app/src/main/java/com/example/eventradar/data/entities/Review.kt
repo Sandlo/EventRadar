@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
  * @property date Das Datum, an dem die Bewertung abgegeben wurde.
  */
 @Entity(tableName = "review")
-data class Review(
+class Review(
     @ColumnInfo(name = "event_id") val eventId: Long,
     @ColumnInfo(name = "user_id") val userId: Long,
     @ColumnInfo(name = "message") val message: String,

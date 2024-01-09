@@ -24,7 +24,7 @@ data class AddressWithZipCode(
     /**
      * Gibt eine formatierte Zeichenfolge der Adresse zurück.
      *
-     * @property resources Die Ressourcen.
+     * @param resources Die Ressourcen.
      * @return Die formatierte Adresse.
      */
     fun toString(resources: Resources): String =

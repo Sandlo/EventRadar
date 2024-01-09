@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    detekt {
+        config.setFrom(file("detekt-config.yml"))
+        buildUponDefaultConfig = true
+    }
 }
 
 dependencies {

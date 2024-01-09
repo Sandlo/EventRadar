@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
  * @property image Base64-kodiertes Bild des Interesses.
  */
 @Entity(tableName = "interest")
-data class Interest(
+class Interest(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "image") val image: String,
 ) {

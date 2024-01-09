@@ -26,7 +26,7 @@ data class TicketWithEvent(
      * Diese Methode konvertiert das TicketWithEvent-Objekt in ein SimpleListItem-Objekt für die
      * Anzeige in einer RecyclerView.
      *
-     * @property resources Die Ressourcen.
+     * @param resources Die Ressourcen.
      * @return Ein SimpleListItem-Objekt, das die Informationen des Events enthält.
      */
     fun toListItem(resources: Resources): SimpleListItem =
