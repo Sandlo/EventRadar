@@ -2,7 +2,9 @@ package com.example.eventradar.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import com.example.eventradar.R
 import com.example.eventradar.data.AppDatabase
 import com.example.eventradar.helpers.OutOfScopeDialog
@@ -25,6 +27,8 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
+
         findViewById<Button>(R.id.guest).setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
@@ -46,6 +50,7 @@ class LoginActivity : BaseActivity() {
         }
 
         findViewById<FloatingActionButton>(R.id.continue_button).setOnClickListener {
+            progressBar.visibility = View.VISIBLE
             val emailView = findViewById<TextInputLayout>(R.id.e_mail_phone_number)
             val passwordView = findViewById<TextInputLayout>(R.id.password)
             CoroutineScope(Dispatchers.Main).launch {
@@ -63,6 +68,7 @@ class LoginActivity : BaseActivity() {
                     Preferences.setLoggedIn(this@LoginActivity, userAccount.id)
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 }
+                progressBar.visibility = View.GONE
             }
         }
     }
