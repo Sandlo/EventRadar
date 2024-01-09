@@ -1,12 +1,12 @@
 package com.example.eventradar.activities
 
 import android.content.Intent
-import android.view.View
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ProgressBar
 import com.example.eventradar.R
 import com.example.eventradar.data.AppDatabase
@@ -36,8 +36,6 @@ class RegisterActivity : BaseActivity() {
     private lateinit var password: TextInputLayout
     private lateinit var repeatPassword: TextInputLayout
     private var selectedDate: Long = 0
-
-    val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
 
     private fun showDatePickerDialog() {
         val constraintsBuilder =
@@ -97,6 +95,7 @@ class RegisterActivity : BaseActivity() {
             }
         }
 
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         findViewById<FloatingActionButton>(R.id.floating_action_button).setOnClickListener {
             progressBar.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Main).launch {

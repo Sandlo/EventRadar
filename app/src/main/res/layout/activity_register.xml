@@ -125,7 +125,7 @@
         app:srcCompat="@drawable/ic_done" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progress_bar"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
         android:layout_margin="@dimen/full_padding"
