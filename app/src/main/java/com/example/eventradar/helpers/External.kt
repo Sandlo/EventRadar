@@ -12,6 +12,14 @@ import com.example.eventradar.data.entities.AddressWithZipCode
 import com.example.eventradar.data.entities.Event
 
 object External {
+
+    /**
+     * Öffnet den Kalender des Benutzers und fügt ein neues Ereignis hinzu.
+     *
+     * @param context Der Kontext, in dem die Aktion ausgeführt wird.
+     * @param event Das Event-Objekt, das Informationen über das Ereignis enthält.
+     * @throws PackageManager.NameNotFoundException wenn der Kalender nicht gefunden wird.
+     */
     fun openCalendar(
         context: Context,
         event: Event,
@@ -34,6 +42,12 @@ object External {
         }
     }
 
+    /**
+     * Öffnet Google Maps und sucht nach einer angegebenen Adresse.
+     *
+     * @param context Der Kontext, in dem die Aktion ausgeführt wird.
+     * @param address Das AddressWithZipCode-Objekt, das Informationen über die Adresse enthält.
+     */
     fun openMaps(
         context: Context,
         address: AddressWithZipCode,
