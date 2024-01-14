@@ -22,7 +22,7 @@ interface InterestDao {
     /**
      * Holt alle Interessen aus der Datenbank.
      */
-    @Query("SELECT * FROM interest")
+    @Query("SELECT * FROM interest ORDER BY name ASC")
     suspend fun getAllInterests(): List<Interest>
 
     /**
