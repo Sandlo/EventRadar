@@ -2,6 +2,7 @@ package com.example.eventradar.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.Query
 import com.example.eventradar.data.entities.AccountInterest
 
 /**
@@ -14,4 +15,10 @@ interface AccountInterestDao {
      */
     @Insert
     suspend fun insertAll(vararg interests: AccountInterest)
+
+    /**
+     * Alle Interessen eines Benutzers aus der Datenbank.
+     */
+    @Query("SELECT * FROM account_interest WHERE account_id = :userId")
+    suspend fun getUserInterests(userId: Long): List<AccountInterest>
 }
