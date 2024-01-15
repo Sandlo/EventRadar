@@ -21,8 +21,8 @@ import kotlinx.coroutines.launch
  * Aktivität für die Auswahl und Verwaltung von Benutzerinteressen.
  */
 class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
-    private var interest = listOf<Interest>()
-    private var selectedInterest = mutableListOf<Interest>()
+    private var allInterests = listOf<Interest>()
+    private var selectedInterests = mutableListOf<Interest>()
     private lateinit var adapter: InterestListAdapter
 
     /**
@@ -37,12 +37,12 @@ class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
         recyclerView.adapter = LoadingAdapter()
 
         CoroutineScope(Dispatchers.Main).launch {
-            interest =
+            allInterests =
                 AppDatabase.getInstance(this@InterestsActivity).interestDao()
                     .getAllInterests()
             adapter =
                 InterestListAdapter(
-                    interest,
+                    allInterests,
                     this@InterestsActivity,
                 )
             recyclerView.adapter = adapter
@@ -53,15 +53,13 @@ class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
                 val accountInterestDao = AppDatabase.getInstance(this@InterestsActivity).accountInterestDao()
                 val userId = Preferences.getUserId(this@InterestsActivity)
 
-                val accountInterests =
-                    selectedInterest.map { interest ->
+                for (interest in selectedInterests) {
+                    accountInterestDao.insertAll(
                         AccountInterest(
                             userId,
-                            interestId = interest.id,
-                        )
-                    }
-                accountInterests.forEach { accountInterest ->
-                    accountInterestDao.insertAll(accountInterest)
+                            interest.id,
+                        ),
+                    )
                 }
             }
             startActivity(Intent(this@InterestsActivity, MainActivity::class.java))
@@ -69,12 +67,12 @@ class InterestsActivity : BaseActivity(), RecyclerViewHelperInterface {
     }
 
     override fun onItemClicked(position: Int) {
-        if (selectedInterest.contains(interest[position])) {
+        if (selectedInterests.contains(allInterests[position])) {
             adapter.setSelected(position, false)
-            selectedInterest.remove(interest[position])
+            selectedInterests.remove(allInterests[position])
             return
         }
         adapter.setSelected(position, true)
-        selectedInterest.add(interest[position])
+        selectedInterests.add(allInterests[position])
     }
 }

@@ -1,7 +1,6 @@
 package com.example.eventradar.activities
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Surface
@@ -10,6 +9,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -40,7 +40,6 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
     /**
      * Initialisiert die Eventaktivität und lädt Eventdetails und interaktive Funktionen.
      */
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
@@ -107,8 +106,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
 
         var resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
         if (resourceId > 0) {
-            @Suppress("DEPRECATION")
-            val rotation = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.rotation
+            val rotation = ContextCompat.getDisplayOrDefault(this).rotation
             val layoutParams = findViewById<View>(R.id.root).layoutParams as MarginLayoutParams
 
             when (rotation) {

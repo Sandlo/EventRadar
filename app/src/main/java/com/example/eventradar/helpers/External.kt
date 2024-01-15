@@ -57,8 +57,11 @@ object External {
         context: Context,
         address: AddressWithZipCode,
     ) {
-        val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address.toString(context.resources))}")
-        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        val mapIntent =
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("geo:0,0?q=${Uri.encode(address.toString(context.resources))}"),
+            )
         mapIntent.setPackage("com.google.android.apps.maps")
         if (mapIntent.resolveActivity(context.packageManager) != null) {
             context.startActivity(mapIntent)

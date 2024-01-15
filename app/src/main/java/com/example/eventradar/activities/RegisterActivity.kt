@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
+import android.text.format.DateFormat
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
@@ -22,7 +23,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mindrot.jbcrypt.BCrypt
-import java.util.Calendar
 
 /**
  * Aktivität für die Benutzerregistrierung mit Option zur Weiterleitung zur Interessenauswahl.
@@ -38,34 +38,21 @@ class RegisterActivity : BaseActivity() {
     private var selectedDate: Long = 0
 
     private fun showDatePickerDialog() {
-        val constraintsBuilder =
-            CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointBackward.now())
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setCalendarConstraints(constraintsBuilder.build())
+                .setCalendarConstraints(
+                    CalendarConstraints.Builder()
+                        .setValidator(DateValidatorPointBackward.now())
+                        .build(),
+                )
                 .setTitleText(resources.getString(R.string.select_birthdate))
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
-        birthdate.editText?.let { _ ->
-            datePicker.addOnPositiveButtonClickListener {
-                val calendar = Calendar.getInstance()
-                calendar.timeInMillis = it
-                selectedDate = it
-                val selectedDate =
-                    "${calendar.get(Calendar.DAY_OF_MONTH)}.${calendar.get(Calendar.MONTH) + 1}.${calendar.get(
-                        Calendar.YEAR,
-                    )}"
-                updateBirthdateEditText(selectedDate)
-            }
+        datePicker.addOnPositiveButtonClickListener {
+            selectedDate = it
+            birthdate.editText?.setText(DateFormat.getDateFormat(this).format(it))
         }
-
-        datePicker.show(supportFragmentManager, "datePicker")
-    }
-
-    private fun updateBirthdateEditText(selectedDate: String) {
-        val birthdateEditText = birthdate.editText
-        birthdateEditText?.setText(selectedDate)
+        datePicker.show(supportFragmentManager, MaterialDatePicker::class.simpleName)
     }
 
     /**
