@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Die Klasse Interest repräsentiert ein Interesse in der Room-Datenbank.
+ * Die Klasse Interest repräsentiert eine Interesse in der Room-Datenbank.
  *
- * @property name Der Name des Interesses.
- * @property image Base64-kodiertes Bild des Interesses.
+ * @property name Der Name der Interesse.
+ * @property image Base64-kodiertes Bild der Interesse.
  */
 @Entity(tableName = "interest")
 data class Interest(
@@ -16,7 +16,7 @@ data class Interest(
     @ColumnInfo(name = "image") val image: String,
 ) {
     /**
-     * Die eindeutige ID des Interesses.
+     * Die eindeutige ID der Interesse.
      */
     @ColumnInfo(name = "interest_id")
     @PrimaryKey(autoGenerate = true)
