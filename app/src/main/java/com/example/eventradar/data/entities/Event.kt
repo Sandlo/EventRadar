@@ -20,8 +20,9 @@ import java.util.Locale
  * @property description Die Beschreibung des Ereignisses.
  * @property image Die Bild-Daten des Ereignisses in Base64-codierter Form.
  */
+@Suppress("LongParameterList")
 @Entity(tableName = "event")
-data class Event(
+class Event(
     @ColumnInfo(name = "organizer_id") val organizerId: Long,
     @ColumnInfo(name = "price") val price: Double,
     @ColumnInfo(name = "title") val title: String,
@@ -53,7 +54,7 @@ data class Event(
     /**
      * Gibt den Startzeitpunkt des Ereignisses als formatierten String zurück.
      *
-     * @property resources Die Ressourcen.
+     * @param resources Die Ressourcen.
      * @return Der formatierte Startzeitpunkt.
      */
     fun getStartAsString(resources: Resources): String =
@@ -66,7 +67,7 @@ data class Event(
     /**
      * Gibt den Preis des Ereignisses als formatierten String zurück.
      *
-     * @property resources Die Ressourcen.
+     * @param resources Die Ressourcen.
      * @return Der formatierte Preis.
      */
     fun getPriceAsString(resources: Resources): String =
@@ -75,7 +76,7 @@ data class Event(
     /**
      * Gibt den Preis des Ereignisses als formatierten String in Langform zurück.
      *
-     * @property resources Die Ressourcen.
+     * @param resources Die Ressourcen.
      * @return Der formatierte Preis.
      */
     fun getPriceAsLongString(resources: Resources): String =
@@ -87,7 +88,7 @@ data class Event(
     /**
      * Gibt eine Zusammenfassung des Ereignisses als formatierten String zurück.
      *
-     * @property resources Die Ressourcen.
+     * @param resources Die Ressourcen.
      * @return Die formatierte Zusammenfassung.
      */
     fun getSummary(resources: Resources): String =

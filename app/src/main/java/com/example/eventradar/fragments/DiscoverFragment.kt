@@ -15,7 +15,9 @@ import com.example.eventradar.adapters.CategoryListAdapter
 import com.example.eventradar.adapters.EmptyAdapter
 import com.example.eventradar.adapters.LoadingAdapter
 import com.example.eventradar.data.AppDatabase
+import com.example.eventradar.data.entities.AccountInterest
 import com.example.eventradar.data.entities.InterestWithEventsWithReviews
+import com.example.eventradar.helpers.Preferences
 import com.example.eventradar.interfaces.RecyclerViewHelperInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +27,7 @@ import kotlinx.coroutines.launch
  * Fragment zur Entdeckung und Anzeige von Veranstaltungen basierend auf Benutzerinteressen.
  */
 class DiscoverFragment : Fragment() {
-    private var events: List<InterestWithEventsWithReviews> = listOf()
+    private var interests: List<InterestWithEventsWithReviews> = listOf()
 
     /**
      * Erstellt die Ansicht für das Entdeckungsfragment und initialisiert Elemente wie Suchleiste und Eventliste.
@@ -43,11 +45,16 @@ class DiscoverFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = LoadingAdapter()
         CoroutineScope(Dispatchers.Main).launch {
-            events = AppDatabase.getInstance(requireContext()).interestDao().getAll()
+            interests =
+                reorderCategories(
+                    AppDatabase.getInstance(requireContext()).interestDao().getAll(),
+                    AppDatabase.getInstance(requireContext()).accountInterestDao()
+                        .getUserInterests(Preferences.getUserId(requireContext())),
+                )
             recyclerView.adapter =
-                if (events.isNotEmpty()) {
+                if (interests.isNotEmpty()) {
                     CategoryListAdapter(
-                        events.mapIndexed { index, event ->
+                        interests.mapIndexed { index, event ->
                             event.toListItem(
                                 requireContext(),
                                 object : RecyclerViewHelperInterface {
@@ -66,6 +73,18 @@ class DiscoverFragment : Fragment() {
         return root
     }
 
+    private fun reorderCategories(
+        allCategories: List<InterestWithEventsWithReviews>,
+        userInterests: List<AccountInterest>,
+    ): List<InterestWithEventsWithReviews> =
+        allCategories.sortedBy { (interest, _) ->
+            if (userInterests.any { it.interestId == interest.id }) {
+                0
+            } else {
+                1
+            }
+        }
+
     /**
      * Behandelt Klickereignisse auf Veranstaltungen und leitet zum entsprechenden EventActivity weiter.
      */
@@ -73,12 +92,12 @@ class DiscoverFragment : Fragment() {
         categoryPosition: Int,
         eventPosition: Int,
     ) {
-        if (events.size > categoryPosition && events[categoryPosition].events.size > eventPosition) {
+        if (interests.size > categoryPosition && interests[categoryPosition].events.size > eventPosition) {
             requireContext().startActivity(
                 Intent(requireContext(), EventActivity::class.java).apply {
                     putExtra(
                         EventActivity.EVENT_INTENT_EXTRA,
-                        events[categoryPosition].events[eventPosition].event.id,
+                        interests[categoryPosition].events[eventPosition].event.id,
                     )
                 },
             )

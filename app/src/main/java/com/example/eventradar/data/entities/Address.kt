@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
  * @property number Die Hausnummer der Adresse.
  */
 @Entity(tableName = "address")
-data class Address(
+class Address(
     @ColumnInfo(name = "street") val street: String,
     @ColumnInfo(name = "zip_code") val zipCode: String,
     @ColumnInfo(name = "number") val number: String,

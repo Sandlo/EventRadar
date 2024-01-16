@@ -1,7 +1,6 @@
 package com.example.eventradar.activities
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Surface
@@ -10,6 +9,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventradar.R
@@ -35,23 +35,11 @@ import kotlinx.coroutines.launch
  * Aktivität für die Darstellung von Eventdetails und Interaktionsmöglichkeiten wie Teilen und Buchen.
  */
 class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
-    companion object {
-        /**
-         * Konstante für den Schlüssel, der verwendet wird, um Event-Daten als Intent-Extra zwischen
-         * Aktivitäten zu übertragen.
-         */
-        const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
-
-        private const val LOCATION_ITEM = 3
-        private const val DATE_ITEM = 2
-    }
-
     private var event: EventWithAddressOrganizerReviews? = null
 
     /**
      * Initialisiert die Eventaktivität und lädt Eventdetails und interaktive Funktionen.
      */
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
@@ -92,7 +80,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
 
             if (event != null) {
                 showEvent(
-                    event ?: error("Event is null."),
+                    event ?: error(EVENT_IS_NULL),
                     findViewById(R.id.frame),
                     listOf(
                         findViewById(R.id.first_star),
@@ -118,8 +106,7 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
 
         var resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
         if (resourceId > 0) {
-            @Suppress("DEPRECATION")
-            val rotation = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.rotation
+            val rotation = ContextCompat.getDisplayOrDefault(this).rotation
             val layoutParams = findViewById<View>(R.id.root).layoutParams as MarginLayoutParams
 
             when (rotation) {
@@ -235,12 +222,20 @@ class EventActivity : BaseActivity(), RecyclerViewHelperInterface {
      */
     override fun onItemClicked(position: Int) {
         when (position) {
-            LOCATION_ITEM -> {
-                External.openMaps(this, event?.address ?: error("Event is null."))
-            }
-            DATE_ITEM -> {
-                External.openCalendar(this, event?.event ?: error("Event is null."))
-            }
+            LOCATION_ITEM -> External.openMaps(this, event?.address ?: error(EVENT_IS_NULL))
+            DATE_ITEM -> External.openCalendar(this, event?.event ?: error(EVENT_IS_NULL))
         }
+    }
+
+    companion object {
+        /**
+         * Konstante für den Schlüssel, der verwendet wird, um Event-Daten als Intent-Extra zwischen
+         * Aktivitäten zu übertragen.
+         */
+        const val EVENT_INTENT_EXTRA: String = "event_intent_extra"
+
+        private const val LOCATION_ITEM = 3
+        private const val DATE_ITEM = 2
+        private const val EVENT_IS_NULL = "Event is null."
     }
 }

@@ -69,14 +69,27 @@ class InterestListAdapter(
     }
 
     /**
+
      * ViewHolder für die Darstellung einer Interesse.
      * @property image ImageView für das Interessenbild.
      * @property gradient View für den Farbverlauf.
      * @property title TextView für den Interessennamen.
+     * ViewHolder für die Darstellung eines Interesses.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        /**
+         * ImageView für das Interessenbild.
+         */
         val image: ImageView = view.findViewById(R.id.image)
+
+        /**
+         * View für den Farbverlauf.
+         */
         val gradient: View = view.findViewById(R.id.gradient)
+
+        /**
+         * TextView für den Interessennamen.
+         */
         val title: TextView = view.findViewById(R.id.title)
     }
 }

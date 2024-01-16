@@ -36,11 +36,10 @@ data class InterestWithEventsWithReviews(
     fun toListItem(
         context: Context,
         helperInterface: RecyclerViewHelperInterface,
-    ): CategoryListItem {
-        return CategoryListItem(
+    ): CategoryListItem =
+        CategoryListItem(
             interest.name,
             events.map { it.toListItem(context) },
             helperInterface,
         )
-    }
 }

@@ -18,10 +18,38 @@ import com.google.android.material.search.SearchBar
  * Hauptaktivität, die die Navigation innerhalb der App steuert.
  */
 class MainActivity : BaseActivity() {
+    /**
+     * Initialisiert die Hauptaktivität und konfiguriert die Navigationselemente.
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val navController =
+            (
+                supportFragmentManager.findFragmentById(
+                    R.id.nav_host_fragment_activity_main,
+                ) as NavHostFragment
+            ).navController
+
+        findViewById<BottomNavigationView>(R.id.nav_view).setupWithNavController(navController)
+
+        when (intent.action) {
+            "com.example.eventradar.SHOW_DISCOVER" -> navigate(navController, R.id.navigation_discover)
+            "com.example.eventradar.SHOW_MAP" -> navigate(navController, R.id.navigation_map)
+            "com.example.eventradar.SHOW_TICKETS" -> navigate(navController, R.id.navigation_tickets)
+        }
+    }
+
+    private fun navigate(
+        navController: NavController,
+        id: Int,
+    ) {
+        navController.graph.setStartDestination(id)
+        navController.navigate(id)
+    }
+
     companion object {
-        /**
-         * Zeigt einen Dialog für das Konto-Management, abhängig vom Anmeldestatus des Benutzers.
-         */
         private fun onAccountClicked(context: Context) {
             if (Preferences.isLoggedIn(context)) {
                 MaterialAlertDialogBuilder(context).setTitle(R.string.logout)
@@ -58,36 +86,5 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
-    }
-
-    /**
-     * Initialisiert die Hauptaktivität und konfiguriert die Navigationselemente.
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val navController =
-            (
-                supportFragmentManager.findFragmentById(
-                    R.id.nav_host_fragment_activity_main,
-                ) as NavHostFragment
-            ).navController
-
-        findViewById<BottomNavigationView>(R.id.nav_view).setupWithNavController(navController)
-
-        when (intent.action) {
-            "com.example.eventradar.SHOW_DISCOVER" -> navigate(navController, R.id.navigation_discover)
-            "com.example.eventradar.SHOW_MAP" -> navigate(navController, R.id.navigation_map)
-            "com.example.eventradar.SHOW_TICKETS" -> navigate(navController, R.id.navigation_tickets)
-        }
-    }
-
-    private fun navigate(
-        navController: NavController,
-        id: Int,
-    ) {
-        navController.graph.setStartDestination(id)
-        navController.navigate(id)
     }
 }

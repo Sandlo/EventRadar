@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
  * @property purchasedAt Der Zeitpunkt, zu dem das Ticket gekauft wurde.
  */
 @Entity(tableName = "ticket")
-data class Ticket(
+class Ticket(
     @ColumnInfo(name = "event_id") val eventId: Long,
     @ColumnInfo(name = "user_id") val userId: Long,
     @ColumnInfo(name = "purchased_at") val purchasedAt: Long,
