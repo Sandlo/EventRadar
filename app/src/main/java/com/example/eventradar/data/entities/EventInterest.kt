@@ -8,7 +8,7 @@ import androidx.room.Entity
  * in der Room-Datenbank.
  *
  * @property eventId Die ID des Ereignisses.
- * @property interestId Die ID des Interesses.
+ * @property interestId Die ID der Interesse.
  */
 @Entity(
     tableName = "event_interest",
