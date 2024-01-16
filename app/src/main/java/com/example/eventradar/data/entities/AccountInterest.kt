@@ -6,7 +6,7 @@ import androidx.room.Entity
 /**
  * Data-Klasse für die Verknüpfung von Accounts und Interessen.
  * @property accountId ID des Accounts.
- * @property interestId ID des Interesses.
+ * @property interestId ID der Interesse.
  */
 @Entity(
     tableName = "account_interest",

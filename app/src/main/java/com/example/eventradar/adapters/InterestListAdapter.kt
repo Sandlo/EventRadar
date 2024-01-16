@@ -22,7 +22,7 @@ class InterestListAdapter(
     private val states = Array(items.size) { _ -> false }
 
     /**
-     * Erstellt eine neue ViewHolder-Instanz für die Darstellung eines Interesses.
+     * Erstellt eine neue ViewHolder-Instanz für die Darstellung einer Interesse.
      */
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,7 +35,7 @@ class InterestListAdapter(
         )
 
     /**
-     * Bindet die Daten eines Interesses an eine ViewHolder-Instanz.
+     * Bindet die Daten einer Interesse an eine ViewHolder-Instanz.
      */
     override fun onBindViewHolder(
         holder: ViewHolder,
@@ -69,7 +69,7 @@ class InterestListAdapter(
     }
 
     /**
-     * ViewHolder für die Darstellung eines Interesses.
+     * ViewHolder für die Darstellung einer Interesse.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         /**
