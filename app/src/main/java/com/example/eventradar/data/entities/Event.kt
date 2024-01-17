@@ -1,11 +1,11 @@
 package com.example.eventradar.data.entities
 
 import android.content.res.Resources
-import android.icu.text.SimpleDateFormat
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.eventradar.R
+import java.text.SimpleDateFormat
 import java.util.Locale
 
 /**

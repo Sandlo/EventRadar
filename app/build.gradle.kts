@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.eventradar"
-        minSdk = 26
+        minSdk = 21
         //noinspection EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1

@@ -3,7 +3,7 @@
     <item
         android:drawable="@drawable/ic_color_calendar_today"
         android:top="12dp"
-        android:start="12dp"
+        android:left="12dp"
         android:bottom="12dp"
-        android:end="12dp" />
+        android:right="12dp" />
 </layer-list>
